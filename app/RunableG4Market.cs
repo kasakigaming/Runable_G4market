@@ -27,7 +27,7 @@ static class Program
     // ---- Sửa 2 dòng này cho đúng địa chỉ của bạn (hoặc truyền --page / --api khi chạy) ----
     public static string PageUrl = "https://kasakigaming.github.io/Runable_G4market/";
     public static string BackendUrl = "";          // vd "https://runable-g4market.deno.dev" — để trống thì chỉ mở trang
-    public const string Version = "1.0.1";
+    public const string Version = "1.0.2";
 
     // Mã phiên nằm ngay trong tên file: trang web tải về thành "runable_g4market (a1b2c3d4e5f6).exe".
     // Một file exe dùng chung cho mọi người, chỉ đổi tên lúc tải,
@@ -352,47 +352,122 @@ static class Hw
         if (have.Count > 0) Add(f, "ISA", string.Join(",", have));
     }
 
-    // ---- Mức DirectX thật của card (feature level) — hỏi thẳng driver qua d3d11.dll ----
+    // ---- Mức DirectX thật của TỪNG card (feature level) ----
+    // Laptop có 2 card: hỏi card "mặc định" sẽ ra card onboard, không phải card rời dùng chơi game.
+    // Nên duyệt từng card qua DXGI rồi hỏi đúng card đó.
     [DllImport("d3d11.dll")]
     static extern int D3D11CreateDevice(IntPtr adapter, int driverType, IntPtr software, uint flags,
         int[] levels, uint numLevels, uint sdkVersion, out IntPtr device, out int level, out IntPtr context);
-    public static void ReadDirectX(List<string> f)
+
+    // Truyền con trỏ thiết bị rỗng = chỉ HỎI có hỗ trợ không, không tạo thiết bị thật. S_FALSE (1) = có.
+    [DllImport("d3d12.dll")]
+    static extern int D3D12CreateDevice(IntPtr adapter, int minLevel, ref Guid riid, IntPtr device);
+
+    [DllImport("dxgi.dll")] static extern int CreateDXGIFactory1(ref Guid riid, out IntPtr factory);
+
+    // Chỉ khai báo đủ thứ tự vtable tới hàm cần gọi; các hàm đệm (_) không bao giờ được gọi.
+    [ComImport, Guid("770aae78-f26f-4dba-a829-253c83d1b387"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IDXGIFactory1
+    {
+        void _SetPrivateData(); void _SetPrivateDataInterface(); void _GetPrivateData(); void _GetParent();
+        void _EnumAdapters(); void _MakeWindowAssociation(); void _GetWindowAssociation();
+        void _CreateSwapChain(); void _CreateSoftwareAdapter();
+        [PreserveSig] int EnumAdapters1(uint index, out IntPtr adapter);
+    }
+    [ComImport, Guid("29038f61-3839-4626-91fd-086879011a05"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    interface IDXGIAdapter1
+    {
+        void _SetPrivateData(); void _SetPrivateDataInterface(); void _GetPrivateData(); void _GetParent();
+        void _EnumOutputs(); void _GetDesc(); void _CheckInterfaceSupport();
+        [PreserveSig] int GetDesc1(out DXGI_ADAPTER_DESC1 desc);
+    }
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    struct DXGI_ADAPTER_DESC1
+    {
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)] public string Description;
+        public uint VendorId, DeviceId, SubSysId, Revision;
+        public UIntPtr DedicatedVideoMemory, DedicatedSystemMemory, SharedSystemMemory;
+        public long AdapterLuid;
+        public uint Flags;
+    }
+    public class DxAdapter { public string Name; public uint DeviceId; public long Vram; public int Level; }
+
+    static List<DxAdapter> dxCache;
+    // Mọi card phần cứng (bỏ card dựng hình bằng phần mềm "Microsoft Basic Render Driver")
+    public static List<DxAdapter> DxAdapters()
+    {
+        if (dxCache != null) return dxCache;
+        dxCache = new List<DxAdapter>();
+        try
+        {
+            var iid = new Guid("770aae78-f26f-4dba-a829-253c83d1b387");
+            IntPtr pf;
+            if (CreateDXGIFactory1(ref iid, out pf) < 0) return dxCache;
+            var factory = (IDXGIFactory1)Marshal.GetObjectForIUnknown(pf);
+            Marshal.Release(pf);
+            for (uint i = 0; i < 16; i++)
+            {
+                IntPtr pa;
+                if (factory.EnumAdapters1(i, out pa) != 0) break;   // hết card
+                try
+                {
+                    var ad = (IDXGIAdapter1)Marshal.GetObjectForIUnknown(pa);
+                    DXGI_ADAPTER_DESC1 d;
+                    if (ad.GetDesc1(out d) >= 0 && (d.Flags & 2) == 0)   // 2 = card phần mềm
+                        dxCache.Add(new DxAdapter { Name = d.Description, DeviceId = d.DeviceId,
+                            Vram = (long)d.DedicatedVideoMemory.ToUInt64(), Level = FeatureLevel(pa) });
+                    Marshal.ReleaseComObject(ad);
+                }
+                finally { Marshal.Release(pa); }
+            }
+            Marshal.ReleaseComObject(factory);
+        }
+        catch { }
+        return dxCache;
+    }
+
+    // Hỏi mức cao nhất một card làm được. adapter = IntPtr.Zero → card mặc định.
+    static int FeatureLevel(IntPtr adapter)
     {
         // 12_2 = DirectX 12 Ultimate · 12_1 · 12_0 · 11_1 · 11_0 · 10_1 · 10_0
         var all = new[] { 0xc200, 0xc100, 0xc000, 0xb100, 0xb000, 0xa100, 0xa000 };
+        int driverType = adapter == IntPtr.Zero ? 1 /* HARDWARE */ : 0 /* UNKNOWN — bắt buộc khi chỉ định card */;
         foreach (int skip in new[] { 0, 3 })   // Windows cũ không hiểu mức 12_x → thử lại từ 11_1
         {
             try
             {
                 var lv = all.Skip(skip).ToArray();
                 IntPtr dev, ctx; int got;
-                int hr = D3D11CreateDevice(IntPtr.Zero, 1 /* HARDWARE */, IntPtr.Zero, 0, lv, (uint)lv.Length, 7, out dev, out got, out ctx);
-                if (hr >= 0)
+                if (D3D11CreateDevice(adapter, driverType, IntPtr.Zero, 0, lv, (uint)lv.Length, 7, out dev, out got, out ctx) >= 0)
                 {
                     if (ctx != IntPtr.Zero) Marshal.Release(ctx);
                     if (dev != IntPtr.Zero) Marshal.Release(dev);
-                    // d3d11 chỉ báo tối đa 12_1 — muốn biết 12_2 (DirectX 12 Ultimate) phải hỏi d3d12
-                    if (got == 0xc100 && Supports12_2()) got = 0xc200;
-                    Add(f, "DXFL", ((got >> 12) & 0xF) + "_" + ((got >> 8) & 0xF));
-                    return;
+                    // d3d11 chỉ báo tối đa 12_1 — muốn biết 12_2 phải hỏi d3d12
+                    if (got == 0xc100 && Supports12_2(adapter)) got = 0xc200;
+                    return got;
                 }
             }
             catch { }
         }
+        return 0;
     }
-
-    // Truyền con trỏ thiết bị rỗng = chỉ HỎI có hỗ trợ không, không tạo thiết bị thật.
-    // Trả S_FALSE (1) nghĩa là hỗ trợ.
-    [DllImport("d3d12.dll")]
-    static extern int D3D12CreateDevice(IntPtr adapter, int minLevel, ref Guid riid, IntPtr device);
-    static bool Supports12_2()
+    static bool Supports12_2(IntPtr adapter)
     {
         try
         {
             var iid = new Guid("189819f1-1db6-4b57-be54-1821339b85f7");   // IID_ID3D12Device
-            return D3D12CreateDevice(IntPtr.Zero, 0xc200, ref iid, IntPtr.Zero) == 1;
+            return D3D12CreateDevice(adapter, 0xc200, ref iid, IntPtr.Zero) == 1;
         }
         catch { return false; }   // Windows không có d3d12.dll
+    }
+    public static string Fl(int lv) { return lv > 0 ? ((lv >> 12) & 0xF) + "_" + ((lv >> 8) & 0xF) : ""; }
+
+    // Mức DirectX chung = mức cao nhất trong các card (thường là card rời)
+    public static void ReadDirectX(List<string> f)
+    {
+        int best = DxAdapters().Select(a => a.Level).DefaultIfEmpty(0).Max();
+        if (best == 0) best = FeatureLevel(IntPtr.Zero);   // DXGI lỗi → hỏi card mặc định
+        if (best > 0) Add(f, "DXFL", Fl(best));
     }
 
     // ---- SSD hay HDD: nhiều game mới ghi "SSD required" ----
@@ -462,13 +537,22 @@ static class Hw
             long vram = 0;
             foreach (var kv in vramByName)
                 if (string.Equals(kv.Key, name, StringComparison.OrdinalIgnoreCase)) { vram = kv.Value; break; }
-            if (vram <= 0) vram = (long)D(o["AdapterRAM"]);
-            int mb = vram > 0 ? (int)(vram / 1048576) : 0;
             // Mã thiết bị PCI (vd DEV_15BF): Windows hay chỉ ghi "AMD Radeon Graphics" chung chung,
             // mã này mới cho biết đúng đời chip
             var dev = System.Text.RegularExpressions.Regex.Match(Str(o["PNPDeviceID"]), @"DEV_([0-9A-Fa-f]{4})");
-            // Dạng: tên|VRAM MB|mã PCI|phiên bản driver
-            parts.Add(name + "|" + mb + "|" + (dev.Success ? dev.Groups[1].Value.ToLowerInvariant() : "") + "|" + Str(o["DriverVersion"]).Replace("|", ""));
+            // Ghép với card tương ứng bên DXGI (cùng mã PCI) để lấy mức DirectX của ĐÚNG card này
+            DxAdapter dx = null;
+            if (dev.Success)
+            {
+                uint id = Convert.ToUInt32(dev.Groups[1].Value, 16);
+                dx = DxAdapters().FirstOrDefault(a => a.DeviceId == id);
+            }
+            if (vram <= 0 && dx != null && dx.Vram > 0) vram = dx.Vram;
+            if (vram <= 0) vram = (long)D(o["AdapterRAM"]);
+            int mb = vram > 0 ? (int)(vram / 1048576) : 0;
+            // Dạng: tên|VRAM MB|mã PCI|phiên bản driver|mức DirectX
+            parts.Add(name + "|" + mb + "|" + (dev.Success ? dev.Groups[1].Value.ToLowerInvariant() : "") + "|"
+                + Str(o["DriverVersion"]).Replace("|", "") + "|" + (dx != null ? Fl(dx.Level) : ""));
             int hz = (int)D(o["CurrentRefreshRate"]), w = (int)D(o["CurrentHorizontalResolution"]), h = (int)D(o["CurrentVerticalResolution"]);
             if (hz > 0 && !f.Any(x => x.StartsWith("HZ=", StringComparison.Ordinal)))
             {

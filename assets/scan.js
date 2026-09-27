@@ -611,8 +611,8 @@ export function profileFromApp(specs) {
   const numv = (k) => { const v = get(k); return v == null ? null : parseFloat(v); };
   const cpuName0 = get("CPU") || "";
   const gpus = (get("GPU") || "").split(/\s*\+\s*/).filter(Boolean).map((item) => {
-    // Dạng "tên|VRAM MB|mã PCI|phiên bản driver" — các phần sau có thể thiếu
-    const [nameRaw, mbRaw, dev, driver] = item.split("|");
+    // Dạng "tên|VRAM MB|mã PCI|phiên bản driver|mức DirectX" — các phần sau có thể thiếu
+    const [nameRaw, mbRaw, dev, driver, fl] = item.split("|");
     const name = nameRaw.trim();
     const mb = parseInt(mbRaw || "0", 10) || 0;
     let e = matchGpu(dev ? `${name} (0x0000${dev})` : name);
@@ -624,6 +624,7 @@ export function profileFromApp(specs) {
       vram: mb > 0 ? Math.round(mb / 1024 * 10) / 10 : (e && e[2] ? e[2] : null),
       integrated: e ? e[2] === 0 : /uhd|iris|radeon\(tm\) graphics|radeon graphics|arc graphics|vega/i.test(name),
       handheld: !!(e && e[4] === "hh"), vendor: GPU_VENDOR(name), driver: driver || null,
+      dxfl: fl ? parseFloat(fl.replace("_", ".")) : null,
     };
   });
   // Card rời trước — đó mới là card dùng chơi game
@@ -649,8 +650,8 @@ export function profileFromApp(specs) {
     // SSD: "NVMe" / "SATA" / "none" — null nếu Windows không cho đọc
     ssd: get("SSD") ? get("SSD") !== "none" : null,
     ssdKind: get("SSD") && get("SSD") !== "none" ? get("SSD") : null,
-    // Mức DirectX thật của card, vd "12_1" → 12.1
-    dxfl: get("DXFL") ? parseFloat(get("DXFL").replace("_", ".")) : null,
+    // Mức DirectX của ĐÚNG card dùng chơi game (laptop 2 card: card rời), vd "12_1" → 12.1
+    dxfl: (gpus[0] && gpus[0].dxfl) || (get("DXFL") ? parseFloat(get("DXFL").replace("_", ".")) : null),
     isa: get("ISA") ? get("ISA").split(",") : null,
     screen: res ? { w: +res[1], h: +res[2], hz: numv("HZ") } : null,
     laptop: get("BATTERY") === "1" ? true : get("BATTERY") === "0" ? false : null,
