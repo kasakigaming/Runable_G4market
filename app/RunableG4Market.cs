@@ -25,9 +25,9 @@ using Microsoft.Win32;
 static class Program
 {
     // ---- Sửa 2 dòng này cho đúng địa chỉ của bạn (hoặc truyền --page / --api khi chạy) ----
-    public static string PageUrl = "https://clonetest222.github.io/runable_g4market/";
+    public static string PageUrl = "https://kasakigaming.github.io/Runable_G4market/";
     public static string BackendUrl = "";          // vd "https://runable-g4market.deno.dev" — để trống thì chỉ mở trang
-    public const string Version = "1.0.0";
+    public const string Version = "1.0.1";
 
     // Mã phiên nằm ngay trong tên file: trang web tải về thành "runable_g4market (a1b2c3d4e5f6).exe".
     // Một file exe dùng chung cho mọi người, chỉ đổi tên lúc tải,

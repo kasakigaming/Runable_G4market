@@ -1,5 +1,7 @@
 # RunableGames
 
+**Dùng thử:** https://kasakigaming.github.io/Runable_G4market/
+
 **Tải ứng dụng nhận diện:** [runable_g4market.exe](https://github.com/kasakigaming/Runable_G4market/releases/latest/download/runable_g4market.exe) — mục [Releases](https://github.com/kasakigaming/Runable_G4market/releases) có mã SHA-256 để kiểm tra file. Mã nguồn app nằm ở [`app/RunableG4Market.cs`](app/RunableG4Market.cs), tự build được bằng `app\build.bat`.
 
 Máy của bạn có chạy nổi game này không? Quét cấu hình, so với **yêu cầu chính thức của nhà phát hành**, chấm điểm sức mạnh, xếp hạng với người chơi khác và gợi ý nâng cấp.
@@ -30,9 +32,9 @@ tools/                     script lấy dữ liệu Steam và kiểm tra bộ ch
 
 ## Triển khai
 
-### 1. Trang web — GitHub Pages
-Đẩy toàn bộ thư mục lên repo, Settings → Pages → Deploy from a branch → `main` / `(root)`.
-**Đặt `runable_g4market.exe` cạnh `index.html`** (tải từ Releases hoặc chạy `app\build.bat`). File phải cùng tên miền với trang thì trình duyệt mới cho đổi tên lúc tải — đó là cách mã phiên đi vào tên file. Để link sang Releases thì vẫn chạy, nhưng app phải đoán phiên theo IP.
+### 1. Trang web — GitHub Pages (đã tự động)
+Settings → Pages → Source: **GitHub Actions**. Workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) chạy mỗi lần đẩy lên `main` hoặc phát hành Release mới: gom file của trang, **lấy `runable_g4market.exe` từ Release mới nhất đặt cạnh `index.html`**, rồi deploy.
+Exe phải cùng tên miền với trang thì trình duyệt mới cho đổi tên lúc tải — đó là cách mã phiên đi vào tên file. Vì vậy phát hành exe mới là trang tự cập nhật theo, không phải chép tay.
 Không bật được backend thì trang vẫn chạy: quét máy, 72 game có sẵn, chấm điểm, gợi ý nâng cấp. Chỉ thiếu tra game ngoài danh sách và xếp hạng.
 
 ### 2. Backend — Deno Deploy

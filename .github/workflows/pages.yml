@@ -1,0 +1,51 @@
+# Deploy trang web lên GitHub Pages.
+# File exe không nằm trong mã nguồn — workflow lấy nó từ bản Release mới nhất rồi đặt cạnh index.html,
+# vì exe phải cùng tên miền với trang thì trình duyệt mới cho đổi tên file lúc tải (mã phiên nằm trong tên file).
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]     # phát hành exe mới → trang tự cập nhật theo
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gom file của trang (không đưa backend, app, tools lên web)
+        run: |
+          mkdir -p _site
+          cp -r index.html cau-hinh.html .nojekyll assets shared data _site/
+
+      - name: Lấy runable_g4market.exe từ bản Release mới nhất
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release download --repo "$GITHUB_REPOSITORY" --pattern runable_g4market.exe --dir _site; then
+            sha256sum _site/runable_g4market.exe
+          else
+            echo "::warning::Chưa có bản Release chứa runable_g4market.exe — trang vẫn chạy nhưng nút tải app sẽ lỗi."
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
