@@ -33,6 +33,19 @@ jobs:
           mkdir -p _site
           cp -r index.html cau-hinh.html .nojekyll assets shared data _site/
 
+      # GitHub Pages bắt trình duyệt giữ file 10 phút, mà module JS gọi nhau ngầm nên F5 thường
+      # vẫn lấy bản cũ. Gắn mã phiên bản vào mọi đường dẫn → mỗi lần deploy là địa chỉ mới.
+      - name: Gắn mã phiên bản chống dùng file cũ
+        run: |
+          V="${GITHUB_SHA::8}"
+          sed -i -E "s#(src|href)=\"(assets/[^\"?]+)\"#\1=\"\2?v=$V\"#g" _site/index.html
+          find _site/assets _site/shared -name '*.js' -exec \
+            sed -i -E "s#from \"(\.{1,2}/[^\"?]+\.js)\"#from \"\1?v=$V\"#g" {} +
+          sed -i -E "s#fetch\(\"(data/[^\"?]+\.json)\"\)#fetch(\"\1?v=$V\")#g" _site/assets/app.js
+          grep -o 'assets/[a-z]*\.[a-z]*?v=[0-9a-f]*' _site/index.html
+          grep -ho 'from "[^"]*?v=[0-9a-f]*"' _site/assets/*.js _site/shared/*.js | sort -u
+          grep -o 'data/[a-z-]*\.json?v=[0-9a-f]*' _site/assets/app.js
+
       - name: Lấy runable_g4market.exe từ bản Release mới nhất
         env:
           GH_TOKEN: ${{ github.token }}
