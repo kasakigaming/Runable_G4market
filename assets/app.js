@@ -448,7 +448,7 @@ async function renderGame(id) {
     if (lvl === "dx") return req.dx ? "DirectX " + req.dx : "—";
     return "—";
   };
-  const icon = (s) => `<span class="st ${s}" aria-label="${s === "pass" ? "đạt" : s === "fail" ? "chưa đạt" : "không rõ"}">${s === "pass" ? "✓" : s === "fail" ? "✕" : "?"}</span>`;
+  const icon = (s) => `<span class="st ${s}" aria-label="${s === "pass" ? "đạt" : s === "fail" ? "chưa đạt" : s === "warn" ? "cần dọn thêm chỗ" : "không rõ"}">${s === "pass" ? "✓" : s === "fail" ? "✕" : s === "warn" ? "!" : "?"}</span>`;
   const mine = {
     gpu: `${esc(p.gpu && p.gpu.name)}<span class="sc">≈ ${kd(p.gpu && p.gpu.idx)}</span>`,
     cpu: `${esc(p.cpu && p.cpu.name)}<span class="sc">≈ ${kd(p.cpu && p.cpu.idx, PTS.cpu)}${p.source === "web" && !(p.cpu && p.cpu.confirmed) ? " · đoán" : ""}</span>`,
@@ -488,6 +488,7 @@ async function renderGame(id) {
     </div>
     <p class="muted" style="font-size:12.5px;margin-top:8px">FPS là ước lượng neo theo yêu cầu của nhà phát hành${fps.anchor === 144 ? " (mức High ≈ 144 FPS)" : fps.anchor === 60 ? " (mức Đề xuất ≈ 1080p Cao 60 FPS)" : " (mức Tối thiểu ≈ 1080p Thấp 30 FPS)"}, không phải số đo thật.</p>` : ""}
 
+    ${r.diskShort ? `<div class="note" style="margin-top:14px">Máy chạy được, nhưng ổ đĩa còn trống <b>${p.disk} GB</b> trong khi game cần <b>${p.disk + r.diskShort} GB</b> — dọn thêm khoảng <b>${r.diskShort} GB</b> trước khi cài.</div>` : ""}
     ${weakButOk720 ? `<div class="note" style="margin-top:14px">Chưa đạt mức tối thiểu ở 1080p, nhưng hạ xuống <b>720p mức Thấp</b> (hoặc bật FSR) thì vẫn có thể chơi được khoảng <b>${fps.low720} FPS</b>.</div>` : ""}
     ${p.source === "web" && !(p.ram && p.ram.confirmed) && L.rec && L.rec.ram > 8 ? `<div class="note" style="margin-top:14px">Game đề xuất <b>${L.rec.ram} GB RAM</b>, mà trình duyệt chỉ thấy tối đa 8 GB. <a href="#/">Xác nhận RAM của bạn</a> ở trang chủ để kết quả đúng.</div>` : ""}
 

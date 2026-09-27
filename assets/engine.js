@@ -88,6 +88,13 @@ export function checkGame(profile, game) {
     return { k, have: have[k], min: need.min, rec: need.rec, sMin, sRec };
   });
 
+  // --- Dung lượng trống: dọn ổ là xong, không phải chuyện cấu hình → chỉ nhắc, không tính vào phán đoán
+  for (const r of rows) if (r.k === "disk") {
+    r.info = true;
+    if (r.sMin === "fail") r.sMin = "warn";
+    if (r.sRec === "fail") r.sRec = "warn";
+  }
+
   // --- SSD: 25/65 game Steam phổ biến ghi "SSD required". Ổ HDD vẫn chạy được nhưng giật lúc tải
   //     cảnh, nên thiếu SSD chỉ chặn mức "Chạy mượt", không đánh "Chưa đủ". Chỉ app mới biết máy có SSD.
   const wantsSsd = (req) => !!req && /\bssd\b/i.test([req.notes, req.diskText, req.os].filter(Boolean).join(" "));
@@ -105,8 +112,12 @@ export function checkGame(profile, game) {
 
   const known = !!(L.min && (L.min.gpu || L.min.cpu || L.min.ram)) || !!(L.rec && (L.rec.gpu || L.rec.cpu));
   // Thiếu SSD (soft) không đánh "Chưa đủ" — HDD vẫn chạy, chỉ giật khi tải cảnh
-  const failMin = rows.filter((r) => r.sMin === "fail" && !r.soft);
-  const failRec = rows.filter((r) => r.sRec === "fail");
+  const failMin = rows.filter((r) => r.sMin === "fail" && !r.soft && !r.info);
+  const failRec = rows.filter((r) => r.sRec === "fail" && !r.info);
+  // Thiếu chỗ trống để cài (chỉ app mới biết) — trang hiện lời nhắc riêng
+  const diskRow = rows.find((r) => r.k === "disk");
+  const diskShort = diskRow && diskRow.have != null && diskRow.min != null && diskRow.have < diskRow.min
+    ? Math.ceil(diskRow.min - diskRow.have) : 0;
   const hasRec = !!(L.rec && (L.rec.gpu || L.rec.cpu || L.rec.ram));
 
   let verdict;
@@ -115,7 +126,7 @@ export function checkGame(profile, game) {
   else if (hasRec ? !failRec.length : marginOk(have, L.min, 1.8)) verdict = "great";
   else verdict = "ok";
 
-  return { verdict, rows, levels: L, failMin, failRec, fps: estimateFps(have, L), bottleneck: bottleneck(have, L) };
+  return { verdict, rows, levels: L, failMin, failRec, diskShort, fps: estimateFps(have, L), bottleneck: bottleneck(have, L) };
 }
 
 function marginOk(have, lvl, k) {
