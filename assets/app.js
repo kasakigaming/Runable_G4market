@@ -23,7 +23,7 @@ const store = {
 };
 
 const S = {
-  profile: null, scanning: false, pct: 0, pctText: "",
+  profile: null, scanning: false, pct: 0, pctText: "", measurements: [],
   library: [], check: null, stats: null, top: null, filter: "all", banner: null,
 };
 
@@ -43,10 +43,12 @@ async function api(path, opts) {
 // ---------------------------------------------------------------------------
 async function loadLibrary() {
   if (S.library.length) return;
-  const [steam, off] = await Promise.all([
+  const [steam, off, meas] = await Promise.all([
     fetch("data/steam-popular.json").then((r) => r.json()).catch(() => ({ games: [] })),
     fetch("data/games-offsteam.json").then((r) => r.json()).catch(() => ({ games: [] })),
+    fetch("data/fps-measurements.json").then((r) => r.json()).catch(() => ({ measurements: [] })),
   ]);
+  S.measurements = meas.measurements || [];
   for (const g of off.games) for (const k of ["min", "rec", "high"]) if (g[k]) {
     g[k].cpuAlts = splitAlts(g[k].cpu); g[k].gpuAlts = splitAlts(g[k].gpu);
   }
@@ -463,6 +465,8 @@ async function renderGame(id) {
   const target = r.verdict === "bad" ? "min" : "rec";
   const ups = r.verdict === "great" ? [] : upgradesFor(p, r, target, CONFIG.PRICES);
   const fps = r.fps;
+  // Số đo thật trên máy CÙNG card (nếu có) — hiện cạnh con số ước lượng
+  const measured = (S.measurements || []).find((m) => m.game === g.id && p.gpu && m.gpuKey === p.gpu.key) || null;
   const weakButOk720 = r.verdict === "bad" && fps && fps.low720 >= 28;
   const srcNote = g.source === "Steam"
     ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang Steam của game</a>.`
@@ -480,13 +484,18 @@ async function renderGame(id) {
       </div>
     </div>
 
+    ${measured ? `<div class="note good" style="margin-top:22px">
+      <b>Đo thật: ${measured.avg} FPS</b> trung bình ở ${esc(measured.resolution.replace("x", "×"))} mức ${esc(measured.preset)} — máy cùng card
+      (${esc(measured.gpu)}), đo bằng ${esc(measured.tool)} trong ${measured.seconds} giây đang chơi.
+      Trung vị ${measured.median} FPS · 1% chậm nhất ${measured.low1} FPS · ${measured.under30Pct}% thời gian dưới 30 FPS.
+      Ước lượng của trang cho mức này: ${measured.predictedHigh} FPS.</div>` : ""}
     ${fps ? `<div class="fps">
       <div class="tile"><div class="k">1080P · MỨC CAO</div><div class="p">~${fps.high} <small>FPS</small></div></div>
       <div class="tile"><div class="k">1080P · MỨC THẤP</div><div class="p">~${fps.low} <small>FPS</small></div></div>
       ${r.verdict === "bad" || fps.high < 45 ? `<div class="tile"><div class="k">720P · MỨC THẤP</div><div class="p">~${fps.low720} <small>FPS</small></div></div>` : ""}
       <div class="tile"><div class="k">ĐANG NGHẼN Ở</div><div class="p" style="font-size:20px">${fps.limitedBy === "cpu" ? "CPU" : "Card đồ họa"}</div></div>
     </div>
-    <p class="muted" style="font-size:12.5px;margin-top:8px">FPS là ước lượng neo theo yêu cầu của nhà phát hành${fps.anchor === 144 ? " (mức High ≈ 144 FPS)" : fps.anchor === 60 ? " (mức Đề xuất ≈ 1080p Cao 60 FPS)" : " (mức Tối thiểu ≈ 1080p Thấp 30 FPS)"}, không phải số đo thật.</p>` : ""}
+    <p class="muted" style="font-size:12.5px;margin-top:8px">FPS là ước lượng neo theo yêu cầu của nhà phát hành${fps.anchor === 144 ? " (mức High ≈ 144 FPS)" : fps.anchor === 60 ? " (mức Đề xuất ≈ 1080p Cao 60 FPS)" : " (mức Tối thiểu ≈ 1080p Thấp 30 FPS)"}, không phải số đo thật.${fps.cap ? ` Game khoá cứng tối đa <b>${fps.cap} FPS</b>${fps.capped ? " — máy bạn chạm trần ở mức thấp, nên không lên cao hơn được" : ""}.` : ""}</p>` : ""}
 
     ${r.diskShort ? `<div class="note" style="margin-top:14px">Máy chạy được, nhưng ổ đĩa còn trống <b>${p.disk} GB</b> trong khi game cần <b>${p.disk + r.diskShort} GB</b> — dọn thêm khoảng <b>${r.diskShort} GB</b> trước khi cài.</div>` : ""}
     ${weakButOk720 ? `<div class="note" style="margin-top:14px">Chưa đạt mức tối thiểu ở 1080p, nhưng hạ xuống <b>720p mức Thấp</b> (hoặc bật FSR) thì vẫn có thể chơi được khoảng <b>${fps.low720} FPS</b>.</div>` : ""}

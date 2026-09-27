@@ -126,7 +126,7 @@ export function checkGame(profile, game) {
   else if (hasRec ? !failRec.length : marginOk(have, L.min, 1.8)) verdict = "great";
   else verdict = "ok";
 
-  return { verdict, rows, levels: L, failMin, failRec, diskShort, fps: estimateFps(have, L), bottleneck: bottleneck(have, L) };
+  return { verdict, rows, levels: L, failMin, failRec, diskShort, fps: estimateFps(have, L, FPS_CAPS[game.id]), bottleneck: bottleneck(have, L) };
 }
 
 function marginOk(have, lvl, k) {
@@ -141,7 +141,22 @@ function marginOk(have, lvl, k) {
 //   mức Đề xuất ≈ 1080p Cao 60 FPS · mức Tối thiểu ≈ 1080p Thấp 30 FPS · mức Cao (nếu có, như Valorant) ≈ 144 FPS
 // Đây là ước lượng, không phải đo thật.
 // ---------------------------------------------------------------------------
-export function estimateFps(have, L) {
+// Game bị khoá FPS cứng — vượt mức này là vô nghĩa dù máy mạnh cỡ nào
+export const FPS_CAPS = {
+  "steam:1245620": 60,    // ELDEN RING
+  "steam:2622380": 60,    // ELDEN RING NIGHTREIGN
+  "steam:814380": 60,     // Sekiro
+  "steam:374320": 60,     // DARK SOULS III
+  "steam:1778820": 60,    // TEKKEN 8
+  "steam:1364780": 60,    // Street Fighter 6
+  "steam:489830": 60,     // Skyrim Special Edition (vật lý gắn với 60)
+  "steam:377160": 60,     // Fallout 4 (vật lý gắn với 60)
+  "steam:1888160": 120,   // ARMORED CORE VI
+  "x:genshin-impact": 120,
+  "x:honkai-star-rail": 120,
+};
+
+export function estimateFps(have, L, cap) {
   const anchor = L.high && L.high.gpu ? { lvl: L.high, fps: 144 }
     : L.rec && L.rec.gpu ? { lvl: L.rec, fps: 60 }
     : L.min && L.min.gpu ? { lvl: L.min, fps: 30 } : null;
@@ -156,13 +171,18 @@ export function estimateFps(have, L) {
   // Mức Thấp nhanh hơn mức Cao khoảng 1.4 lần
   const high = anchor.fps === 30 ? fps / 1.4 : fps;
   const low = anchor.fps === 30 ? fps : fps * 1.4;
-  const cap = (x) => Math.max(1, Math.min(400, Math.round(x)));
+  const lim = cap || 400;
+  const clamp = (x) => Math.max(1, Math.min(lim, Math.round(x)));
   // 720p Thấp — lối thoát cho máy yếu và máy cầm tay. Hạ độ phân giải chỉ đỡ phần GPU;
   // CPU gần như không nhẹ đi, nên vẫn bị chặn bởi giới hạn CPU.
   const gpuLow = anchor.fps === 30 ? byGpu : byGpu * 1.4;
   const cpuLow = anchor.fps === 30 ? byCpu : byCpu * 1.15;
   const low720 = Math.min(gpuLow * 1.45, cpuLow);
-  return { high: cap(high), low: cap(low), low720: cap(low720), limitedBy: byCpu < byGpu ? "cpu" : "gpu", anchor: anchor.fps };
+  return {
+    high: clamp(high), low: clamp(low), low720: clamp(low720),
+    limitedBy: byCpu < byGpu ? "cpu" : "gpu", anchor: anchor.fps,
+    cap: cap || null, capped: !!cap && low720 > cap,
+  };
 }
 
 function bottleneck(have, L) {

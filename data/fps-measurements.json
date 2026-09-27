@@ -1,0 +1,25 @@
+{
+  "note": "FPS đo thật trong game bằng PresentMon (Intel). Chỉ lấy đoạn đang chơi ổn định, bỏ menu và màn hình tải. Trang hiện số đo này cho máy có CÙNG card đồ họa.",
+  "measurements": [
+    {
+      "game": "steam:1245620",
+      "gameName": "ELDEN RING",
+      "gpuKey": "z1 extreme",
+      "gpu": "AMD Ryzen Z1 Extreme (iGPU, 4 GB)",
+      "cpu": "AMD Ryzen Z1 Extreme",
+      "ram": "16 GB LPDDR5-7500",
+      "resolution": "1920x1080",
+      "preset": "HIGH",
+      "rayTracing": false,
+      "avg": 33.2,
+      "median": 35.4,
+      "low1": 6.6,
+      "under30Pct": 20.5,
+      "seconds": 80,
+      "predictedHigh": 32,
+      "power": "cắm sạc, Windows Balanced",
+      "tool": "PresentMon 2.6.0",
+      "date": "2026-09-27"
+    }
+  ]
+}
