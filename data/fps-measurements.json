@@ -1,5 +1,5 @@
 {
-  "note": "FPS đo thật trong game bằng PresentMon (Intel). Chỉ lấy đoạn đang chơi ổn định, bỏ menu và màn hình tải. Trang hiện số đo này cho máy có CÙNG card đồ họa.",
+  "note": "Dữ liệu NỘI BỘ để kiểm chứng và hiệu chỉnh công thức FPS — không hiển thị cho người dùng. Đo tay trên máy thử nghiệm bằng PresentMon (Intel), chỉ lấy đoạn đang chơi ổn định. App KHÔNG đo FPS trên máy người dùng. Số đo có capBound=false và ở 1920x1080 mức Cao được công thức dùng làm mốc cho game đó.",
   "measurements": [
     {
       "game": "steam:1245620",

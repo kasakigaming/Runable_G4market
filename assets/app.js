@@ -466,8 +466,6 @@ async function renderGame(id) {
   const target = r.verdict === "bad" ? "min" : "rec";
   const ups = r.verdict === "great" ? [] : upgradesFor(p, r, target, CONFIG.PRICES);
   const fps = r.fps;
-  // Số đo thật trên máy CÙNG card (nếu có) — hiện cạnh con số ước lượng
-  const measured = (S.measurements || []).find((m) => m.game === g.id && p.gpu && m.gpuKey === p.gpu.key) || null;
   const weakButOk720 = r.verdict === "bad" && fps && fps.low720 >= 28;
   const srcNote = g.source === "Steam"
     ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang Steam của game</a>.`
@@ -485,11 +483,6 @@ async function renderGame(id) {
       </div>
     </div>
 
-    ${measured ? `<div class="note good" style="margin-top:22px">
-      <b>Đo thật: ${measured.avg} FPS</b> trung bình ở ${esc(measured.resolution.replace("x", "×"))} mức ${esc(measured.preset)} — máy cùng card
-      (${esc(measured.gpu)}), đo bằng ${esc(measured.tool)} trong ${measured.seconds} giây đang chơi.
-      Trung vị ${measured.median} FPS · 1% chậm nhất ${measured.low1} FPS · ${measured.under30Pct}% thời gian dưới 30 FPS.
-      Ước lượng của trang cho mức này: ${measured.predictedHigh} FPS.</div>` : ""}
     ${fps ? `<div class="fps">
       <div class="tile"><div class="k">1080P · MỨC CAO</div><div class="p">~${fps.high} <small>FPS</small></div></div>
       <div class="tile"><div class="k">1080P · MỨC THẤP</div><div class="p">~${fps.low} <small>FPS</small></div></div>
@@ -497,7 +490,7 @@ async function renderGame(id) {
       <div class="tile"><div class="k">ĐANG NGHẼN Ở</div><div class="p" style="font-size:20px">${fps.limitedBy === "cpu" ? "CPU" : "Card đồ họa"}</div></div>
     </div>
     <p class="muted" style="font-size:12.5px;margin-top:8px">${fps.anchor === "measured"
-      ? `FPS neo theo <b>số đo thật</b> của game này trên ${esc(fps.measuredOn)}, rồi nhân theo tỉ lệ sức mạnh card của bạn — chính xác hơn nhiều so với đoán từ yêu cầu cấu hình.`
+      ? `FPS là ước lượng, đã được hiệu chỉnh riêng cho game này.`
       : `FPS là ước lượng neo theo yêu cầu của nhà phát hành${fps.anchor === 144 ? " (mức High ≈ 144 FPS)" : fps.anchor === 60 ? " (mức Đề xuất ≈ 1080p Cao 60 FPS)" : " (mức Tối thiểu ≈ 1080p Thấp 30 FPS)"}, chưa có số đo thật cho game này — có thể lệch nhiều.`}${p.screen && p.screen.hz && fps.high > p.screen.hz ? ` Màn hình bạn <b>${p.screen.hz} Hz</b>: bật vsync thì hiển thị tối đa ${p.screen.hz} FPS.` : ""}${fps.cap ? ` Game khoá cứng tối đa <b>${fps.cap} FPS</b>${fps.capped ? " — máy bạn chạm trần ở mức thấp, nên không lên cao hơn được" : ""}.` : ""}</p>` : ""}
 
     ${r.diskShort ? `<div class="note" style="margin-top:14px">Máy chạy được, nhưng ổ đĩa còn trống <b>${p.disk} GB</b> trong khi game cần <b>${p.disk + r.diskShort} GB</b> — dọn thêm khoảng <b>${r.diskShort} GB</b> trước khi cài.</div>` : ""}
