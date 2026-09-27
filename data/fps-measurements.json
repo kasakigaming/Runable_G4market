@@ -20,6 +20,28 @@
       "power": "cắm sạc, Windows Balanced",
       "tool": "PresentMon 2.6.0",
       "date": "2026-09-27"
+    },
+    {
+      "game": "steam:413150",
+      "gameName": "Stardew Valley",
+      "gpuKey": "z1 extreme",
+      "gpu": "AMD Ryzen Z1 Extreme (iGPU, 4 GB)",
+      "cpu": "AMD Ryzen Z1 Extreme",
+      "ram": "16 GB LPDDR5-7500",
+      "resolution": "cửa sổ toàn màn hình",
+      "preset": "mặc định, vsync bật",
+      "rayTracing": false,
+      "avg": 59.9,
+      "median": 60.0,
+      "low1": 36.2,
+      "under30Pct": 0.3,
+      "seconds": 13,
+      "predictedHigh": 163,
+      "capBound": true,
+      "gpuBusyMs": 1.5,
+      "power": "cắm sạc, Windows Balanced",
+      "tool": "PresentMon 2.6.0",
+      "date": "2026-09-27"
     }
   ]
 }

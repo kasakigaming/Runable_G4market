@@ -126,7 +126,7 @@ export function checkGame(profile, game) {
   else if (hasRec ? !failRec.length : marginOk(have, L.min, 1.8)) verdict = "great";
   else verdict = "ok";
 
-  return { verdict, rows, levels: L, failMin, failRec, diskShort, fps: estimateFps(have, L, FPS_CAPS[game.id]), bottleneck: bottleneck(have, L) };
+  return { verdict, rows, levels: L, failMin, failRec, diskShort, fps: estimateFps(have, L, FPS_CAPS[game.id], game.id), bottleneck: bottleneck(have, L) };
 }
 
 function marginOk(have, lvl, k) {
@@ -152,35 +152,54 @@ export const FPS_CAPS = {
   "steam:489830": 60,     // Skyrim Special Edition (vật lý gắn với 60)
   "steam:377160": 60,     // Fallout 4 (vật lý gắn với 60)
   "steam:1888160": 120,   // ARMORED CORE VI
+  "steam:413150": 60,     // Stardew Valley (đo thật: GPU chỉ bận 1,5 ms nhưng vẫn đứng ở 60)
   "x:genshin-impact": 120,
   "x:honkai-star-rail": 120,
 };
 
-export function estimateFps(have, L, cap) {
+// ---------------------------------------------------------------------------
+// Số đo FPS thật (data/fps-measurements.json). Một số đo của MỘT game trên MỘT card
+// đáng tin hơn mọi mức yêu cầu của hãng: máy khác chỉ cần nhân theo tỉ lệ sức mạnh card.
+// ---------------------------------------------------------------------------
+let MEASUREMENTS = [];
+export function setMeasurements(list) { MEASUREMENTS = Array.isArray(list) ? list : []; }
+// Số đo dùng được làm mốc: 1080p mức Cao, và game đang nghẽn ở GPU (không phải đụng trần FPS)
+function measuredAnchor(gameId) {
+  const m = MEASUREMENTS.find((x) => x.game === gameId && !x.capBound && /1920x1080/.test(x.resolution) && /high|cao/i.test(x.preset));
+  const g = m && GPU_BY_KEY.get(m.gpuKey);
+  return m && g ? { fps: m.avg, gpuIdx: g[1], m } : null;
+}
+
+export function estimateFps(have, L, cap, gameId) {
   const anchor = L.high && L.high.gpu ? { lvl: L.high, fps: 144 }
     : L.rec && L.rec.gpu ? { lvl: L.rec, fps: 60 }
     : L.min && L.min.gpu ? { lvl: L.min, fps: 30 } : null;
-  if (!anchor || !have.gpu) return null;
-  const gr = have.gpu / Math.max(1, anchor.lvl.gpu.idx);
-  const cpuNeed = anchor.lvl.cpu ? anchor.lvl.cpu.idx : null;
+  const meas = measuredAnchor(gameId);
+  if ((!anchor && !meas) || !have.gpu) return null;
+  const cpuNeed = anchor && anchor.lvl.cpu ? anchor.lvl.cpu.idx : null;
   const cr = cpuNeed && have.cpu ? have.cpu / Math.max(1, cpuNeed) : null;
-  // Khi nghẽn GPU, FPS tăng gần tuyến tính theo sức GPU; CPU thì tăng chậm hơn
-  const byGpu = anchor.fps * Math.pow(gr, 0.95);
-  const byCpu = cr ? anchor.fps * Math.pow(cr, 0.7) * 1.25 : Infinity;
+  // Khi nghẽn GPU, FPS tăng gần tuyến tính theo sức GPU; CPU thì tăng chậm hơn.
+  // Có số đo thật → neo theo số đo (FPS thật × tỉ lệ card), bỏ giả định "Đề xuất = 60 FPS".
+  const byGpu = meas
+    ? meas.fps * Math.pow(have.gpu / meas.gpuIdx, 0.95)
+    : anchor.fps * Math.pow(have.gpu / Math.max(1, anchor.lvl.gpu.idx), 0.95);
+  const byCpu = cr ? (anchor ? anchor.fps : 60) * Math.pow(cr, 0.7) * 1.25 : Infinity;
   let fps = Math.min(byGpu, byCpu);
-  // Mức Thấp nhanh hơn mức Cao khoảng 1.4 lần
-  const high = anchor.fps === 30 ? fps / 1.4 : fps;
-  const low = anchor.fps === 30 ? fps : fps * 1.4;
+  // Mức Thấp nhanh hơn mức Cao khoảng 1.4 lần (mốc Tối thiểu vốn đã là mức Thấp)
+  const lowAnchor = !meas && anchor.fps === 30;
+  const high = lowAnchor ? fps / 1.4 : fps;
+  const low = lowAnchor ? fps : fps * 1.4;
   const lim = cap || 400;
   const clamp = (x) => Math.max(1, Math.min(lim, Math.round(x)));
   // 720p Thấp — lối thoát cho máy yếu và máy cầm tay. Hạ độ phân giải chỉ đỡ phần GPU;
   // CPU gần như không nhẹ đi, nên vẫn bị chặn bởi giới hạn CPU.
-  const gpuLow = anchor.fps === 30 ? byGpu : byGpu * 1.4;
-  const cpuLow = anchor.fps === 30 ? byCpu : byCpu * 1.15;
+  const gpuLow = lowAnchor ? byGpu : byGpu * 1.4;
+  const cpuLow = lowAnchor ? byCpu : byCpu * 1.15;
   const low720 = Math.min(gpuLow * 1.45, cpuLow);
   return {
     high: clamp(high), low: clamp(low), low720: clamp(low720),
-    limitedBy: byCpu < byGpu ? "cpu" : "gpu", anchor: anchor.fps,
+    limitedBy: byCpu < byGpu ? "cpu" : "gpu", anchor: meas ? "measured" : anchor.fps,
+    measuredOn: meas ? meas.m.gpu : null,
     cap: cap || null, capped: !!cap && low720 > cap,
   };
 }
