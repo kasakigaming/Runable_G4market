@@ -1,0 +1,7 @@
+# File exe là sản phẩm biên dịch — phát hành ở mục Releases, không để trong mã nguồn.
+# Build lại: app\build.bat
+*.exe
+*.log
+node_modules/
+tools/tmp/
+.env

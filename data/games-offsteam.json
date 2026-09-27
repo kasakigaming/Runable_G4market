@@ -1,0 +1,55 @@
+{
+  "note": "Game KHONG ban tren Steam. verified=true: da doi chieu truc tiep voi trang chinh thuc. verified=false: trang chinh thuc chan truy cap tu dong, so lieu lay theo cong bo cua hang - nen kiem tra lai qua sourceUrl. Them game moi theo dung dinh dang nay.",
+  "games": [
+    {
+      "id": "x:league-of-legends", "name": "League of Legends", "alias": ["lmht", "lien minh huyen thoai", "lol"],
+      "free": true, "genres": ["MOBA"], "source": "Riot Games", "verified": true,
+      "sourceUrl": "https://support.riotgames.com/en-us/league-of-legends/performance/minimum-and-recommended-system-requirements-league-of-legends",
+      "min": { "os": "Windows 10 (Build 19041+) / Windows 11", "cpu": "Intel Core i3-530 or AMD A6-3650", "gpu": "GeForce 400 Series, AMD HD 6570, or Intel HD 4600", "ram": 2, "vram": 1, "disk": 16, "dx": 11 },
+      "rec": { "os": "Windows 11", "cpu": "Intel Core i5-8250 or AMD Ryzen 3 1200", "gpu": "NVidia GeForce 560, AMD Radeon HD 6950, or Intel UHD 630", "ram": 4, "vram": 2, "disk": 16, "dx": 11 }
+    },
+    {
+      "id": "x:valorant", "name": "VALORANT", "alias": ["valorant", "valo"],
+      "free": true, "genres": ["FPS"], "source": "Riot Games", "verified": false,
+      "sourceUrl": "https://support.riotgames.com/valorant",
+      "min": { "os": "Windows 10/11 64-bit", "cpu": "Intel Core 2 Duo E8400 / AMD Athlon 200GE", "gpu": "Intel HD 4000 / Radeon R5 200", "ram": 4, "vram": 1, "disk": 35 },
+      "rec": { "os": "Windows 10/11 64-bit", "cpu": "Intel i3-4150 / Ryzen 3 1200", "gpu": "GeForce GT 730 / Radeon R7 240", "ram": 4, "vram": 1, "disk": 35 },
+      "high": { "os": "Windows 10/11 64-bit", "cpu": "Intel i5-9400F / Ryzen 5 2600X", "gpu": "GTX 1050 Ti / Radeon R7 370", "ram": 4, "vram": 1, "disk": 35 }
+    },
+    {
+      "id": "x:genshin-impact", "name": "Genshin Impact", "alias": ["genshin", "gi"],
+      "free": true, "genres": ["Nhập vai", "Thế giới mở"], "source": "HoYoverse", "verified": false,
+      "sourceUrl": "https://support.hoyoverse.com/hc/en-us/articles/52089402685593-What-are-the-system-requirements-to-play-Genshin-Impact",
+      "min": { "os": "Windows 10 64-bit", "cpu": "6th Generation Intel Core i5 or AMD Ryzen series", "gpu": "NVIDIA GeForce GTX 1050", "ram": 8, "disk": 100 },
+      "rec": { "os": "Windows 10 64-bit", "cpu": "Intel Core i7", "gpu": "NVIDIA GeForce GTX 1060 6 GB", "ram": 16, "vram": 6, "disk": 100 }
+    },
+    {
+      "id": "x:fortnite", "name": "Fortnite", "alias": ["fortnite", "fn"],
+      "free": true, "genres": ["Battle Royale"], "source": "Epic Games", "verified": false,
+      "sourceUrl": "https://www.epicgames.com/help/en-US/c-Category_Fortnite/c-Fortnite_TechnicalSupport/what-are-the-fortnite-minimum-and-recommended-hardware-specifications-a000084899",
+      "min": { "os": "Windows 10 64-bit", "cpu": "Intel Core i3-3225", "gpu": "Intel HD 4000 / AMD Radeon Vega 8", "ram": 8 },
+      "rec": { "os": "Windows 10/11 64-bit", "cpu": "Intel Core i5-7300U / AMD Ryzen 3 3300U", "gpu": "Nvidia GTX 960 / AMD R9 280", "ram": 16, "vram": 2 }
+    },
+    {
+      "id": "x:minecraft-java", "name": "Minecraft: Java Edition", "alias": ["minecraft", "mc", "may cang"],
+      "free": false, "genres": ["Sandbox"], "source": "Mojang", "verified": false,
+      "sourceUrl": "https://help.minecraft.net/hc/en-us/articles/4409225939853",
+      "min": { "os": "Windows 10/11", "cpu": "Intel Core i3-3210 / AMD A8-7600 APU", "gpu": "Intel HD Graphics 4000 / AMD Radeon R5 series", "ram": 4, "disk": 1 },
+      "rec": { "os": "Windows 10/11", "cpu": "Intel Core i5-4690 / AMD A10-7800 APU", "gpu": "GeForce GTX 760 / AMD Radeon R9 270", "ram": 8, "disk": 4 }
+    },
+    {
+      "id": "x:honkai-star-rail", "name": "Honkai: Star Rail", "alias": ["hsr", "star rail", "honkai"],
+      "free": true, "genres": ["Nhập vai"], "source": "HoYoverse", "verified": false,
+      "sourceUrl": "https://hsr.hoyoverse.com/en-us/",
+      "min": { "os": "Windows 10 64-bit", "cpu": "Intel Core i3", "gpu": "NVIDIA GeForce GTX 650", "ram": 6, "disk": 50 },
+      "rec": { "os": "Windows 10 64-bit", "cpu": "Intel Core i7", "gpu": "NVIDIA GeForce GTX 1060 6 GB", "ram": 16, "vram": 6, "disk": 50 }
+    },
+    {
+      "id": "x:roblox", "name": "Roblox", "alias": ["roblox"],
+      "free": true, "genres": ["Sandbox"], "source": "Roblox", "verified": false,
+      "sourceUrl": "https://en.help.roblox.com/hc/en-us/articles/203312800",
+      "min": { "os": "Windows 10", "cpu": "1.6 GHz processor from 2005 or later", "gpu": "DirectX 10 compatible graphics", "ram": 1, "disk": 1 },
+      "rec": null
+    }
+  ]
+}

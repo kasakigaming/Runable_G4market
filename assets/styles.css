@@ -1,0 +1,258 @@
+/* RunableGames — theo thiết kế gốc: nền tối, xanh ngọc làm điểm nhấn, có chế độ Sáng */
+:root{
+  --bg:#0a0e13; --bg-2:#0d1219;
+  --surface:#111821; --surface-2:#162029; --surface-3:#1c2733;
+  --line:#1e2a36; --line-2:#2a3846;
+  --text:#e6edf3; --text-2:#b3bfcb; --muted:#7c8a98;
+  --green:#34d399; --green-2:#10b981; --green-ink:#052e20; --green-wash:rgba(52,211,153,.12);
+  --amber:#fbbf24; --amber-wash:rgba(251,191,36,.13);
+  --red:#f87171; --red-wash:rgba(248,113,113,.13);
+  --blue:#60a5fa;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 20px 40px -24px rgba(0,0,0,.8);
+  --grid:rgba(255,255,255,.028);
+  --f-display:"Chakra Petch","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f3f6f9; --bg-2:#eaeff4;
+  --surface:#ffffff; --surface-2:#f4f7fa; --surface-3:#e9eef3;
+  --line:#dde4eb; --line-2:#cbd5df;
+  --text:#0f1b27; --text-2:#34495c; --muted:#617384;
+  --green:#059669; --green-2:#047857; --green-ink:#ffffff; --green-wash:rgba(5,150,105,.1);
+  --amber:#b45309; --amber-wash:rgba(217,119,6,.12);
+  --red:#dc2626; --red-wash:rgba(220,38,38,.1);
+  --blue:#2563eb;
+  --shadow:0 1px 2px rgba(15,27,39,.05), 0 16px 32px -24px rgba(15,27,39,.35);
+  --grid:rgba(15,27,39,.04);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance;font-family:var(--f-display);letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px;padding-block:24px 80px}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Đầu trang ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-weight:700;font-size:26px;text-decoration:none;display:inline-flex;align-items:center;letter-spacing:.01em}
+.logo .a{color:var(--green)} .logo .c{color:var(--muted)}
+.logo .cur{width:12px;height:26px;background:var(--green-wash);border-radius:2px;margin-left:6px}
+.tagline{font-weight:600;font-size:14px;margin-top:6px;color:var(--text)}
+.btn{border:1px solid var(--line-2);background:var(--surface-2);border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--green)}
+.btn.primary{background:var(--green);border-color:var(--green);color:var(--green-ink);font-family:var(--f-display);font-size:16px;padding:12px 26px}
+.btn.primary:hover{background:var(--green-2);border-color:var(--green-2)}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:8px}
+.btn[disabled]{opacity:.55;cursor:default}
+
+/* ---------- Khối chung ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.sec{margin-top:56px}
+.sec-h{font-size:26px;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:10px}
+.sec-sub{color:var(--muted);margin-top:4px}
+.mono{font-family:var(--f-mono)}
+.muted{color:var(--muted)}
+.tag{font-family:var(--f-mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-2);white-space:nowrap}
+
+/* ---------- Hero ---------- */
+.hero{margin-top:28px;padding:48px 36px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--surface-2),var(--surface)),var(--surface)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;mask-image:linear-gradient(90deg,transparent,#000 60%)}
+.hero h1{font-size:clamp(34px,5.2vw,54px);line-height:1.1;font-weight:700;max-width:13em;position:relative}
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero p{color:var(--text-2);margin-top:14px;max-width:38em;font-size:16px;position:relative}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;position:relative}
+.step{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--surface-3);border:1px solid var(--line-2);font-size:14px;color:var(--text-2)}
+.step b{color:var(--green);font-family:var(--f-mono)}
+
+/* ---------- Ô tìm game ---------- */
+.search{display:flex;gap:12px;margin-top:18px;position:relative}
+.search-box{flex:1;position:relative}
+.search-box svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted)}
+#q{width:100%;padding:18px 18px 18px 52px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface);font-size:16px}
+#q:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-wash)}
+.suggest{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;padding:6px;max-height:420px;overflow:auto}
+.suggest[hidden]{display:none}
+.sg{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;cursor:pointer;text-decoration:none}
+.sg:hover,.sg.on{background:var(--surface-3)}
+.sg img,.sg .ini{width:64px;height:30px;border-radius:6px;object-fit:cover;flex:none}
+.sg .ini{font-size:12px;height:30px}
+.sg small{margin-left:auto;color:var(--muted);font-family:var(--f-mono);font-size:11px}
+.pop{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;color:var(--muted);font-size:13px}
+.chip{border:1px solid var(--line-2);background:var(--surface-2);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:13px;color:var(--text-2);text-decoration:none}
+.chip:hover{border-color:var(--green);color:var(--text)}
+
+/* ---------- Ô chữ viết tắt thay ảnh bìa ---------- */
+.ini{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;font-family:var(--f-display);font-weight:700;font-size:17px;color:#fff;flex:none}
+
+/* ---------- Máy của bạn ---------- */
+.rig{padding:22px;display:grid;gap:18px}
+.rig-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.rig-top .grow{flex:1;min-width:220px}
+.srcbadge{font-family:var(--f-mono);font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
+.srcbadge.web{background:var(--amber-wash);color:var(--amber)}
+.srcbadge.app{background:var(--green-wash);color:var(--green)}
+.progress{height:4px;border-radius:4px;background:var(--surface-3);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.part{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.part .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.part .v{font-weight:600;font-size:15px;margin-top:4px;overflow-wrap:anywhere}
+.part .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.part select{margin-top:8px;width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;font-size:13px}
+.note{font-size:13px;color:var(--text-2);background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:10px 14px}
+.note.good{border-left-color:var(--green)}
+.note b{color:var(--text)}
+
+/* ---------- Chỉ số sức mạnh ---------- */
+.power{overflow:hidden}
+.power-head{padding:36px 20px 28px;text-align:center;border-bottom:1px solid var(--line);
+  background:radial-gradient(60% 80% at 50% 0%,var(--green-wash),transparent)}
+.power-head .k{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--muted)}
+.power-num{font-family:var(--f-display);font-weight:700;font-size:clamp(56px,10vw,96px);line-height:1;color:var(--green);
+  text-shadow:0 0 28px color-mix(in srgb,var(--green) 45%,transparent);font-variant-numeric:tabular-nums;margin-top:8px}
+.power-head .lvl{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--muted);margin-top:4px}
+.tier-badge{display:inline-block;margin-top:16px;padding:8px 18px;border-radius:10px;color:#fff;font-family:var(--f-display);font-weight:700;font-size:16px}
+.power-head .desc{color:var(--text-2);margin-top:12px}
+.power-head .pct{margin-top:14px;font-weight:600;font-size:16px}
+.power-head .pct b{color:var(--green);font-family:var(--f-display);font-size:22px}
+.power-body{padding:22px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tile .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.tile .n{font-family:var(--f-mono);font-size:14px;margin-top:6px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .p{font-family:var(--f-display);font-weight:700;font-size:20px;margin-top:6px}
+.tile .p small{font-family:var(--f-body);font-weight:400;font-size:12px;color:var(--muted)}
+.hist{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:28px;padding-top:22px}
+.hist div{flex:1;background:var(--surface-3);border-radius:4px 4px 0 0;position:relative;min-height:3px}
+.hist div.me{background:var(--green)}
+.hist div.me::after{content:"BẠN";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:10px;font-weight:700;color:var(--green)}
+.hist-axis{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:8px}
+.ladder{margin-top:26px;display:grid}
+.rung{display:flex;align-items:center;gap:14px;padding:12px 10px;border-top:1px solid var(--line)}
+.rung:first-child{border-top:0}
+.rung.me{background:var(--surface-2);border-radius:12px}
+.rung .n{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:#fff;font-family:var(--f-display);font-weight:700;font-size:14px;flex:none}
+.rung .t{font-weight:700}
+.rung .m{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.me-tag{font-family:var(--f-mono);font-size:10px;font-weight:700;background:var(--green-wash);color:var(--green);padding:2px 8px;border-radius:6px;margin-left:8px}
+
+/* ---------- Danh sách game ---------- */
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.grow-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-decoration:none;min-width:0;transition:border-color .15s}
+.grow-row:hover{border-color:var(--line-2)}
+.grow-row .rank{font-family:var(--f-mono);font-weight:700;width:22px;text-align:center;color:var(--muted)}
+.grow-row .rank.hot{color:var(--green)}
+.grow-row .body{flex:1;min-width:0}
+.grow-row .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow-row .sub{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow-row .cover{width:52px;height:52px;border-radius:12px;object-fit:cover;flex:none}
+.pill{font-family:var(--f-mono);font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill.great{background:var(--green-wash);color:var(--green)}
+.pill.ok{background:var(--amber-wash);color:var(--amber)}
+.pill.bad{background:var(--red-wash);color:var(--red)}
+.pill.unknown{background:var(--surface-3);color:var(--muted)}
+
+.mine{padding:18px;margin-top:18px}
+.mine-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mine-head .ic{width:44px;height:44px;border-radius:12px;background:var(--surface-3);display:grid;place-items:center;color:var(--green)}
+.mine-head .grow{flex:1;min-width:180px}
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.count{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;cursor:pointer}
+.count[aria-pressed="true"]{border-color:var(--line-2);background:var(--surface-3)}
+.count .n{font-family:var(--f-display);font-weight:700;font-size:28px}
+.count.great .n{color:var(--green)} .count.ok .n{color:var(--amber)} .count.bad .n{color:var(--red)}
+.count .l{font-size:13px;color:var(--muted)}
+.scroll{max-height:520px;overflow:auto;margin-top:14px;display:grid;gap:10px;padding-right:4px}
+
+/* ---------- Trang chi tiết game ---------- */
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;margin-top:24px}
+.back:hover{color:var(--text)}
+.ghead{margin-top:14px;display:grid;grid-template-columns:minmax(0,460px) 1fr;gap:28px;align-items:center}
+.ghead img{width:100%;border-radius:16px;border:1px solid var(--line);display:block}
+.ghead .ini.big{width:100%;height:auto;aspect-ratio:460/215;border-radius:16px;font-size:48px}
+.ghead h1{font-size:clamp(28px,4vw,40px)}
+.gmeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.verdict{margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.verdict .big{font-family:var(--f-display);font-weight:700;font-size:26px;padding:8px 18px;border-radius:12px}
+.verdict .big.great{background:var(--green-wash);color:var(--green)}
+.verdict .big.ok{background:var(--amber-wash);color:var(--amber)}
+.verdict .big.bad{background:var(--red-wash);color:var(--red)}
+.verdict .big.unknown{background:var(--surface-3);color:var(--muted)}
+.fps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:22px}
+.fps .tile .p{font-size:28px}
+.tbl-wrap{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+table.req{width:100%;border-collapse:collapse;min-width:640px}
+table.req th,table.req td{padding:12px 16px;text-align:left;border-top:1px solid var(--line);vertical-align:top;font-size:14px}
+table.req thead th{border-top:0;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+table.req td.k{font-weight:700;white-space:nowrap}
+table.req .sc{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);display:block;margin-top:2px}
+.st{display:inline-block;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:12px;font-weight:700;margin-right:6px;vertical-align:-4px}
+.st.pass{background:var(--green-wash);color:var(--green)}
+.st.fail{background:var(--red-wash);color:var(--red)}
+.st.unknown,.st.na{background:var(--surface-3);color:var(--muted)}
+.ups{display:grid;gap:12px;margin-top:18px}
+.up{padding:16px 18px}
+.up h3{font-size:17px}
+.opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.opt{display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface-2);text-decoration:none;min-width:190px}
+.opt:hover{border-color:var(--green)}
+.opt b{font-size:14px}
+.opt span{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.opt em{font-style:normal;color:var(--green);font-size:12.5px;font-weight:600}
+.src{font-size:12.5px;color:var(--muted);margin-top:16px}
+.src a{color:var(--text-2)}
+
+/* ---------- Trình hướng dẫn chạy app (4 bước) ---------- */
+.wiz{margin-top:28px;display:grid;grid-template-columns:260px 1fr;min-height:420px}
+.wiz-steps{padding:32px 28px;border-right:1px solid var(--line);display:grid;align-content:start;gap:0}
+.ws{display:flex;align-items:center;gap:14px;font-family:var(--f-display);font-weight:600;font-size:18px;color:var(--text-2);position:relative;padding:12px 0}
+.ws .dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--line-2);display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;flex:none;color:var(--muted);background:var(--surface)}
+.ws.done .dot{border-color:var(--green);color:var(--green)}
+.ws.cur .dot{border-color:var(--green);background:var(--green);color:var(--green-ink)}
+.ws.cur{color:var(--text)}
+.ws:not(:last-child)::after{content:"";position:absolute;left:15px;top:44px;height:14px;border-left:2px dotted var(--line-2)}
+.wiz-main{padding:36px 40px;display:grid;align-content:start;gap:18px}
+.wiz-main h2{font-size:24px}
+.wiz-main ul{margin:0;padding-left:20px;color:var(--text-2);display:grid;gap:4px}
+.spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--green);animation:spin .8s linear infinite;display:inline-block;vertical-align:-4px;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Mũi tên chỉ khu tải xuống của trình duyệt */
+#dlarrow{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:70px;z-index:50;display:flex;flex-direction:column;align-items:center;gap:2px;
+  color:var(--green);pointer-events:none;animation:nudge 1.1s ease-in-out infinite}
+#dlarrow span{font-size:44px;line-height:1;font-weight:700}
+#dlarrow b{font-size:13px;background:var(--surface);border:1px solid var(--green);border-radius:8px;padding:4px 10px;white-space:nowrap}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ---------- Chân trang ---------- */
+.foot{margin-top:72px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:grid;gap:8px}
+.foot a{color:var(--text-2)}
+
+/* ---------- Điện thoại ---------- */
+@media (max-width:760px){
+  .wrap{padding-inline:16px}
+  .hero{padding:32px 20px}
+  .search{flex-direction:column}
+  .grid2{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr}
+  .ghead{grid-template-columns:1fr}
+  .wiz{grid-template-columns:1fr}
+  .wiz-steps{border-right:0;border-bottom:1px solid var(--line);padding:20px}
+  .wiz-main{padding:24px 20px}
+  .counts{gap:8px}
+  .count .n{font-size:22px}
+  .hist{gap:3px;height:120px}
+}

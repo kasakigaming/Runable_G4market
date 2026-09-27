@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "dev": "deno run -A --unstable-kv --watch main.ts"
+  },
+  "lint": { "rules": { "tags": ["recommended"] } }
+}

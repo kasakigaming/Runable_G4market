@@ -1,0 +1,3547 @@
+{
+ "fetched": "2026-09-27T07:41:52.889Z",
+ "source": "Steam Store API",
+ "games": [
+  {
+   "id": "steam:730",
+   "appid": 730,
+   "name": "Counter-Strike 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg?t=1789251637",
+   "free": true,
+   "genres": [
+    "Action",
+    "Free To Play"
+   ],
+   "released": "Aug 21, 2012",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "4 hardware CPU threads - Intel Core i5 750 or higher",
+    "gpu": "Video card must be 1 GB or more and should be a DirectX 11-compatible with support for Shader Model 5.0",
+    "ram": 8,
+    "vram": 1,
+    "disk": 85,
+    "diskText": "85 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "4 hardware CPU threads - Intel Core i5 750",
+     "higher"
+    ],
+    "gpuAlts": [
+     "Video card must be 1 GB",
+     "more and should be a DirectX 11-compatible with support for Shader Model 5.0"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/730"
+  },
+  {
+   "id": "steam:570",
+   "appid": 570,
+   "name": "Dota 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/570/header.jpg?t=1769535998",
+   "free": true,
+   "genres": [
+    "Action",
+    "Strategy",
+    "Free To Play"
+   ],
+   "released": "Jul 9, 2013",
+   "metacritic": 90,
+   "min": {
+    "os": "Windows 7 or newer",
+    "cpu": "Dual core from Intel or AMD at 2.8 GHz",
+    "gpu": "NVIDIA GeForce 8600/9600GT, ATI/AMD Radeon HD2600/3600",
+    "ram": 4,
+    "vram": null,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Dual core from Intel",
+     "AMD at 2.8 GHz"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce 8600/9600GT, ATI",
+     "AMD Radeon HD2600/3600"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/570"
+  },
+  {
+   "id": "steam:578080",
+   "appid": 578080,
+   "name": "PUBG: BATTLEGROUNDS",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/578080/841ea38bc58cabb70aef65365cf50bc2d79329d9/header.jpg?t=1786493086",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Massively Multiplayer",
+    "Free To Play"
+   ],
+   "released": "Dec 21, 2017",
+   "metacritic": null,
+   "min": {
+    "os": "64-bit Windows 10",
+    "cpu": "Intel Core i5-4430 / AMD FX-6300",
+    "gpu": "NVIDIA GeForce GTX 960 2GB / AMD Radeon R7 370 2GB",
+    "ram": 8,
+    "vram": 2,
+    "disk": 40,
+    "diskText": "40 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-4430",
+     "AMD FX-6300"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 960 2GB",
+     "AMD Radeon R7 370 2GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10",
+    "cpu": "Intel Core i5-6600K / AMD Ryzen 5 1600",
+    "gpu": "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB",
+    "ram": 16,
+    "vram": 3,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-6600K",
+     "AMD Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 3GB",
+     "AMD Radeon RX 580 4GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/578080"
+  },
+  {
+   "id": "steam:1172470",
+   "appid": 1172470,
+   "name": "Apex Legends™",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172470/60fcaedb88ccf94df30281533d828b86c6ffb9b6/header_alt_assets_5.jpg?t=1790164440",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Free To Play"
+   ],
+   "released": "Nov 4, 2020",
+   "metacritic": 88,
+   "min": {
+    "os": "64-bit Windows 10",
+    "cpu": "AMD FX 4350 or Equivalent, Intel Core i3 6300 or Equivalent",
+    "gpu": "AMD Radeon HD 7790 (2 GB), NVIDIA GeForce GTX 950",
+    "ram": 6,
+    "vram": 2,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "~3.8GB for 1 localized language",
+    "cpuAlts": [
+     "AMD FX 4350",
+     "Equivalent",
+     "Intel Core i3 6300",
+     "Equivalent"
+    ],
+    "gpuAlts": [
+     "AMD Radeon HD 7790 (2 GB)",
+     "NVIDIA GeForce GTX 950"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10",
+    "cpu": "Ryzen 5 CPU or Equivalent",
+    "gpu": "AMD Radeon R9 290, NVIDIA GeForce GTX 970",
+    "ram": 8,
+    "vram": null,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "~3.8GB for 1 localized language",
+    "cpuAlts": [
+     "Ryzen 5 CPU",
+     "Equivalent"
+    ],
+    "gpuAlts": [
+     "AMD Radeon R9 290",
+     "NVIDIA GeForce GTX 970"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1172470"
+  },
+  {
+   "id": "steam:3240220",
+   "appid": 3240220,
+   "name": "Grand Theft Auto V Enhanced",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3240220/header.jpg?t=1781187782",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Racing"
+   ],
+   "released": "Mar 4, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 (latest service pack)",
+    "cpu": "Intel Core i7-4770 | AMD FX-9590",
+    "gpu": "NVIDIA GeForce GTX 1630 (4GB VRAM) | AMD Radeon RX 6400 (4GB VRAM)",
+    "ram": 8,
+    "vram": 4,
+    "disk": 105,
+    "diskText": "105 GB available space",
+    "dx": null,
+    "notes": "SSD Required | Over time downloadable content and programming changes will change the system requirements for this game. Please refer to your hardware manufacturer and for current compatibility information. Some system components such as mobile chipsets, integrated, and AGP graphics cards may be incompatible. Unlisted specifications may not be supported by publisher. Other requirements: Installation and online play requires log-in to Rockstar Games account (minimum age varies) network; internet connection required for activation, online play, and periodic entitlement verification; software installations required including Rockstar Games Launcher, DirectX, Chromium, and Microsoft Visual C++ 2008 sp1 Redistributable Package, and authentication and verification software that recognizes certain hardware attributes for entitlement, digital rights management, anti-cheat and moderation software, system, and other support purposes. *Compatible PC and/or device required. 3D Audio via Windows Spatial Sound compatible audio systems",
+    "cpuAlts": [
+     "Intel Core i7-4770",
+     "AMD FX-9590"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1630 (4GB VRAM)",
+     "AMD Radeon RX 6400 (4GB VRAM)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11",
+    "cpu": "Intel Core i5-9600K | AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce RTX 3060 (8GB VRAM) | AMD Radeon RX 6600XT (8GB VRAM)",
+    "ram": 16,
+    "vram": 8,
+    "disk": 105,
+    "diskText": "105 GB available space",
+    "dx": null,
+    "notes": "SSD with DirectStorage-compatibility",
+    "cpuAlts": [
+     "Intel Core i5-9600K",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 3060 (8GB VRAM)",
+     "AMD Radeon RX 6600XT (8GB VRAM)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3240220"
+  },
+  {
+   "id": "steam:1245620",
+   "appid": 1245620,
+   "name": "ELDEN RING",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/f0b19c231f86fa0e633ff88a1a63459443017728/header_alt_assets_3.jpg?t=1790290043",
+   "free": false,
+   "genres": [
+    "Action",
+    "RPG"
+   ],
+   "released": "Feb 24, 2022",
+   "metacritic": 94,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "INTEL CORE I5-8400 or AMD RYZEN 3 3300X",
+    "gpu": "NVIDIA GEFORCE GTX 1060 3 GB or AMD RADEON RX 580 4 GB",
+    "ram": 12,
+    "vram": 3,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "INTEL CORE I5-8400",
+     "AMD RYZEN 3 3300X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GEFORCE GTX 1060 3 GB",
+     "AMD RADEON RX 580 4 GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11",
+    "cpu": "INTEL CORE I7-8700K or AMD RYZEN 5 3600X",
+    "gpu": "NVIDIA GEFORCE GTX 1070 8 GB or AMD RADEON RX VEGA 56 8 GB",
+    "ram": 16,
+    "vram": 8,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "INTEL CORE I7-8700K",
+     "AMD RYZEN 5 3600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GEFORCE GTX 1070 8 GB",
+     "AMD RADEON RX VEGA 56 8 GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1245620"
+  },
+  {
+   "id": "steam:1091500",
+   "appid": 1091500,
+   "name": "Cyberpunk 2077",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/e9047d8ec47ae3d94bb8b464fb0fc9e9972b4ac7/header.jpg?t=1784714077",
+   "free": false,
+   "genres": [
+    "RPG"
+   ],
+   "released": "Dec 9, 2020",
+   "metacritic": 86,
+   "min": {
+    "os": "64-bit Windows 10",
+    "cpu": "Core i7-6700 or Ryzen 5 1600",
+    "gpu": "GeForce GTX 1060 6GB or Radeon RX 580 8GB or Arc A380",
+    "ram": 12,
+    "vram": 6,
+    "disk": 70,
+    "diskText": "70 GB available space",
+    "dx": 12,
+    "notes": "SSD required. Attention: In this game you will encounter a variety of visual effects that may provide seizures or loss of consciousness in a minority of people. If you or someone you know experiences any of the above symptoms while playing, stop and seek medical attention immediately.",
+    "cpuAlts": [
+     "Core i7-6700",
+     "Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 1060 6GB",
+     "Radeon RX 580 8GB",
+     "Arc A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10",
+    "cpu": "Core i7-12700 or Ryzen 7 7800X3D",
+    "gpu": "GeForce RTX 2060 SUPER or Radeon RX 5700 XT or Arc A770",
+    "ram": 16,
+    "vram": null,
+    "disk": 70,
+    "diskText": "70 GB available space",
+    "dx": 12,
+    "notes": "SSD required.",
+    "cpuAlts": [
+     "Core i7-12700",
+     "Ryzen 7 7800X3D"
+    ],
+    "gpuAlts": [
+     "GeForce RTX 2060 SUPER",
+     "Radeon RX 5700 XT",
+     "Arc A770"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1091500"
+  },
+  {
+   "id": "steam:1174180",
+   "appid": 1174180,
+   "name": "Red Dead Redemption 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Dec 5, 2019",
+   "metacritic": 93,
+   "min": {
+    "os": "Windows 10 - 64-bit",
+    "cpu": "Intel Core i5-2500K / AMD FX-6300",
+    "gpu": "Nvidia GeForce GTX 770 2GB / AMD Radeon R9 280 3GB",
+    "ram": 8,
+    "vram": 2,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-2500K",
+     "AMD FX-6300"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 770 2GB",
+     "AMD Radeon R9 280 3GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 - 64-bit",
+    "cpu": "Intel Core i7-4770K / AMD Ryzen 5 1500X",
+    "gpu": "Nvidia GeForce GTX 1060 6GB / AMD Radeon RX 480 4GB",
+    "ram": 12,
+    "vram": 4,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7-4770K",
+     "AMD Ryzen 5 1500X"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 1060 6GB",
+     "AMD Radeon RX 480 4GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1174180"
+  },
+  {
+   "id": "steam:2358720",
+   "appid": 2358720,
+   "name": "Black Myth: Wukong",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg?t=1760601605",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Aug 19, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i5-8400 / AMD Ryzen 5 1600",
+    "gpu": "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB",
+    "ram": 16,
+    "vram": 6,
+    "disk": 130,
+    "diskText": "130 GB available space",
+    "dx": 11,
+    "notes": "HDD Supported, SSD Recommended. The above specifications were tested with DLSS/FSR/XeSS enabled.",
+    "cpuAlts": [
+     "Intel Core i5-8400",
+     "AMD Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 6GB",
+     "AMD Radeon RX 580 8GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i7-9700 / AMD Ryzen 5 5500",
+    "gpu": "NVIDIA GeForce RTX 2060 / AMD Radeon RX 5700 XT / INTEL Arc A750",
+    "ram": 16,
+    "vram": null,
+    "disk": 130,
+    "diskText": "130 GB available space",
+    "dx": 12,
+    "notes": "SSD Required. The above specifications were tested with DLSS/FSR/XeSS enabled.",
+    "cpuAlts": [
+     "Intel Core i7-9700",
+     "AMD Ryzen 5 5500"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060",
+     "AMD Radeon RX 5700 XT",
+     "INTEL Arc A750"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2358720"
+  },
+  {
+   "id": "steam:1086940",
+   "appid": 1086940,
+   "name": "Baldur's Gate 3",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/48a2fcbda8565bb45025e98fd8ebde8a7203f6a0/header.jpg?t=1777363040",
+   "free": false,
+   "genres": [
+    "Adventure",
+    "RPG",
+    "Strategy"
+   ],
+   "released": "Aug 3, 2023",
+   "metacritic": 96,
+   "min": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel I5 4690 / AMD FX 8350 / Snapdragon X Elite",
+    "gpu": "Nvidia GTX 970 / RX 480 / Intel Arc A380 / Qualcomm Adreno X1 (4GB+ of VRAM)",
+    "ram": 8,
+    "vram": 4,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": 11,
+    "notes": "SSD required",
+    "cpuAlts": [
+     "Intel I5 4690",
+     "AMD FX 8350",
+     "Snapdragon X Elite"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 970",
+     "RX 480",
+     "Intel Arc A380",
+     "Qualcomm Adreno X1 (4GB+ of VRAM)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel i7 8700K / AMD r5 3600",
+    "gpu": "Nvidia 2060 Super / RX 5700 XT / Intel Arc A580 (8GB+ of VRAM)",
+    "ram": 16,
+    "vram": 8,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": 11,
+    "notes": "SSD required",
+    "cpuAlts": [
+     "Intel i7 8700K",
+     "AMD r5 3600"
+    ],
+    "gpuAlts": [
+     "Nvidia 2060 Super",
+     "RX 5700 XT",
+     "Intel Arc A580 (8GB+ of VRAM)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1086940"
+  },
+  {
+   "id": "steam:990080",
+   "appid": 990080,
+   "name": "Hogwarts Legacy",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/990080/be2971b1023bccb04f993887d70ef4d2060262cf/header.jpg?t=1790097140",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Feb 10, 2023",
+   "metacritic": 83,
+   "min": {
+    "os": "64-bit Windows 10",
+    "cpu": "Intel Core i5-6600 (3.3Ghz) or AMD Ryzen 5 1400 (3.2Ghz)",
+    "gpu": "NVIDIA GeForce GTX 960 4GB or AMD Radeon RX 470 4GB",
+    "ram": 16,
+    "vram": 4,
+    "disk": 85,
+    "diskText": "85 GB available space",
+    "dx": 12,
+    "notes": "SSD (Preferred), HDD (Supported), 720p/30 fps, Low Quality Settings",
+    "cpuAlts": [
+     "Intel Core i5-6600 (3.3Ghz)",
+     "AMD Ryzen 5 1400 (3.2Ghz)"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 960 4GB",
+     "AMD Radeon RX 470 4GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10",
+    "cpu": "Intel Core i7-8700 (3.2Ghz) or AMD Ryzen 5 3600 (3.6 Ghz)",
+    "gpu": "NVIDIA GeForce 1080 Ti or AMD Radeon RX 5700 XT or INTEL Arc A770",
+    "ram": 16,
+    "vram": null,
+    "disk": 85,
+    "diskText": "85 GB available space",
+    "dx": 12,
+    "notes": "SSD, 1080p/60 fps, High Quality Settings",
+    "cpuAlts": [
+     "Intel Core i7-8700 (3.2Ghz)",
+     "AMD Ryzen 5 3600 (3.6 Ghz)"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce 1080 Ti",
+     "AMD Radeon RX 5700 XT",
+     "INTEL Arc A770"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/990080"
+  },
+  {
+   "id": "steam:292030",
+   "appid": 292030,
+   "name": "The Witcher 3: Wild Hunt - Complete Edition",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/97cca1147b256f450331044255b1dbd2d57d609e/header_alt_assets_4.jpg?t=1788333513",
+   "free": false,
+   "genres": [
+    "RPG"
+   ],
+   "released": "May 18, 2015",
+   "metacritic": 93,
+   "min": {
+    "os": "64-bit Windows 7, 64-bit Windows 8 (8.1)",
+    "cpu": "Intel CPU Core i5-2500K 3.3GHz / AMD A10-5800K APU (3.8GHz)",
+    "gpu": "Nvidia GPU GeForce GTX 660 / AMD GPU Radeon HD 7870",
+    "ram": 6,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": "*System requirements will change on 2026.09.29.",
+    "cpuAlts": [
+     "Intel CPU Core i5-2500K 3.3GHz",
+     "AMD A10-5800K APU (3.8GHz)"
+    ],
+    "gpuAlts": [
+     "Nvidia GPU GeForce GTX 660",
+     "AMD GPU Radeon HD 7870"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10/11",
+    "cpu": "Intel Core i5-7400 / Ryzen 5 1600",
+    "gpu": "Nvidia GTX 1070 / Radeon RX 480",
+    "ram": 8,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 12,
+    "notes": "*System requirements will change on 2026.09.29.",
+    "cpuAlts": [
+     "Intel Core i5-7400",
+     "Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 1070",
+     "Radeon RX 480"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/292030"
+  },
+  {
+   "id": "steam:1203220",
+   "appid": 1203220,
+   "name": "NARAKA: BLADEPOINT",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1203220/d020e738004b684d99abadbaddd8667c439ff882/header.jpg?t=1785376833",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Massively Multiplayer",
+    "Free To Play"
+   ],
+   "released": "Aug 11, 2021",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit or newer",
+    "cpu": "Intel i5 4th generation or AMD FX 6300 or equivalent",
+    "gpu": "NVIDIA GeForce GTX 750TI, Intel Arc A380, AMD HD 6950 or equivalent",
+    "ram": 8,
+    "vram": null,
+    "disk": 90,
+    "diskText": "90 GB available space",
+    "dx": 11,
+    "notes": "a) Can run at 720p/60fps; b) We advise you install the game on an SSD for a more streamlined experience. c) Requires “Windows Memory integrity and VBS enablement” to be disabled",
+    "cpuAlts": [
+     "Intel i5 4th generation",
+     "AMD FX 6300",
+     "equivalent"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 750TI",
+     "Intel Arc A380",
+     "AMD HD 6950",
+     "equivalent"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel i7 7th generation or equivalent",
+    "gpu": "NVIDIA GeForce GTX 1060 6G, Intel Arc A750, AMD RX480 or equivalent",
+    "ram": 16,
+    "vram": null,
+    "disk": 90,
+    "diskText": "90 GB available space",
+    "dx": 11,
+    "notes": "a) Can run at 1080p/60fps; b) We advise you install the game on an SSD for a more streamlined experience. c) Requires “Windows Memory integrity and VBS enablement” to be disabled",
+    "cpuAlts": [
+     "Intel i7 7th generation",
+     "equivalent"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 6G",
+     "Intel Arc A750",
+     "AMD RX480",
+     "equivalent"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1203220"
+  },
+  {
+   "id": "steam:2507950",
+   "appid": 2507950,
+   "name": "Delta Force",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2507950/09ef134458549352e5b5a06ed7f97cf00d729b62/header_alt_assets_14.jpg?t=1790238079",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Massively Multiplayer",
+    "Free To Play"
+   ],
+   "released": "Dec 4, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64 bit",
+    "cpu": "Intel Core i3-4150 / AMD FX-6300",
+    "gpu": "Nvidia Geforce GTX 660 / AMD HD 7870 / Intel Arc A380",
+    "ram": 8,
+    "vram": null,
+    "disk": 88,
+    "diskText": "88 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-4150",
+     "AMD FX-6300"
+    ],
+    "gpuAlts": [
+     "Nvidia Geforce GTX 660",
+     "AMD HD 7870",
+     "Intel Arc A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64 bit",
+    "cpu": "Intel Core i5-6500 / AMD Ryzen 5 1500x",
+    "gpu": "Nvidia Geforce GTX 1060 5G / AMD RX5500 XT / Intel Arc A580",
+    "ram": 16,
+    "vram": null,
+    "disk": 88,
+    "diskText": "88 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-6500",
+     "AMD Ryzen 5 1500x"
+    ],
+    "gpuAlts": [
+     "Nvidia Geforce GTX 1060 5G",
+     "AMD RX5500 XT",
+     "Intel Arc A580"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2507950"
+  },
+  {
+   "id": "steam:2767030",
+   "appid": 2767030,
+   "name": "Marvel Rivals",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2767030/088fc787d8513a6f9782d03968e5ac1a01840087/header.jpg?t=1789119923",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Casual",
+    "Massively Multiplayer"
+   ],
+   "released": "Dec 5, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit (1909 or newer)",
+    "cpu": "Intel Core i5-6600K or AMD Ryzen 5 1600X",
+    "gpu": "NVIDIA GeForce GTX 1060 / AMD RX 580 / Intel Arc A380",
+    "ram": 16,
+    "vram": null,
+    "disk": 70,
+    "diskText": "70 GB available space",
+    "dx": 12,
+    "notes": "We recommend you install the game on SSD drive for better experience.",
+    "cpuAlts": [
+     "Intel Core i5-6600K",
+     "AMD Ryzen 5 1600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060",
+     "AMD RX 580",
+     "Intel Arc A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit (1909 or newer)",
+    "cpu": "Intel Core i5-10400 or AMD Ryzen 5 5600X",
+    "gpu": "NVIDIA GeForce RTX 2060 (Super) / AMD RX 5700-XT / Intel Arc A750",
+    "ram": 16,
+    "vram": null,
+    "disk": 70,
+    "diskText": "70 GB available space",
+    "dx": 12,
+    "notes": "We recommend you install the game on SSD drive for better experience.",
+    "cpuAlts": [
+     "Intel Core i5-10400",
+     "AMD Ryzen 5 5600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060 (Super)",
+     "AMD RX 5700-XT",
+     "Intel Arc A750"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2767030"
+  },
+  {
+   "id": "steam:2246340",
+   "appid": 2246340,
+   "name": "Monster Hunter Wilds",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1787549555",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Feb 27, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows10 (64-bit Required)/Windows11 (64-bit Required)",
+    "cpu": "Intel Core i5-10400 or Intel Core i3-12100 or AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce GTX 1660(VRAM 6GB) or AMD Radeon RX 5500 XT(VRAM 8GB)",
+    "ram": 16,
+    "vram": 6,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "SSD required. This game is expected to run at 1080p (upscaled from 720 native resolution) / 30 fps under the \"Lowest\" graphics setting. DirectStorage supported.",
+    "cpuAlts": [
+     "Intel Core i5-10400",
+     "Intel Core i3-12100",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1660(VRAM 6GB)",
+     "AMD Radeon RX 5500 XT(VRAM 8GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows10 (64-bit Required)/Windows11 (64-bit Required)",
+    "cpu": "Intel Core i5-10400 or Intel Core i3-12100 or AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce RTX 2060 Super(VRAM 8GB) or AMD Radeon RX 6600(VRAM 8GB)",
+    "ram": 16,
+    "vram": 8,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "SSD required. This game is expected to run at 1080p / 60 fps (with Frame Generation enabled) under the \"Medium\" graphics setting. DirectStorage supported.",
+    "cpuAlts": [
+     "Intel Core i5-10400",
+     "Intel Core i3-12100",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060 Super(VRAM 8GB)",
+     "AMD Radeon RX 6600(VRAM 8GB)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2246340"
+  },
+  {
+   "id": "steam:1623730",
+   "appid": 1623730,
+   "name": "Palworld",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1623730/6912f19c43a95ff5fe514eedd35e68bf12335459/header.jpg?t=1790336367",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "RPG"
+   ],
+   "released": "Jul 9, 2026",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 (64-Bit)",
+    "cpu": "Intel Core i5-9400F",
+    "gpu": "GeForce GTX 1660",
+    "ram": 16,
+    "vram": null,
+    "disk": 40,
+    "diskText": "40 GB available space",
+    "dx": 11,
+    "notes": "SSD Required - Performance may vary depending on the amount of active Pals.",
+    "cpuAlts": [
+     "Intel Core i5-9400F"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 1660"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11 (64-Bit)",
+    "cpu": "Intel Core i5-12400 / AMD Ryzen 5 5600X",
+    "gpu": "GeForce RTX 3060 Ti / Radeon RX 6700 XT",
+    "ram": 32,
+    "vram": null,
+    "disk": 40,
+    "diskText": "40 GB available space",
+    "dx": 11,
+    "notes": "SSD Required - Performance may vary depending on the amount of active Pals.",
+    "cpuAlts": [
+     "Intel Core i5-12400",
+     "AMD Ryzen 5 5600X"
+    ],
+    "gpuAlts": [
+     "GeForce RTX 3060 Ti",
+     "Radeon RX 6700 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1623730"
+  },
+  {
+   "id": "steam:3405690",
+   "appid": 3405690,
+   "name": "EA SPORTS FC™ 26",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3405690/2d96aa1b06e453cd62dae9029d412f19e61932c3/header.jpg?t=1789751159",
+   "free": false,
+   "genres": [
+    "Simulation",
+    "Sports"
+   ],
+   "released": "Sep 25, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10/11 - 64-Bit (Latest Update).",
+    "cpu": "AMD Ryzen 5 1600 or Intel Core i5 6600k",
+    "gpu": "AMD RX 570 or Nvidia GTX 1050 Ti",
+    "ram": 8,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "AMD Ryzen 5 1600",
+     "Intel Core i5 6600k"
+    ],
+    "gpuAlts": [
+     "AMD RX 570",
+     "Nvidia GTX 1050 Ti"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11 - 64-Bit (Latest Update).",
+    "cpu": "AMD Ryzen 7 2700X or Intel Core i7 6700",
+    "gpu": "AMD RX 5600 XT or Nvidia GTX 1660",
+    "ram": 12,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "AMD Ryzen 7 2700X",
+     "Intel Core i7 6700"
+    ],
+    "gpuAlts": [
+     "AMD RX 5600 XT",
+     "Nvidia GTX 1660"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3405690"
+  },
+  {
+   "id": "steam:252490",
+   "appid": 252490,
+   "name": "Rust",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/252490/header.jpg?t=1781536981",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "Massively Multiplayer"
+   ],
+   "released": "Feb 8, 2018",
+   "metacritic": 69,
+   "min": {
+    "os": "Windows 11 64bit",
+    "cpu": "AMD Ryzen 5 1400 or Intel Core i5-6600",
+    "gpu": "AMD Radeon RX 470, NVIDIA GeForce GTX 1060, Intel Arc A580",
+    "ram": 12,
+    "vram": null,
+    "disk": 45,
+    "diskText": "45 GB available space",
+    "dx": 11,
+    "notes": "SSD is highly recommended or expect longer than average load times.",
+    "cpuAlts": [
+     "AMD Ryzen 5 1400",
+     "Intel Core i5-6600"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 470",
+     "NVIDIA GeForce GTX 1060",
+     "Intel Arc A580"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11 64bit",
+    "cpu": "AMD Ryzen 7 3700X or Intel Core i7-6700K",
+    "gpu": "AMD Radeon RX 6600XT, NVIDIA GeForce RTX 3060, Intel Arc B580",
+    "ram": 16,
+    "vram": null,
+    "disk": 45,
+    "diskText": "45 GB available space",
+    "dx": 12,
+    "notes": "SSD Required",
+    "cpuAlts": [
+     "AMD Ryzen 7 3700X",
+     "Intel Core i7-6700K"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 6600XT",
+     "NVIDIA GeForce RTX 3060",
+     "Intel Arc B580"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/252490"
+  },
+  {
+   "id": "steam:413150",
+   "appid": 413150,
+   "name": "Stardew Valley",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg?t=1786554168",
+   "free": false,
+   "genres": [
+    "Indie",
+    "RPG",
+    "Simulation"
+   ],
+   "released": "Feb 26, 2016",
+   "metacritic": 89,
+   "min": {
+    "os": "Windows Vista or greater",
+    "cpu": "2 Ghz",
+    "gpu": "256 mb video memory, shader model 3.0+",
+    "ram": 2,
+    "vram": 0.25,
+    "disk": 0.5,
+    "diskText": "500 MB available space",
+    "dx": 10,
+    "notes": null,
+    "cpuAlts": [
+     "2 Ghz"
+    ],
+    "gpuAlts": [
+     "256 mb video memory, shader model 3.0+"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/413150"
+  },
+  {
+   "id": "steam:105600",
+   "appid": 105600,
+   "name": "Terraria",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg?t=1769844435",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "RPG"
+   ],
+   "released": "May 16, 2011",
+   "metacritic": 83,
+   "min": {
+    "os": "Windows Xp, Vista, 7, 8/8.1, 10",
+    "cpu": "2.0 Ghz",
+    "gpu": "128mb Video Memory, capable of Shader Model 2.0+",
+    "ram": 2.5,
+    "vram": null,
+    "disk": 0.2,
+    "diskText": "200MB",
+    "dx": 9,
+    "notes": null,
+    "cpuAlts": [
+     "2.0 Ghz"
+    ],
+    "gpuAlts": [
+     "128mb Video Memory, capable of Shader Model 2.0+"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7, 8/8.1, 10",
+    "cpu": "Dual Core 3.0 Ghz",
+    "gpu": "256mb Video Memory, capable of Shader Model 2.0+",
+    "ram": 4,
+    "vram": 0.25,
+    "disk": 0.2,
+    "diskText": "200MB",
+    "dx": 9,
+    "notes": null,
+    "cpuAlts": [
+     "Dual Core 3.0 Ghz"
+    ],
+    "gpuAlts": [
+     "256mb Video Memory, capable of Shader Model 2.0+"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/105600"
+  },
+  {
+   "id": "steam:814380",
+   "appid": 814380,
+   "name": "Sekiro™: Shadows Die Twice - GOTY Edition",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg?t=1762888662",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Mar 21, 2019",
+   "metacritic": 88,
+   "min": {
+    "os": "Windows 7 64-bit | Windows 8 64-bit | Windows 10 64-bit",
+    "cpu": "Intel Core i3-2100 | AMD FX-6300",
+    "gpu": "NVIDIA GeForce GTX 760 | AMD Radeon HD 7950",
+    "ram": 4,
+    "vram": null,
+    "disk": 25,
+    "diskText": "25 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-2100",
+     "AMD FX-6300"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 760",
+     "AMD Radeon HD 7950"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7 64-bit | Windows 8 64-bit | Windows 10 64-bit",
+    "cpu": "Intel Core i5-2500K | AMD Ryzen 5 1400",
+    "gpu": "NVIDIA GeForce GTX 970 | AMD Radeon RX 570",
+    "ram": 8,
+    "vram": null,
+    "disk": 25,
+    "diskText": "25 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-2500K",
+     "AMD Ryzen 5 1400"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 970",
+     "AMD Radeon RX 570"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/814380"
+  },
+  {
+   "id": "steam:2322010",
+   "appid": 2322010,
+   "name": "God of War Ragnarök",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/header.jpg?t=1776465233",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Sep 19, 2024",
+   "metacritic": 90,
+   "min": {
+    "os": "Windows 10 20H1",
+    "cpu": "Intel i5-4670k or AMD Ryzen 3 1200",
+    "gpu": "NVIDIA GTX 1060 (6GB) or AMD RX 5500 XT (8GB) or Intel Arc A750",
+    "ram": 8,
+    "vram": 6,
+    "disk": 190,
+    "diskText": "190 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-4670k",
+     "AMD Ryzen 3 1200"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 1060 (6GB)",
+     "AMD RX 5500 XT (8GB)",
+     "Intel Arc A750"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 20H1",
+    "cpu": "Intel i5-8600 or AMD Ryzen 5 3600",
+    "gpu": "NVIDIA RTX 2060 Super or AMD RX 5700 or Intel Arc A770",
+    "ram": 16,
+    "vram": null,
+    "disk": 190,
+    "diskText": "190 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-8600",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA RTX 2060 Super",
+     "AMD RX 5700",
+     "Intel Arc A770"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2322010"
+  },
+  {
+   "id": "steam:2215430",
+   "appid": 2215430,
+   "name": "Ghost of Tsushima DIRECTOR'S CUT",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg?t=1763409398",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "May 16, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i3-7100 or AMD Ryzen 3 1200",
+    "gpu": "NVIDIA GeForce GTX 960 or AMD Radeon RX 5500 XT",
+    "ram": 8,
+    "vram": null,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": null,
+    "notes": "SSD Recommended",
+    "cpuAlts": [
+     "Intel Core i3-7100",
+     "AMD Ryzen 3 1200"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 960",
+     "AMD Radeon RX 5500 XT"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i5-8600 or AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce RTX 2060 or AMD Radeon RX 5600 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": null,
+    "notes": "SSD Required",
+    "cpuAlts": [
+     "Intel Core i5-8600",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060",
+     "AMD Radeon RX 5600 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2215430"
+  },
+  {
+   "id": "steam:2651280",
+   "appid": 2651280,
+   "name": "Marvel's Spider-Man 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2651280/header.jpg?t=1763569811",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Jan 30, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10/11 (version 1909 or higher)",
+    "cpu": "Intel Core i3-8100 or AMD Ryzen 3 3100",
+    "gpu": "NVIDIA GeForce GTX 1650 or AMD Radeon RX 5500 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 140,
+    "diskText": "140 GB available space",
+    "dx": null,
+    "notes": "SSD Required",
+    "cpuAlts": [
+     "Intel Core i3-8100",
+     "AMD Ryzen 3 3100"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1650",
+     "AMD Radeon RX 5500 XT"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11 (version 1909 or higher)",
+    "cpu": "Intel Core i5-8400 or AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce RTX 3060 or AMD Radeon RX 5700",
+    "ram": 16,
+    "vram": null,
+    "disk": 140,
+    "diskText": "140 GB available space",
+    "dx": null,
+    "notes": "SSD Required",
+    "cpuAlts": [
+     "Intel Core i5-8400",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 3060",
+     "AMD Radeon RX 5700"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2651280"
+  },
+  {
+   "id": "steam:1551360",
+   "appid": 1551360,
+   "name": "Forza Horizon 5",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1788546569",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Racing",
+    "Simulation"
+   ],
+   "released": "Nov 8, 2021",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 version 18362.0 or higher",
+    "cpu": "Intel i5-4460 or AMD Ryzen 3 1200",
+    "gpu": "NVidia GTX 970, AMD RX 470, OR Intel Arc A380",
+    "ram": 8,
+    "vram": null,
+    "disk": 110,
+    "diskText": "110 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-4460",
+     "AMD Ryzen 3 1200"
+    ],
+    "gpuAlts": [
+     "NVidia GTX 970",
+     "AMD RX 470,",
+     "Intel Arc A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 version 18362.0 or higher",
+    "cpu": "Intel i5-8400 or AMD Ryzen 5 1500X",
+    "gpu": "NVidia GTX 1070, AMD RX 590, OR Intel Arc A750",
+    "ram": 16,
+    "vram": null,
+    "disk": 110,
+    "diskText": "110 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-8400",
+     "AMD Ryzen 5 1500X"
+    ],
+    "gpuAlts": [
+     "NVidia GTX 1070",
+     "AMD RX 590,",
+     "Intel Arc A750"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1551360"
+  },
+  {
+   "id": "steam:2050650",
+   "appid": 2050650,
+   "name": "Resident Evil 4",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg?t=1772502922",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Mar 23, 2023",
+   "metacritic": 91,
+   "min": {
+    "os": "Windows 10 (64 bit)",
+    "cpu": "AMD Ryzen 3 1200 / Intel Core i5-7500",
+    "gpu": "AMD Radeon RX 560 with 4GB VRAM / NVIDIA GeForce GTX 1050 Ti with 4GB VRAM",
+    "ram": 8,
+    "vram": 4,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": "Estimated performance (when set to Prioritize Performance): 1080p/45fps. ・Framerate might drop in graphics-intensive scenes. ・AMD Radeon RX 6700 XT or NVIDIA GeForce RTX 2060 required to support ray tracing.",
+    "cpuAlts": [
+     "AMD Ryzen 3 1200",
+     "Intel Core i5-7500"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 560 with 4GB VRAM",
+     "NVIDIA GeForce GTX 1050 Ti with 4GB VRAM"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 (64 bit)/Windows 11 (64 bit)",
+    "cpu": "AMD Ryzen 5 3600 / Intel Core i7 8700",
+    "gpu": "AMD Radeon RX 5700 / NVIDIA GeForce GTX 1070",
+    "ram": 16,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": "Estimated performance: 1080p/60fps ・Framerate might drop in graphics-intensive scenes. ・AMD Radeon RX 6700 XT or NVIDIA GeForce RTX 2070 required to support ray tracing.",
+    "cpuAlts": [
+     "AMD Ryzen 5 3600",
+     "Intel Core i7 8700"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 5700",
+     "NVIDIA GeForce GTX 1070"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2050650"
+  },
+  {
+   "id": "steam:534380",
+   "appid": 534380,
+   "name": "Dying Light 2 Stay Human: Reloaded Edition",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/534380/header.jpg?t=1788258144",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Feb 3, 2022",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i3-9100 / AMD Ryzen 3 2300X",
+    "gpu": "NVIDIA GeForce GTX 1050 Ti / AMD Radeon RX 560 (4GB VRAM)",
+    "ram": 8,
+    "vram": 4,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-9100",
+     "AMD Ryzen 3 2300X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1050 Ti",
+     "AMD Radeon RX 560 (4GB VRAM)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10",
+    "cpu": "AMD / Intel CPU running at 3.6 GHz or higher: AMD Ryzen 5 3600X or Intel i5-8600K or newer",
+    "gpu": "NVIDIA GeForce RTX 2060 6GB or AMD RX Vega 56 8GB or newer",
+    "ram": 16,
+    "vram": 6,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "AMD",
+     "Intel CPU running at 3.6 GHz",
+     "higher: AMD Ryzen 5 3600X",
+     "Intel i5-8600K",
+     "newer"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060 6GB",
+     "AMD RX Vega 56 8GB",
+     "newer"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/534380"
+  },
+  {
+   "id": "steam:1938090",
+   "appid": 1938090,
+   "name": "Call of Duty®",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1938090/23af6cf41e2d09620caa07700a4cb3288dbcbaa8/header.jpg?t=1790379171",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Oct 27, 2022",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64 Bit (latest update)",
+    "cpu": "AMD Ryzen 5 1400 or Intel Core i5-6600",
+    "gpu": "AMD Radeon RX 470, NVIDIA GeForce GTX 970 / 1060 or Intel Arc A580",
+    "ram": 8,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": "SSD with 161 GB available space at launch",
+    "cpuAlts": [
+     "AMD Ryzen 5 1400",
+     "Intel Core i5-6600"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 470",
+     "NVIDIA GeForce GTX 970",
+     "1060",
+     "Intel Arc A580"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11 64 Bit (latest update)",
+    "cpu": "AMD Ryzen 5 1600X or Intel Core i7-6700K",
+    "gpu": "AMD Radeon RX 6600XT, NVIDIA GeForce RTX 3060 or Intel Arc B580",
+    "ram": 12,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": "SSD with 161 GB available space at launch",
+    "cpuAlts": [
+     "AMD Ryzen 5 1600X",
+     "Intel Core i7-6700K"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 6600XT",
+     "NVIDIA GeForce RTX 3060",
+     "Intel Arc B580"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1938090"
+  },
+  {
+   "id": "steam:2807960",
+   "appid": 2807960,
+   "name": "Battlefield™ 6",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2807960/c12d12ce3c7d217398d3fcad77427bfc9d57c570/header.jpg?t=1790375732",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Oct 10, 2025",
+   "metacritic": 82,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i5-8400, AMD Ryzen 5 2600",
+    "gpu": "Nvidia RTX 2060, AMD Radeon RX 5600 XT 6GB, Intel Arc A380",
+    "ram": 16,
+    "vram": 6,
+    "disk": 55,
+    "diskText": "55 GB available space",
+    "dx": 12,
+    "notes": "TPM 2.0 Enabled UEFI SECURE BOOT Enabled HVCI Capable VBS Capable",
+    "cpuAlts": [
+     "Intel Core i5-8400",
+     "AMD Ryzen 5 2600"
+    ],
+    "gpuAlts": [
+     "Nvidia RTX 2060",
+     "AMD Radeon RX 5600 XT 6GB",
+     "Intel Arc A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11",
+    "cpu": "Intel Core i7-10700, AMD Ryzen 7 3700X",
+    "gpu": "Nvidia RTX 3060Ti, AMD Radeon RX 6700-XT, Intel Arc B580",
+    "ram": 16,
+    "vram": null,
+    "disk": 80,
+    "diskText": "80 GB available space",
+    "dx": 12,
+    "notes": "TPM 2.0 Enabled UEFI SECURE BOOT Enabled HVCI Capable VBS Capable",
+    "cpuAlts": [
+     "Intel Core i7-10700",
+     "AMD Ryzen 7 3700X"
+    ],
+    "gpuAlts": [
+     "Nvidia RTX 3060Ti",
+     "AMD Radeon RX 6700-XT",
+     "Intel Arc B580"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2807960"
+  },
+  {
+   "id": "steam:359550",
+   "appid": 359550,
+   "name": "Tom Clancy's Rainbow Six Siege",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/359550/6b69a8d5ac8d0542bba5c735a8bcc5bb33cda42e/header_alt_assets_25.jpg?t=1790108602",
+   "free": true,
+   "genres": [
+    "Action",
+    "Free To Play"
+   ],
+   "released": "Dec 1, 2015",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10, Windows 11 (64-bit versions)",
+    "cpu": "AMD Ryzen 3 3100 / Intel i3-8100",
+    "gpu": "Nvidia GTX 1650 4GB / AMD RX 5500XT 4GB / Intel ARC A380 6GB",
+    "ram": 8,
+    "vram": 4,
+    "disk": 65,
+    "diskText": "65 GB available space",
+    "dx": 12,
+    "notes": "For an up-to-date list of supported chipsets, please visit the FAQ for this game on our support website. Game contains BattleEye anti-cheat technology.",
+    "cpuAlts": [
+     "AMD Ryzen 3 3100",
+     "Intel i3-8100"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 1650 4GB",
+     "AMD RX 5500XT 4GB",
+     "Intel ARC A380 6GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11 (64-bit versions)",
+    "cpu": "AMD Ryzen5 3600 / Intel i5-10400",
+    "gpu": "NVIDIA RTX 2060 6GB / AMD RX 6600 8GB",
+    "ram": 8,
+    "vram": 6,
+    "disk": 65,
+    "diskText": "65 GB available space",
+    "dx": 12,
+    "notes": "For an up-to-date list of supported chipsets, please visit the FAQ for this game on our support website. Game contains BattleEye anti-cheat technology.",
+    "cpuAlts": [
+     "AMD Ryzen5 3600",
+     "Intel i5-10400"
+    ],
+    "gpuAlts": [
+     "NVIDIA RTX 2060 6GB",
+     "AMD RX 6600 8GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/359550"
+  },
+  {
+   "id": "steam:2357570",
+   "appid": 2357570,
+   "name": "Overwatch®",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2357570/7baa151c768868f1fe1d3aeea2467fa1a35fb531/header_alt_assets_22.jpg?t=1788890347",
+   "free": true,
+   "genres": [
+    "Action",
+    "Free To Play"
+   ],
+   "released": "Aug 10, 2023",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit (latest Service Pack)",
+    "cpu": "Intel Core i3 or AMD Phenom X3 8650",
+    "gpu": "NVIDIA GeForce GTX 600 series, AMD Radeon HD 7000 series",
+    "ram": 6,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3",
+     "AMD Phenom X3 8650"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 600 series",
+     "AMD Radeon HD 7000 series"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit (latest Service Pack)",
+    "cpu": "Intel Core i7 or AMD Ryzen 5",
+    "gpu": "NVIDIA GeForce GTX 1060/ GeForce GTX 1650 or AMD R9 380/AMD RX 6400 or Intel Arc A770",
+    "ram": 8,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7",
+     "AMD Ryzen 5"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060",
+     "GeForce GTX 1650",
+     "AMD R9 380",
+     "AMD RX 6400",
+     "Intel Arc A770"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2357570"
+  },
+  {
+   "id": "steam:3513350",
+   "appid": 3513350,
+   "name": "Wuthering Waves",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3513350/c85fc0782fba9d3c8c8b4989587c720c325ed9cf/header.jpg?t=1787182292",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG",
+    "Free To Play"
+   ],
+   "released": "Apr 28, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows10 64-bit",
+    "cpu": "Intel Core i5 (9th Gen) / Ryzen 2700",
+    "gpu": "NVIDIA GeForce GTX 1060/AMD Radeon RX 570/Intel ARC A380",
+    "ram": 16,
+    "vram": null,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": 12,
+    "notes": "HDD Supported, SSD Recommended.",
+    "cpuAlts": [
+     "Intel Core i5 (9th Gen)",
+     "Ryzen 2700"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060",
+     "AMD Radeon RX 570",
+     "Intel ARC A380"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows10 64-bit",
+    "cpu": "Intel Core i7 (9th Gen) / Ryzen 3700",
+    "gpu": "NVIDIA GeForce RTX 2060/AMD Radeon RX 5700XT/intel ARC A750",
+    "ram": 32,
+    "vram": null,
+    "disk": 150,
+    "diskText": "150 GB available space",
+    "dx": 12,
+    "notes": "SSD Required.",
+    "cpuAlts": [
+     "Intel Core i7 (9th Gen)",
+     "Ryzen 3700"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060",
+     "AMD Radeon RX 5700XT",
+     "intel ARC A750"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3513350"
+  },
+  {
+   "id": "steam:2694490",
+   "appid": 2694490,
+   "name": "Path of Exile 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2694490/24eeddcbda17903f03d819588757e40845f8115f/header.jpg?t=1787697213",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Massively Multiplayer",
+    "RPG"
+   ],
+   "released": "Dec 6, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i7-7700 or AMD Ryzen 5 2500x",
+    "gpu": "NVIDIA GeForce GTX 960 (3GB), Intel Arc A380, or ATI Radeon RX 470",
+    "ram": 8,
+    "vram": 3,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": "A GPU with at least 3GB of VRAM is required",
+    "cpuAlts": [
+     "Intel Core i7-7700",
+     "AMD Ryzen 5 2500x"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 960 (3GB)",
+     "Intel Arc A380,",
+     "ATI Radeon RX 470"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i5-10500 or AMD Ryzen 5 3700X",
+    "gpu": "NVIDIA GeForce RTX 2060, Intel Arc A770, or ATI Radeon RX 5600XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": "Solid State Storage is recommended",
+    "cpuAlts": [
+     "Intel Core i5-10500",
+     "AMD Ryzen 5 3700X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060",
+     "Intel Arc A770,",
+     "ATI Radeon RX 5600XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2694490"
+  },
+  {
+   "id": "steam:553850",
+   "appid": 553850,
+   "name": "HELLDIVERS™ 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/553850/850e2f9e5bb15c5706bb9a1edc832f4f782e8be5/header.jpg?t=1789585784",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Feb 8, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i7-4790K or AMD Ryzen 5 1500X",
+    "gpu": "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 470",
+    "ram": 8,
+    "vram": null,
+    "disk": 135,
+    "diskText": "135 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7-4790K",
+     "AMD Ryzen 5 1500X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1050 Ti",
+     "AMD Radeon RX 470"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i7-9700K or AMD Ryzen 7 3700X",
+    "gpu": "NVIDIA GeForce RTX 2060 or AMD Radeon RX 6600XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 40,
+    "diskText": "40 GB available space",
+    "dx": null,
+    "notes": "SSD Recommended",
+    "cpuAlts": [
+     "Intel Core i7-9700K",
+     "AMD Ryzen 7 3700X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060",
+     "AMD Radeon RX 6600XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/553850"
+  },
+  {
+   "id": "steam:739630",
+   "appid": 739630,
+   "name": "Phasmophobia",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/739630/c227a2855aba60f3657bc0c3a46515b8c41fb2b6/header.jpg?t=1789487643",
+   "free": false,
+   "genres": [
+    "Action",
+    "Indie",
+    "Early Access"
+   ],
+   "released": "Sep 18, 2020",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64Bit",
+    "cpu": "Intel Core i5-4590 / AMD Ryzen 5 2600",
+    "gpu": "NVIDIA GTX 970 / AMD Radeon R9 390",
+    "ram": 8,
+    "vram": null,
+    "disk": 21,
+    "diskText": "21 GB available space",
+    "dx": 11,
+    "notes": "Minimum Specs are for VR, lower specs may work for Non-VR.",
+    "cpuAlts": [
+     "Intel Core i5-4590",
+     "AMD Ryzen 5 2600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 970",
+     "AMD Radeon R9 390"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64Bit",
+    "cpu": "Intel Core i5-10600 / AMD Ryzen 5 3600",
+    "gpu": "NVIDIA RTX 2060 / AMD Radeon RX 5700",
+    "ram": 8,
+    "vram": null,
+    "disk": 21,
+    "diskText": "21 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-10600",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA RTX 2060",
+     "AMD Radeon RX 5700"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/739630"
+  },
+  {
+   "id": "steam:227300",
+   "appid": 227300,
+   "name": "Euro Truck Simulator 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/227300/4f6ff00d3732ed0da2e28a4e7182f0036df8ab90/header_alt_assets_8.jpg?t=1790001194",
+   "free": false,
+   "genres": [
+    "Indie",
+    "Simulation"
+   ],
+   "released": "Oct 12, 2012",
+   "metacritic": 79,
+   "min": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i5-6400 or AMD Ryzen 3 1200 or similar",
+    "gpu": "NVIDIA GeForce GTX 660 or AMD Radeon RX 460 or Intel HD 630 (2GB VRAM)",
+    "ram": 8,
+    "vram": 2,
+    "disk": 25,
+    "diskText": "25 GB available space (Euro Truck Simulator 2 base game)",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-6400",
+     "AMD Ryzen 3 1200",
+     "similar"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 660",
+     "AMD Radeon RX 460",
+     "Intel HD 630 (2GB VRAM)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i5-9600 or AMD Ryzen 5 3600 or similar",
+    "gpu": "NVIDIA GeForce GTX 1660 or AMD Radeon RX 590 (2GB VRAM)",
+    "ram": 12,
+    "vram": 2,
+    "disk": 25,
+    "diskText": "25 GB available space (Euro Truck Simulator 2 base game)",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-9600",
+     "AMD Ryzen 5 3600",
+     "similar"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1660",
+     "AMD Radeon RX 590 (2GB VRAM)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/227300"
+  },
+  {
+   "id": "steam:3159330",
+   "appid": 3159330,
+   "name": "Assassin’s Creed Shadows",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3159330/header.jpg?t=1789746114",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Mar 19, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10/11",
+    "cpu": "INTEL Core TM i7 8700K AMD RYZEN 5 3600",
+    "gpu": "NVIDIA GEFORCE GTX 1650 4GB / AMD RX-5500 XT 8GB / INTEL ARC TM A380 6GB (REBAR ON)\"",
+    "ram": 16,
+    "vram": 4,
+    "disk": 115,
+    "diskText": "115 GB available space",
+    "dx": 12,
+    "notes": "The game must be installed on a SSD.",
+    "cpuAlts": [
+     "INTEL Core TM i7 8700K AMD RYZEN 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GEFORCE GTX 1650 4GB",
+     "AMD RX-5500 XT 8GB",
+     "INTEL ARC TM A380 6GB (REBAR ON)\""
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11",
+    "cpu": "Intel Core i5 11600k/AMD Ryzen 5 5600x",
+    "gpu": "Nvidia GeForce RTX 3060Ti 8GB/AMD Radeon RX 6700 XT 12GB/Intel Arc B580 12GB (REBAR ON)",
+    "ram": 16,
+    "vram": 8,
+    "disk": 115,
+    "diskText": "115 GB available space",
+    "dx": 12,
+    "notes": "The game must be installed on a SSD.",
+    "cpuAlts": [
+     "Intel Core i5 11600k",
+     "AMD Ryzen 5 5600x"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce RTX 3060Ti 8GB",
+     "AMD Radeon RX 6700 XT 12GB",
+     "Intel Arc B580 12GB (REBAR ON)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3159330"
+  },
+  {
+   "id": "steam:2124490",
+   "appid": 2124490,
+   "name": "SILENT HILL 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2124490/header.jpg?t=1744248682",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Oct 7, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 x64",
+    "cpu": "Intel Core i7-6700K | AMD Ryzen 5 3600",
+    "gpu": "NVIDIA GeForce GTX 1070 Ti or AMD Radeon RX 5700 or Intel Arc A750",
+    "ram": 16,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 12,
+    "notes": "Playing on minimum requirements should enable to play on Low/Medium quality settings in FullHD (1080p) in stable 30 FPS. SSD is recommended.",
+    "cpuAlts": [
+     "Intel Core i7-6700K",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1070 Ti",
+     "AMD Radeon RX 5700",
+     "Intel Arc A750"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 x64",
+    "cpu": "Intel Core i7-8700K | AMD Ryzen 5 3600X",
+    "gpu": "NVIDIA GeForce 2080RTX or AMD Radeon 6800XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 12,
+    "notes": "Playing on recommended requirements should enable to play on Medium quality settings in 60 FPS or High quality settings in 30 FPS, in FullHD (or 4k using DLSS or similar technology). SSD is recommended.",
+    "cpuAlts": [
+     "Intel Core i7-8700K",
+     "AMD Ryzen 5 3600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce 2080RTX",
+     "AMD Radeon 6800XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2124490"
+  },
+  {
+   "id": "steam:1771300",
+   "appid": 1771300,
+   "name": "Kingdom Come: Deliverance II",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1771300/header.jpg?t=1777975568",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Feb 4, 2025",
+   "metacritic": 89,
+   "min": {
+    "os": "Windows 10 64-bit (or newer)",
+    "cpu": "Intel Core i5-8400, AMD Ryzen 5 2600",
+    "gpu": "NVIDIA GeForce GTX 1060 (6GB), AMD Radeon RX 580",
+    "ram": 16,
+    "vram": 6,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": null,
+    "notes": "SSD required",
+    "cpuAlts": [
+     "Intel Core i5-8400",
+     "AMD Ryzen 5 2600"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 (6GB)",
+     "AMD Radeon RX 580"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit (or newer)",
+    "cpu": "Intel Core i7-13700K, AMD Ryzen 7 7800X3D",
+    "gpu": "NVIDIA GeForce RTX 4070, AMD Radeon RX 7800 XT",
+    "ram": 32,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": null,
+    "notes": "SSD required",
+    "cpuAlts": [
+     "Intel Core i7-13700K",
+     "AMD Ryzen 7 7800X3D"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 4070",
+     "AMD Radeon RX 7800 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1771300"
+  },
+  {
+   "id": "steam:2001120",
+   "appid": 2001120,
+   "name": "Split Fiction",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2001120/header.jpg?t=1763484567",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Mar 6, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "64 bit Windows 10/11",
+    "cpu": "Intel Core i5-6600K or AMD Ryzen 5 2600X",
+    "gpu": "NVIDIA GeForce GTX 970 - 4GB or Radeon RX 470 - 4GB",
+    "ram": 16,
+    "vram": 4,
+    "disk": 85,
+    "diskText": "85 GB available space",
+    "dx": 12,
+    "notes": "Resolution: 1920x1080 Native FPS: 30 Graphics Settings Preset: Low",
+    "cpuAlts": [
+     "Intel Core i5-6600K",
+     "AMD Ryzen 5 2600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 970 - 4GB",
+     "Radeon RX 470 - 4GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64 bit Windows 10/11",
+    "cpu": "Intel Core i7-11700k or AMD Ryzen 7 5800X",
+    "gpu": "NVIDIA GeForce RTX 3070 - 8GB or AMD Radeon 6700 XT - 12GB",
+    "ram": 16,
+    "vram": 8,
+    "disk": 85,
+    "diskText": "85 GB available space",
+    "dx": 12,
+    "notes": "Resolution: 2560x1440 Native FPS: 60 Graphics Settings Preset: High",
+    "cpuAlts": [
+     "Intel Core i7-11700k",
+     "AMD Ryzen 7 5800X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 3070 - 8GB",
+     "AMD Radeon 6700 XT - 12GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2001120"
+  },
+  {
+   "id": "steam:1426210",
+   "appid": 1426210,
+   "name": "It Takes Two",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg?t=1777395376",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Mar 25, 2021",
+   "metacritic": 89,
+   "min": {
+    "os": "Windows 8.1 64-bit or Windows 10 64-bit",
+    "cpu": "Intel Core i3-2100T or AMD FX 6100",
+    "gpu": "Nvidia GeForce GTX 660 or AMD R7 260x",
+    "ram": 8,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-2100T",
+     "AMD FX 6100"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 660",
+     "AMD R7 260x"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 8.1 64-bit or Windows 10 64-bit",
+    "cpu": "Intel Core i5 3570K or AMD Ryzen 3 1300x",
+    "gpu": "Nvidia GeForce GTX 980 or AMD R9 290X",
+    "ram": 16,
+    "vram": null,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5 3570K",
+     "AMD Ryzen 3 1300x"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 980",
+     "AMD R9 290X"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1426210"
+  },
+  {
+   "id": "steam:892970",
+   "appid": 892970,
+   "name": "Valheim",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/892970/1888731b59362fca6c026cdbafa3dfffd45c3146/header_alt_assets_6.jpg?t=1790220314",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "RPG"
+   ],
+   "released": "Sep 9, 2026",
+   "metacritic": 90,
+   "min": {
+    "os": "Windows 10 or later",
+    "cpu": "2.6 GHz Quad Core or similar",
+    "gpu": "GeForce GTX 950 or Radeon HD 7970",
+    "ram": 8,
+    "vram": null,
+    "disk": 1,
+    "diskText": "1 GB available space",
+    "dx": 11,
+    "notes": "The following languages have been partially translated by the community: Svenska, Italiano, Romanian, български, македонски, Suomi, Dansk, íslenska, Lietuvių kalba, čeština, Magyar nyelv, Português europeu, 한국어 (불완전한), Norsk, ภาษาไทย, ქართული ენა, Abenaki, Slovenčina",
+    "cpuAlts": [
+     "2.6 GHz Quad Core",
+     "similar"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 950",
+     "Radeon HD 7970"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 or later",
+    "cpu": "i5 3GHz or Ryzen 5 3GHz",
+    "gpu": "GeForce GTX 1060 or Radeon RX 580",
+    "ram": 16,
+    "vram": null,
+    "disk": 1,
+    "diskText": "1 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "i5 3GHz",
+     "Ryzen 5 3GHz"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 1060",
+     "Radeon RX 580"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/892970"
+  },
+  {
+   "id": "steam:1326470",
+   "appid": 1326470,
+   "name": "Sons Of The Forest",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1326470/header.jpg?t=1708624856",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "Simulation"
+   ],
+   "released": "Feb 22, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "64-bit Windows 10",
+    "cpu": "INTEL CORE I5-8400 or AMD RYZEN 3 3300X",
+    "gpu": "NVIDIA GeForce GTX 1060 3GB or AMD Radeon RX 570 4GB",
+    "ram": 12,
+    "vram": 3,
+    "disk": 20,
+    "diskText": "20 GB available space",
+    "dx": 11,
+    "notes": "SSD (Preferred)",
+    "cpuAlts": [
+     "INTEL CORE I5-8400",
+     "AMD RYZEN 3 3300X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 3GB",
+     "AMD Radeon RX 570 4GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "64-bit Windows 10",
+    "cpu": "INTEL CORE I7-8700K or AMD RYZEN 5 3600X",
+    "gpu": "NVIDIA GeForce 1080Ti or AMD Radeon RX 5700 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 20,
+    "diskText": "20 GB available space",
+    "dx": 11,
+    "notes": "SSD (Preferred)",
+    "cpuAlts": [
+     "INTEL CORE I7-8700K",
+     "AMD RYZEN 5 3600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce 1080Ti",
+     "AMD Radeon RX 5700 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1326470"
+  },
+  {
+   "id": "steam:2139460",
+   "appid": 2139460,
+   "name": "Once Human",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2139460/c18b08a2f93dec32fcc5fa71bc2da44ee42de1f0/header.jpg?t=1786675226",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Casual",
+    "Massively Multiplayer"
+   ],
+   "released": "Jul 9, 2024",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit Operating System",
+    "cpu": "Intel Core i5-4460 / Snapdragon X",
+    "gpu": "Nvidia GTX 750ti 4G / AMD Radeon RX550 / Qualcomm Adreno X1 GPU",
+    "ram": 8,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 11,
+    "notes": "SSD is highly recommended",
+    "cpuAlts": [
+     "Intel Core i5-4460",
+     "Snapdragon X"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 750ti 4G",
+     "AMD Radeon RX550",
+     "Qualcomm Adreno X1 GPU"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit Operating System",
+    "cpu": "Intel Core i7-7700 / Snapdragon X2 Elite",
+    "gpu": "Nvidia GTX 1060 6G / AMD Radeon RX 580 2304SP / Intel ARC A380 / Qualcomm Adreno X2 GPU",
+    "ram": 16,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": "SSD is highly recommended",
+    "cpuAlts": [
+     "Intel Core i7-7700",
+     "Snapdragon X2 Elite"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 1060 6G",
+     "AMD Radeon RX 580 2304SP",
+     "Intel ARC A380",
+     "Qualcomm Adreno X2 GPU"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2139460"
+  },
+  {
+   "id": "steam:2073850",
+   "appid": 2073850,
+   "name": "THE FINALS",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2073850/61f55ef49a74c76bf9fda9ec35bc3101eeee2b3e/header.jpg?t=1789034839",
+   "free": true,
+   "genres": [
+    "Action",
+    "Free To Play"
+   ],
+   "released": "Dec 7, 2023",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 or later 64-bit (latest update)",
+    "cpu": "Intel Core i5-6600K or AMD Ryzen R5 1600 processor",
+    "gpu": "NVIDIA GeForce GTX 1050 Ti or AMD Radeon RX 580",
+    "ram": 12,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-6600K",
+     "AMD Ryzen R5 1600 processor"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1050 Ti",
+     "AMD Radeon RX 580"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 or later 64-bit (latest update)",
+    "cpu": "Intel Core i5-9600K or AMD Ryzen 5 3600 processor",
+    "gpu": "NVIDIA GeForce RTX 2070 or AMD Radeon RX 5700 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-9600K",
+     "AMD Ryzen 5 3600 processor"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2070",
+     "AMD Radeon RX 5700 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2073850"
+  },
+  {
+   "id": "steam:1364780",
+   "appid": 1364780,
+   "name": "Street Fighter™ 6",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg?t=1789611360",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure"
+   ],
+   "released": "Jun 1, 2023",
+   "metacritic": 92,
+   "min": {
+    "os": "Windows 10 (64 bit required)",
+    "cpu": "Intel Core i5-7500 / AMD Ryzen 3 1200",
+    "gpu": "GTX1060 (VRAM 6GB) / Radeon RX 580 (VRAM 4GB)",
+    "ram": 8,
+    "vram": 4,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 12,
+    "notes": "- The framerate may drop during graphic-intensive scenes. - Additional storage is required for each subsequent update.",
+    "cpuAlts": [
+     "Intel Core i5-7500",
+     "AMD Ryzen 3 1200"
+    ],
+    "gpuAlts": [
+     "GTX1060 (VRAM 6GB)",
+     "Radeon RX 580 (VRAM 4GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 (64 bit)/Windows 11 (64 bit)",
+    "cpu": "Intel Core i7 8700 / AMD Ryzen 5 3600",
+    "gpu": "RTX2070 / Radeon RX 5700XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 12,
+    "notes": "- The framerate may drop during graphic-intensive scenes. - Additional storage is required for each subsequent update.",
+    "cpuAlts": [
+     "Intel Core i7 8700",
+     "AMD Ryzen 5 3600"
+    ],
+    "gpuAlts": [
+     "RTX2070",
+     "Radeon RX 5700XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1364780"
+  },
+  {
+   "id": "steam:1778820",
+   "appid": 1778820,
+   "name": "TEKKEN 8",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1778820/c7b0b80639fc8c7d386922f414f293ca849e8e81/header.jpg?t=1787180720",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Jan 25, 2024",
+   "metacritic": 91,
+   "min": {
+    "os": "Windows 10 64-Bit",
+    "cpu": "Intel Core i5-6600K/AMD Ryzen 5 1600",
+    "gpu": "Nvidia GeForce GTX 1050Ti/AMD Radeon R9 380X",
+    "ram": 8,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": "*\"FPS (frame rate/second): Stable over 60\" is guaranteed and selected under the graphic settings by default when the game is launched for the first time.*Frame rate may drop when other applications are running in the background.*Please note that minimum and recommended specifications are subjected to changes without notice.",
+    "cpuAlts": [
+     "Intel Core i5-6600K",
+     "AMD Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 1050Ti",
+     "AMD Radeon R9 380X"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-Bit",
+    "cpu": "Intel Core i7-7700K/AMD Ryzen 5 2600",
+    "gpu": "Nvidia GeForce RTX 2070/AMD Radeon RX 5700 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 100,
+    "diskText": "100 GB available space",
+    "dx": 12,
+    "notes": "*\"FPS (frame rate/second): Stable over 60\" is guaranteed and selected under the graphic settings by default when the game is launched for the first time.*Frame rate may drop when other applications are running in the background.*Please note that minimum and recommended specifications are subjected to changes without notice.",
+    "cpuAlts": [
+     "Intel Core i7-7700K",
+     "AMD Ryzen 5 2600"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce RTX 2070",
+     "AMD Radeon RX 5700 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1778820"
+  },
+  {
+   "id": "steam:381210",
+   "appid": 381210,
+   "name": "Dead by Daylight",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/381210/header.jpg?t=1787769494",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Jun 14, 2016",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit Operating System",
+    "cpu": "Intel Core i3-4170 or AMD FX-8120",
+    "gpu": "DX11 Compatible GeForce GTX 460 1GB or AMD HD 6850 1GB",
+    "ram": 8,
+    "vram": 1,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": "With these requirements, it is recommended that the game is played on Low quality settings.",
+    "cpuAlts": [
+     "Intel Core i3-4170",
+     "AMD FX-8120"
+    ],
+    "gpuAlts": [
+     "DX11 Compatible GeForce GTX 460 1GB",
+     "AMD HD 6850 1GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit Operating System",
+    "cpu": "Intel Core i3-4170 or AMD FX-8300 or higher",
+    "gpu": "DX11 Compatible GeForce 760 or AMD HD 8800 or higher with 4GB of RAM",
+    "ram": 8,
+    "vram": 4,
+    "disk": 50,
+    "diskText": "50 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-4170",
+     "AMD FX-8300",
+     "higher"
+    ],
+    "gpuAlts": [
+     "DX11 Compatible GeForce 760",
+     "AMD HD 8800",
+     "higher with 4GB of RAM"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/381210"
+  },
+  {
+   "id": "steam:230410",
+   "appid": 230410,
+   "name": "Warframe",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/230410/1a3e7c2a05ce4e5cad5ac4c7e858cf5b0934704e/header.jpg?t=1790176468",
+   "free": true,
+   "genres": [
+    "Action",
+    "RPG",
+    "Free To Play"
+   ],
+   "released": "Mar 25, 2013",
+   "metacritic": 69,
+   "min": {
+    "os": "Windows 7 64-Bit (32-bit not supported)",
+    "cpu": "Intel Core i7 860, Intel Core i5 750, or AMD FX-4100 (SSE 4.2 support required)",
+    "gpu": "DirectX 11+ capable Graphics Card",
+    "ram": 4,
+    "vram": null,
+    "disk": 75,
+    "diskText": "75 GB available HD space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7 860",
+     "Intel Core i5 750,",
+     "AMD FX-4100 (SSE 4.2 support required)"
+    ],
+    "gpuAlts": [
+     "DirectX 11+ capable Graphics Card"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/230410"
+  },
+  {
+   "id": "steam:236390",
+   "appid": 236390,
+   "name": "War Thunder",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/236390/38881c549e623fe432af4e7b4bc3952b443906f5/header.jpg?t=1790148671",
+   "free": true,
+   "genres": [
+    "Action",
+    "Massively Multiplayer",
+    "Simulation",
+    "Free To Play"
+   ],
+   "released": "Aug 15, 2013",
+   "metacritic": 81,
+   "min": {
+    "os": "Windows 10 (64bit)",
+    "cpu": "Dual-Core 2.2 GHz",
+    "gpu": "DirectX 11 level video card: AMD Radeon 77XX / NVIDIA GeForce GTX 660. The minimum supported resolution for the game is 720p.",
+    "ram": 4,
+    "vram": null,
+    "disk": 70,
+    "diskText": "70 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Dual-Core 2.2 GHz"
+    ],
+    "gpuAlts": [
+     "DirectX 11 level video card: AMD Radeon 77XX",
+     "NVIDIA GeForce GTX 660. The minimum supported resolution for the game is 720p."
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11 (64bit)",
+    "cpu": "Intel Core i5 or Ryzen 5 3600 or better",
+    "gpu": "DirectX 11 level video card or higher and drivers: Nvidia GeForce 1060 and higher, Radeon RX 570 and higher",
+    "ram": 16,
+    "vram": null,
+    "disk": 95,
+    "diskText": "95 GB available space",
+    "dx": 12,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5",
+     "Ryzen 5 3600",
+     "better"
+    ],
+    "gpuAlts": [
+     "DirectX 11 level video card",
+     "higher and drivers: Nvidia GeForce 1060 and higher",
+     "Radeon RX 570 and higher"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/236390"
+  },
+  {
+   "id": "steam:1966720",
+   "appid": 1966720,
+   "name": "Lethal Company",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1966720/header.jpg?t=1775380053",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie",
+    "Early Access"
+   ],
+   "released": "Oct 23, 2023",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i5-7400 CPU @ 3.00GHz ; Shader Model 5",
+    "gpu": "NVIDIA GForce GTX 1050",
+    "ram": null,
+    "vram": null,
+    "disk": 4,
+    "diskText": "4 GB available space",
+    "dx": 11,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-7400 CPU @ 3.00GHz",
+     "Shader Model 5"
+    ],
+    "gpuAlts": [
+     "NVIDIA GForce GTX 1050"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1966720"
+  },
+  {
+   "id": "steam:1030300",
+   "appid": 1030300,
+   "name": "Hollow Knight: Silksong",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1030300/7983574d464e6559ac7e24275727f73a8bcca1f3/header.jpg?t=1776125736",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Indie"
+   ],
+   "released": "Sep 4, 2025",
+   "metacritic": 90,
+   "min": {
+    "os": "Windows 10 version 21H1 (build 19043) or newer",
+    "cpu": "Intel Core i3-3240, AMD FX-4300",
+    "gpu": "GeForce GTX 560 Ti (1GB), Radeon HD 7750 (1GB)",
+    "ram": 4,
+    "vram": 1,
+    "disk": 8,
+    "diskText": "8 GB available space",
+    "dx": 10,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i3-3240",
+     "AMD FX-4300"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 560 Ti (1GB)",
+     "Radeon HD 7750 (1GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 version 21H1 (build 19043) or newer",
+    "cpu": "Intel Core i5-3470",
+    "gpu": "GeForce GTX 1050 (2GB), Radeon R9 380 (2GB)",
+    "ram": 8,
+    "vram": 2,
+    "disk": 8,
+    "diskText": "8 GB available space",
+    "dx": 10,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-3470"
+    ],
+    "gpuAlts": [
+     "GeForce GTX 1050 (2GB)",
+     "Radeon R9 380 (2GB)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1030300"
+  },
+  {
+   "id": "steam:1903340",
+   "appid": 1903340,
+   "name": "Clair Obscur: Expedition 33",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1903340/be3305b02d4db0dffa3458537118423bf2792d7e/header.jpg?t=1782830877",
+   "free": false,
+   "genres": [
+    "Action",
+    "RPG"
+   ],
+   "released": "Apr 24, 2025",
+   "metacritic": 91,
+   "min": {
+    "os": "Windows 10",
+    "cpu": "Intel Core i7-8700K / AMD Ryzen 5 1600X",
+    "gpu": "NVIDIA GeForce GTX 1060 6 GB / AMD Radeon RX 5600 XT 6 GB / Intel Arc A380 6 GB",
+    "ram": 8,
+    "vram": 6,
+    "disk": 55,
+    "diskText": "55 GB available space",
+    "dx": 12,
+    "notes": "SSD required. Minimum specs allow for 1080p 30FPS low settings gameplay.",
+    "cpuAlts": [
+     "Intel Core i7-8700K",
+     "AMD Ryzen 5 1600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 6 GB",
+     "AMD Radeon RX 5600 XT 6 GB",
+     "Intel Arc A380 6 GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11",
+    "cpu": "Intel Core i7-12700K / AMD Ryzen 7 5800X",
+    "gpu": "NVIDIA GeForce RTX 3060 Ti 8 GB / AMD Radeon RX 6800 XT 16 GB",
+    "ram": 16,
+    "vram": 8,
+    "disk": 55,
+    "diskText": "55 GB available space",
+    "dx": 12,
+    "notes": "SSD required. Recommended specs allow for 1080p 60FPS high settings gameplay.",
+    "cpuAlts": [
+     "Intel Core i7-12700K",
+     "AMD Ryzen 7 5800X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 3060 Ti 8 GB",
+     "AMD Radeon RX 6800 XT 16 GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1903340"
+  },
+  {
+   "id": "steam:489830",
+   "appid": 489830,
+   "name": "The Elder Scrolls V: Skyrim Special Edition",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/489830/header.jpg?t=1786648247",
+   "free": false,
+   "genres": [
+    "RPG"
+   ],
+   "released": "Oct 27, 2016",
+   "metacritic": 74,
+   "min": {
+    "os": "Windows 7/8.1/10 (64-bit Version)",
+    "cpu": "Intel i5-750/AMD Phenom II X4-945",
+    "gpu": "NVIDIA GTX 470 1GB /AMD HD 7870 2GB",
+    "ram": 8,
+    "vram": 1,
+    "disk": 12,
+    "diskText": "12 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-750",
+     "AMD Phenom II X4-945"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 470 1GB",
+     "AMD HD 7870 2GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7/8.1/10 (64-bit Version)",
+    "cpu": "Intel i5-2400/AMD FX-8320",
+    "gpu": "NVIDIA GTX 780 3GB /AMD R9 290 4GB",
+    "ram": 8,
+    "vram": 3,
+    "disk": 12,
+    "diskText": "12 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel i5-2400",
+     "AMD FX-8320"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 780 3GB",
+     "AMD R9 290 4GB"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/489830"
+  },
+  {
+   "id": "steam:377160",
+   "appid": 377160,
+   "name": "Fallout 4",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/377160/header.jpg?t=1786648137",
+   "free": false,
+   "genres": [
+    "RPG"
+   ],
+   "released": "Nov 9, 2015",
+   "metacritic": 84,
+   "min": {
+    "os": "Windows 7/8/10 (64-bit OS required)",
+    "cpu": "Intel Core i5-2300 2.8 GHz/AMD Phenom II X4 945 3.0 GHz or equivalent",
+    "gpu": "NVIDIA GTX 550 Ti 2GB/AMD Radeon HD 7870 2GB or equivalent",
+    "ram": 8,
+    "vram": 2,
+    "disk": 30,
+    "diskText": "30 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-2300 2.8 GHz",
+     "AMD Phenom II X4 945 3.0 GHz",
+     "equivalent"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 550 Ti 2GB",
+     "AMD Radeon HD 7870 2GB",
+     "equivalent"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7/8/10 (64-bit OS required)",
+    "cpu": "Intel Core i7 4790 3.6 GHz/AMD FX-9590 4.7 GHz or equivalent",
+    "gpu": "NVIDIA GTX 780 3GB/AMD Radeon R9 290X 4GB or equivalent",
+    "ram": 8,
+    "vram": 3,
+    "disk": 30,
+    "diskText": "30 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7 4790 3.6 GHz",
+     "AMD FX-9590 4.7 GHz",
+     "equivalent"
+    ],
+    "gpuAlts": [
+     "NVIDIA GTX 780 3GB",
+     "AMD Radeon R9 290X 4GB",
+     "equivalent"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/377160"
+  },
+  {
+   "id": "steam:550",
+   "appid": 550,
+   "name": "Left 4 Dead 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/550/header.jpg?t=1772742214",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "Nov 16, 2009",
+   "metacritic": 89,
+   "min": {
+    "os": "Windows 7 32/64-bit / Vista 32/64 / XP",
+    "cpu": "Pentium 4 3.0GHz",
+    "gpu": "Video card with 128 MB, Shader model 2.0. ATI X800, NVidia 6600 or better",
+    "ram": 2,
+    "vram": null,
+    "disk": 13,
+    "diskText": "13 GB available space",
+    "dx": 9,
+    "notes": null,
+    "cpuAlts": [
+     "Pentium 4 3.0GHz"
+    ],
+    "gpuAlts": [
+     "Video card with 128 MB, Shader model 2.0. ATI X800",
+     "NVidia 6600",
+     "better"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7 32/64-bit / Vista 32/64 / XP",
+    "cpu": "Intel core 2 duo 2.4GHz",
+    "gpu": "Video Card Shader model 3.0. NVidia 7600, ATI X1600 or better",
+    "ram": 2,
+    "vram": null,
+    "disk": 13,
+    "diskText": "13 GB available space",
+    "dx": 9,
+    "notes": null,
+    "cpuAlts": [
+     "Intel core 2 duo 2.4GHz"
+    ],
+    "gpuAlts": [
+     "Video Card Shader model 3.0. NVidia 7600, ATI X1600",
+     "better"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/550"
+  },
+  {
+   "id": "steam:440",
+   "appid": 440,
+   "name": "Team Fortress 2",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440/header.jpg?t=1757348372",
+   "free": true,
+   "genres": [
+    "Action",
+    "Free To Play"
+   ],
+   "released": "Oct 10, 2007",
+   "metacritic": 92,
+   "min": {
+    "os": "Windows 7 (32/64-bit)/Vista/XP",
+    "cpu": "1.7 GHz Processor or better",
+    "gpu": null,
+    "ram": 0.5,
+    "vram": null,
+    "disk": 15,
+    "diskText": "15 GB available space",
+    "dx": 8.1,
+    "notes": null,
+    "cpuAlts": [
+     "1.7 GHz Processor",
+     "better"
+    ],
+    "gpuAlts": [],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 7 (32/64-bit)",
+    "cpu": "Pentium 4 processor (3.0GHz, or better)",
+    "gpu": null,
+    "ram": 1,
+    "vram": null,
+    "disk": 15,
+    "diskText": "15 GB available space",
+    "dx": 9,
+    "notes": null,
+    "cpuAlts": [
+     "Pentium 4 processor (3.0GHz,",
+     "better)"
+    ],
+    "gpuAlts": [],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/440"
+  },
+  {
+   "id": "steam:945360",
+   "appid": 945360,
+   "name": "Among Us",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/945360/header.jpg?t=1787088490",
+   "free": false,
+   "genres": [
+    "Casual"
+   ],
+   "released": "Nov 16, 2018",
+   "metacritic": 85,
+   "min": {
+    "os": "Windows 10 x32bit",
+    "cpu": "INTEL i3-4330",
+    "gpu": "INTEL HD Graphics 4600",
+    "ram": 1,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "INTEL i3-4330"
+    ],
+    "gpuAlts": [
+     "INTEL HD Graphics 4600"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 x64bit",
+    "cpu": "INTEL i3-4330",
+    "gpu": "Nvidia GTX 650",
+    "ram": 4,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "INTEL i3-4330"
+    ],
+    "gpuAlts": [
+     "Nvidia GTX 650"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/945360"
+  },
+  {
+   "id": "steam:949230",
+   "appid": 949230,
+   "name": "Cities: Skylines II",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/949230/8fb6d4b60f7120ff56bea2efc92aee3a5bb7fe70/header_alt_assets_7.jpg?t=1789487974",
+   "free": false,
+   "genres": [
+    "Simulation"
+   ],
+   "released": "Oct 24, 2023",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 Home 64 Bit",
+    "cpu": "Intel Core i7-6700K | AMD Ryzen 5 2600X",
+    "gpu": "Nvidia GeForce GTX 970 (4 GB) | AMD Radeon RX 480 (8 GB)",
+    "ram": 8,
+    "vram": 4,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i7-6700K",
+     "AMD Ryzen 5 2600X"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce GTX 970 (4 GB)",
+     "AMD Radeon RX 480 (8 GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 Home 64 Bit | Windows 11",
+    "cpu": "Intel Core i5-12600K | AMD Ryzen 7 5800X",
+    "gpu": "Nvidia GeForce RTX 3080 (10 GB) | AMD Radeon RX 6800 XT (16 GB)",
+    "ram": 16,
+    "vram": 10,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "Intel Core i5-12600K",
+     "AMD Ryzen 7 5800X"
+    ],
+    "gpuAlts": [
+     "Nvidia GeForce RTX 3080 (10 GB)",
+     "AMD Radeon RX 6800 XT (16 GB)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/949230"
+  },
+  {
+   "id": "steam:2909400",
+   "appid": 2909400,
+   "name": "FINAL FANTASY VII REBIRTH",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2909400/64a1006a85342c7d3e4b1e1b8e562fee2dc86578/header.jpg?t=1789446799",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Jan 23, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit",
+    "cpu": "AMD Ryzen 5 1400 / Intel Core i3-8100",
+    "gpu": "AMD Radeon RX 6600 (RX 6600 or above required) / Intel Arc A580 / NVIDIA GeForce RTX 2060 (RTX series required)",
+    "ram": 16,
+    "vram": null,
+    "disk": 155,
+    "diskText": "155 GB available space",
+    "dx": 12,
+    "notes": "1080P / 30FPS (Graphics Quality Preset “Low”), SSD Required. Graphics Cards with Shader Model 6.6 support and OS with DirectX 12 Ultimate support required. 12GB VRAM or above recommended to play on 4k resolution.",
+    "cpuAlts": [
+     "AMD Ryzen 5 1400",
+     "Intel Core i3-8100"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 6600 (RX 6600",
+     "above required)",
+     "Intel Arc A580",
+     "NVIDIA GeForce RTX 2060 (RTX series required)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 11 64-bit",
+    "cpu": "AMD Ryzen 5 5600 or Ryzen 7 3700X / Intel Core i7-8700 or Core i5-10400",
+    "gpu": "AMD Radeon RX 6700 XT / NVIDIA GeForce RTX 2070",
+    "ram": 16,
+    "vram": null,
+    "disk": 155,
+    "diskText": "155 GB available space",
+    "dx": 12,
+    "notes": "1080p / 60FPS (Graphics Quality Preset “Medium”), SSD Required. 12GB VRAM or above recommended to play on 4k resolution.",
+    "cpuAlts": [
+     "AMD Ryzen 5 5600",
+     "Ryzen 7 3700X",
+     "Intel Core i7-8700",
+     "Core i5-10400"
+    ],
+    "gpuAlts": [
+     "AMD Radeon RX 6700 XT",
+     "NVIDIA GeForce RTX 2070"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/2909400"
+  },
+  {
+   "id": "steam:3489700",
+   "appid": 3489700,
+   "name": "Stellar Blade™",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3489700/header.jpg?t=1776466244",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "RPG"
+   ],
+   "released": "Jun 11, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i5-7600k Processor / AMD Ryzen 5 1600X Processor",
+    "gpu": "NVIDIA GeForce GTX 1060 6GB or AMD Radeon RX 580 8GB",
+    "ram": 16,
+    "vram": 6,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "1080P. Graphics Quality Preset “Low”. 60FPS Target. HDD Supported, SSD Recommended.",
+    "cpuAlts": [
+     "Intel Core i5-7600k Processor",
+     "AMD Ryzen 5 1600X Processor"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 6GB",
+     "AMD Radeon RX 580 8GB"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit",
+    "cpu": "Intel Core i5-8400 Processor / AMD Ryzen 5 3600X Processor",
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER or AMD Radeon RX 5700 XT",
+    "ram": 16,
+    "vram": null,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "1440p. Graphics Quality Preset “Medium”. 60FPS Target. SSD Required.",
+    "cpuAlts": [
+     "Intel Core i5-8400 Processor",
+     "AMD Ryzen 5 3600X Processor"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 2060 SUPER",
+     "AMD Radeon RX 5700 XT"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3489700"
+  },
+  {
+   "id": "steam:3564740",
+   "appid": 3564740,
+   "name": "Where Winds Meet",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3564740/8037109e6216ecadf744146d36f2b8425f028257/header_alt_assets_9.jpg?t=1789631126",
+   "free": true,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Casual",
+    "Indie"
+   ],
+   "released": "Nov 14, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10/11 64bit",
+    "cpu": "Core i7-7700K / Ryzen 5 1600",
+    "gpu": "GTX 1060(6GB) / RX 480(8GB)",
+    "ram": 16,
+    "vram": 6,
+    "disk": 130,
+    "diskText": "130 GB available space",
+    "dx": 12,
+    "notes": "We recommend you install the game on SSD drive for better experience.",
+    "cpuAlts": [
+     "Core i7-7700K",
+     "Ryzen 5 1600"
+    ],
+    "gpuAlts": [
+     "GTX 1060(6GB)",
+     "RX 480(8GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10/11 64bit",
+    "cpu": "Core i7-10700 / Ryzen 7 3700X",
+    "gpu": "RTX 2070 SUPER / RX 6700 XT / ARC A750",
+    "ram": 32,
+    "vram": null,
+    "disk": 200,
+    "diskText": "200 GB available space",
+    "dx": 12,
+    "notes": "We recommend you install the game on SSD drive for better experience.",
+    "cpuAlts": [
+     "Core i7-10700",
+     "Ryzen 7 3700X"
+    ],
+    "gpuAlts": [
+     "RTX 2070 SUPER",
+     "RX 6700 XT",
+     "ARC A750"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/3564740"
+  },
+  {
+   "id": "steam:1172710",
+   "appid": 1172710,
+   "name": "Dune: Awakening",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/c23906beee3fdf1cd48980f340a2b76a3590d765/header_alt_assets_9.jpg?t=1790078722",
+   "free": false,
+   "genres": [
+    "Action",
+    "Adventure",
+    "Massively Multiplayer",
+    "RPG"
+   ],
+   "released": "Jun 10, 2025",
+   "metacritic": null,
+   "min": {
+    "os": "Windows 10 64-bit (or newer)",
+    "cpu": "Intel Core i5-7400 / AMD Ryzen 3 1200",
+    "gpu": "NVIDIA GeForce GTX 1060 (6 GB) / AMD Radeon 5600XT (6 GB)",
+    "ram": 16,
+    "vram": 6,
+    "disk": 60,
+    "diskText": "60 GB available space",
+    "dx": 12,
+    "notes": "SSD required",
+    "cpuAlts": [
+     "Intel Core i5-7400",
+     "AMD Ryzen 3 1200"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce GTX 1060 (6 GB)",
+     "AMD Radeon 5600XT (6 GB)"
+    ],
+    "empty": false
+   },
+   "rec": {
+    "os": "Windows 10 64-bit (or newer)",
+    "cpu": "Intel Core i7-10700K / AMD Ryzen 5 2600X",
+    "gpu": "NVIDIA GeForce RTX 3070 (8 GB) / AMD Radeon 6700XT (12 GB)",
+    "ram": 16,
+    "vram": 8,
+    "disk": 75,
+    "diskText": "75 GB available space",
+    "dx": 12,
+    "notes": "NVMe required",
+    "cpuAlts": [
+     "Intel Core i7-10700K",
+     "AMD Ryzen 5 2600X"
+    ],
+    "gpuAlts": [
+     "NVIDIA GeForce RTX 3070 (8 GB)",
+     "AMD Radeon 6700XT (12 GB)"
+    ],
+    "empty": false
+   },
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1172710"
+  },
+  {
+   "id": "steam:1422450",
+   "appid": 1422450,
+   "name": "Deadlock",
+   "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1422450/aa249c5e8cc8f90941bd1dbdc311773cd1afe065/header.jpg?t=1769127177",
+   "free": false,
+   "genres": [
+    "Action"
+   ],
+   "released": "To be announced",
+   "metacritic": null,
+   "min": {
+    "os": "TBD",
+    "cpu": "TBD",
+    "gpu": "TBD",
+    "ram": null,
+    "vram": null,
+    "disk": null,
+    "diskText": null,
+    "dx": null,
+    "notes": null,
+    "cpuAlts": [
+     "TBD"
+    ],
+    "gpuAlts": [
+     "TBD"
+    ],
+    "empty": false
+   },
+   "rec": null,
+   "source": "Steam",
+   "sourceUrl": "https://store.steampowered.com/app/1422450"
+  }
+ ]
+}

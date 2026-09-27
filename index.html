@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RunableGames</title>
+<meta name="description" content="Máy của bạn có chạy nổi game này không? Tự quét cấu hình, so với yêu cầu chính thức của mọi game, xếp hạng sức mạnh và gợi ý nâng cấp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<script>
+  // Chọn giao diện trước khi vẽ để khỏi nháy màu
+  try { if (localStorage.getItem("rg_theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <a class="logo" href="#/" aria-label="RunableGames — trang chủ"><span>Run</span><span class="a">able</span><span class="c">Games</span><span class="cur" aria-hidden="true"></span></a>
+      <p class="tagline">Chọn game — máy tự quét cấu hình và báo bạn có chạy được không.</p>
+    </div>
+    <button class="btn" id="theme" type="button"></button>
+  </header>
+
+  <main id="view" aria-live="polite"></main>
+
+  <footer class="foot">
+    <p>Yêu cầu cấu hình lấy từ trang chính thức của nhà phát hành (Steam, Riot, HoYoverse, Epic, Mojang). FPS là <b>ước lượng</b> neo theo mức Đề xuất ≈ 1080p Cao 60 FPS và mức Tối thiểu ≈ 1080p Thấp 30 FPS — không phải số đo thật trong game.</p>
+    <p>Bản web quét qua trình duyệt nên tên CPU và dung lượng RAM chỉ là suy đoán. Muốn chính xác tuyệt đối, dùng <a href="#/detect">ứng dụng nhận diện</a>.</p>
+  </footer>
+</div>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
