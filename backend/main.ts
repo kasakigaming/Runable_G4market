@@ -18,10 +18,10 @@ import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
 
 // Kho game phổ biến (data/catalog, xếp theo độ phổ biến) — để hiểu cách gõ tắt mà API Steam không hiểu
 // ("rdr2", "cod bo3", "gta 5" → cả bản Legacy lẫn Enhanced)
-let CATALOG: Array<{ appid: number; name: string }> = [];
+let CATALOG: Array<{ appid: number; name: string; delisted?: boolean }> = [];
 try {
   const j = JSON.parse(await Deno.readTextFile(new URL("../data/catalog/index.json", import.meta.url)));
-  CATALOG = j.games.map(([appid, name]: [number, string]) => ({ appid, name }));
+  CATALOG = j.games.map(([appid, name, dl]: [number, string, number?]) => ({ appid, name, delisted: dl === 1 }));
 } catch { CATALOG = []; }
 
 const ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "*").split(",").map((s) => s.trim()).filter(Boolean);
@@ -128,8 +128,14 @@ async function searchGames(q: string) {
   const nq = norm(q);
   const off = OFF.filter((g) => nameScore(q, g.name) < Infinity || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
     .map((g) => ({ id: g.id, name: g.name, image: null, source: g.source }));
+  // Gõ thẳng appid (vd 241560) → mở đúng game đó, kể cả game đã gỡ khỏi cửa hàng
+  if (/^\d{2,8}$/.test(q.trim())) {
+    const g = await getGame("steam:" + q.trim()).catch(() => null) as Record<string, unknown> | null;
+    if (g) return [{ id: g.id, name: g.name, image: g.image, source: g.delisted ? "Steam · ngừng bán" : "Steam" }];
+  }
   const [steam, others] = await Promise.all([searchSteam(q, nq).catch(() => [] as Hit[]), searchOtherStores(q, nq)]);
-  const popular: Hit[] = fuzzyFind(q, CATALOG, 6).map((g) => ({ id: "steam:" + g.appid, name: g.name, source: "Steam",
+  // Kho phổ biến có cả game đã gỡ khỏi Steam — ô tìm kiếm của Steam không bao giờ trả những game này
+  const popular: Hit[] = fuzzyFind(q, CATALOG, 6).map((g) => ({ id: "steam:" + g.appid, name: g.name, source: g.delisted ? "Steam · ngừng bán" : "Steam",
     image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.appid}/capsule_231x87.jpg` }));
   const key = (n: string) => norm(n).replace(EDITION_WORDS, "").replace(/ /g, "");
   const seen = new Set(off.map((g) => key(g.name)));
@@ -243,9 +249,25 @@ async function getGame(id: string) {
   const entries = Object.values(j || {}).filter((e) => e && e.success && e.data);
   const hit = entries.find((e) => e.data!.steam_appid === appid) || entries[0];
   if (!hit) return null;
-  const g = steamToGame(hit.data);
+  const g = steamToGame(hit.data) as Record<string, unknown>;
+  if (await isDelisted(hit.data!)) g.delisted = true;
   await kset(ck, g, 7 * 24 * 3600e3);
   return g;
+}
+
+// Game đã gỡ khỏi cửa hàng Steam: trang appdetails vẫn còn (kèm yêu cầu cấu hình) nhưng không bán.
+// Chỉ hỏi api.steamcmd.net (bản sao dữ liệu PICS của Steam) khi trang không có giá, không miễn phí
+// và không phải game sắp ra — PICS ghi app_retired_publisher_request = "1" cho game đã gỡ.
+async function isDelisted(d: Record<string, any>): Promise<boolean> {
+  if (d.is_free || d.price_overview || d.release_date?.coming_soon) return false;
+  try {
+    const r = await fetch(`https://api.steamcmd.net/v1/info/${d.steam_appid}`, { signal: AbortSignal.timeout(6000) });
+    if (!r.ok) return false;
+    const a = (await r.json())?.data?.[d.steam_appid];
+    return a?.common?.app_retired_publisher_request === "1";
+  } catch {
+    return false;
+  }
 }
 
 // ---- Xếp hạng máy ----

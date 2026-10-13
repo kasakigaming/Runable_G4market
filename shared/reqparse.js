@@ -58,6 +58,23 @@ export function splitAlts(s) {
     .filter((x) => x.length > 1);
 }
 
+// Game đời cũ ghi một dòng không nhãn: "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse"
+// → tách theo dấu phẩy rồi đoán từng mẩu là gì
+function unlabeled(lines) {
+  const text = lines.join(", ").replace(/^\s*(minimum|recommended)\s*:?\s*/i, "");
+  const out = {};
+  for (const raw of text.split(/\s*[,;]\s*/)) {
+    const p = raw.replace(/^(minimum|recommended)\s*:\s*/i, "").trim();
+    if (!p) continue;
+    if (!out.ram && /\d\s*(mb|gb)\s*(of\s*)?(system\s*)?(ram|memory)\b/i.test(p)) out.ram = p;
+    else if (!out.gpu && /video|graphics|\bvram\b|geforce|radeon|\b3-?d\b|opengl|directx.*(card|level)/i.test(p)) out.gpu = p;
+    else if (!out.cpu && /\d\s*[gm]hz|processor|\bcpu\b|pentium|athlon|core\s*(2|i\d)|celeron|phenom/i.test(p)) out.cpu = p;
+    else if (!out.disk && /\d\s*(mb|gb)\s*(of\s*)?(free\s*|available\s*)?(hdd|hard|disk|space)/i.test(p)) out.disk = p;
+    else if (!out.os && /windows|\bxp\b|vista/i.test(p)) out.os = p;
+  }
+  return out;
+}
+
 export function parseReq(html) {
   const found = {};
   const lines = htmlToLines(html);
@@ -69,6 +86,7 @@ export function parseReq(html) {
       if (re.test(label)) { if (!found[key]) found[key] = m[2].trim(); break; }
     }
   }
+  if (!found.cpu && !found.gpu && !found.ram) Object.assign(found, unlabeled(lines));
   const dx = found.dx ? parseFloat((/(\d+(?:\.\d+)?)/.exec(found.dx) || [])[1]) || null : null;
   const out = {
     os: found.os || null,

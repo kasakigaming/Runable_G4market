@@ -72,7 +72,7 @@ function loadCatalog() {
       .then((j) => {
         CAT.shards = j.shards || 64;
         const have = new Set(S.library.map((g) => g.id));
-        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name]) => ({ appid, name }));
+        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name, dl]) => ({ appid, name, delisted: dl === 1 }));
         return CAT.list;
       });
   }
@@ -86,7 +86,7 @@ async function catalogGame(appid) {
   }
   const g = (await CAT.cache.get(shard)).games.find((x) => x.appid === appid);
   if (!g) return null;
-  return { ...g, id: "steam:" + appid, source: "Steam", sourceUrl: "https://store.steampowered.com/app/" + appid };
+  return { ...g, id: "steam:" + appid, source: "Steam", delisted: g.dl === 1, sourceUrl: "https://store.steampowered.com/app/" + appid };
 }
 
 // Game người dùng tự dán yêu cầu cấu hình: toàn bộ nằm trong địa chỉ (#/game/u:…) nên gửi link cho bạn bè được
@@ -190,7 +190,7 @@ function searchLocal(q) {
     .slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
   if (!CAT.list || lib.length >= 8) return lib;
   return [...lib, ...fuzzyFind(q, CAT.list, 8 - lib.length)
-    .map((x) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: "Steam" }))];
+    .map((x) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: x.delisted ? "Steam · ngừng bán" : "Steam" }))];
 }
 
 // ---------------------------------------------------------------------------
@@ -533,6 +533,8 @@ async function renderGame(id) {
   const weakButOk720 = r.verdict === "bad" && fps && fps.low720 >= 28;
   const srcNote = g.custom
     ? `Yêu cầu cấu hình do bạn dán vào — <a href="#/custom?e=${esc(id.slice(2))}">sửa lại</a>. Link trang này chứa luôn yêu cầu đó, gửi cho bạn bè là họ check được ngay.`
+    : g.delisted
+    ? `Game đã ngừng bán trên Steam — yêu cầu cấu hình lấy từ <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang Steam cũ của game</a>.`
     : g.source === "Steam" || g.store
     ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang ${esc(g.source)} của game</a>.`
     : `Yêu cầu cấu hình từ ${esc(g.source)} — <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang chính thức</a>${g.verified ? " (đã đối chiếu)" : " (trang gốc chặn đọc tự động, hãy tự kiểm tra lại)"}.`;
@@ -543,7 +545,7 @@ async function renderGame(id) {
       ${g.image ? `<img src="${esc(g.image)}" alt="Ảnh bìa ${esc(g.name)}" data-name="${esc(g.name)}" data-big="1">` : initials(g.name, "ini big")}
       <div>
         <h1>${esc(g.name)}</h1>
-        <div class="gmeta">${(g.genres || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}${g.free ? '<span class="tag">Miễn phí</span>' : ""}<span class="tag">${esc(g.source)}</span></div>
+        <div class="gmeta">${(g.genres || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}${g.free ? '<span class="tag">Miễn phí</span>' : ""}<span class="tag">${esc(g.source)}</span>${g.delisted ? '<span class="tag">Đã ngừng bán</span>' : ""}</div>
         <div class="verdict"><span class="big ${VERDICT[r.verdict].cls}">${vlabel}</span>
           <span class="muted">${verdictText(r, g)}</span></div>
       </div>
