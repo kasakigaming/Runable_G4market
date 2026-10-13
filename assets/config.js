@@ -2,9 +2,9 @@
 // Cấu hình RunableGames — sửa ở đây, không cần đụng code khác.
 // ============================================================================
 export const CONFIG = {
-  // Địa chỉ backend sau khi deploy lên Deno Deploy, vd "https://runable-g4market.deno.dev"
-  // Để trống: trang vẫn chạy (quét máy, 70+ game có sẵn), chỉ thiếu tìm mọi game + xếp hạng.
-  BACKEND_URL: "",
+  // Backend trên Deno Deploy (backend/main.ts): tra mọi game Steam, nối kết quả app, xếp hạng.
+  // Để trống: trang vẫn chạy với kho game có sẵn, chỉ thiếu tra trực tiếp Steam + xếp hạng.
+  BACKEND_URL: "https://runable-g4market.kasakigaming.deno.net",
 
   // File app tải về (đặt cùng thư mục với trang)
   APP_URL: "runable_g4market.exe",

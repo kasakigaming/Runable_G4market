@@ -460,8 +460,9 @@ function wireSearch() {
       try {
         const r = await api("/api/search?q=" + encodeURIComponent(v));
         if (my !== seq) return;
-        const seen = new Set(items.map((x) => x.id));
-        items = [...items, ...r.filter((x) => !seen.has(x.id))].slice(0, 12);
+        // Kết quả API (tra thẳng Steam) đứng trước; kho có sẵn chỉ bù thêm cho đủ
+        const seen = new Set(r.map((x) => x.id));
+        items = [...r, ...items.filter((x) => !seen.has(x.id))].slice(0, 12);
         draw();
       } catch (e) {}
     }, 250);
@@ -488,10 +489,11 @@ async function renderGame(id) {
   let g = id.startsWith("u:") ? customGame(id) : findLocal(id);
   view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><p class="muted" style="margin-top:24px">Đang tải yêu cầu cấu hình…</p>`;
   const appid = (/^steam:(\d+)$/.exec(id) || [])[1];
-  if (!g && appid) { await loadCatalog(); g = await catalogGame(Number(appid)); }
+  // Có backend: lấy yêu cầu mới nhất từ Steam qua API. API lỗi thì dùng kho có sẵn.
   if (hasBackend() && !id.startsWith("u:")) {
     try { const remote = await api("/api/game?id=" + encodeURIComponent(id)); if (remote && !remote.error) g = remote; } catch (e) {}
   }
+  if (!g && appid) { await loadCatalog(); g = await catalogGame(Number(appid)); }
   if (decodeURIComponent(location.hash.slice(7)) !== id) return;   // người dùng đã sang trang khác trong lúc tải
   if (!g) {
     view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><div class="note" style="margin-top:18px">Không tìm thấy game này trong kho.
