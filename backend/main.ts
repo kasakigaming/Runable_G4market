@@ -110,6 +110,8 @@ const OFF: OffGame[] = (offsteam as { games: OffGame[] }).games.map((g) => {
   return g;
 });
 
+const SEARCH_JUNK = /soundtrack|\bost\b|\bdlc\b|season pass|upgrade|\bdemo\b|artbook|benchmark tool|wallpaper|\bskin\b|costume|\bbundle\b/i;
+
 async function searchGames(q: string) {
   const nq = norm(q);
   const off = OFF.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
@@ -118,7 +120,8 @@ async function searchGames(q: string) {
   let steam = await kget<unknown[]>(ck);
   if (!steam) {
     const j = await steamJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=english&cc=us`) as { items?: Array<Record<string, unknown>> };
-    steam = (j.items || []).filter((i) => i.type === "app").slice(0, 12).map((i) => ({
+    // Kết quả tìm của Steam lẫn soundtrack, DLC, gói nâng cấp, demo — không phải game để check cấu hình
+    steam = (j.items || []).filter((i) => i.type === "app" && !SEARCH_JUNK.test(String(i.name))).slice(0, 12).map((i) => ({
       id: "steam:" + i.id, appid: i.id, name: i.name, image: i.tiny_image || null, source: "Steam",
     }));
     await kset(ck, steam, 24 * 3600e3);

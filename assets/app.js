@@ -9,7 +9,7 @@ import { CONFIG } from "./config.js";
 import { scanBrowser, profileFromApp } from "./scan.js";
 import { checkGame, power, TIERS, VERDICT, kd, PTS, upgradesFor, bestLibraryUpgrade, ramGb, prettyGpu, setMeasurements } from "./engine.js";
 import { CPUS, cpuScore } from "../shared/hwscore.js";
-import { splitAlts } from "../shared/reqparse.js";
+import { splitAlts, parsePasted, splitMinRec } from "../shared/reqparse.js";
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[c]);
@@ -56,6 +56,50 @@ async function loadLibrary() {
   S.library = [...off.games, ...steam.games];
 }
 const findLocal = (id) => S.library.find((g) => g.id === id) || null;
+
+// ---------------------------------------------------------------------------
+// Kho game lớn (data/catalog, tạo bởi tools/build-catalog.mjs): vài nghìn game Steam.
+// Mục lục chỉ tải khi người dùng bắt đầu tìm; chi tiết từng game nằm trong 1 trong 64 mảnh.
+// ---------------------------------------------------------------------------
+const DV = "";   // workflow deploy gắn "?v=<mã commit>" để trình duyệt không dùng file cũ
+const CAT = { list: null, loading: null, shards: 64, cache: new Map() };
+const steamImg = (appid) => `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`;
+
+function loadCatalog() {
+  if (!CAT.loading) {
+    CAT.loading = fetch("data/catalog/index.json" + DV).then((r) => (r.ok ? r.json() : { games: [] })).catch(() => ({ games: [] }))
+      .then((j) => {
+        CAT.shards = j.shards || 64;
+        const have = new Set(S.library.map((g) => g.id));
+        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name]) => ({ appid, name, n: norm(name) }));
+        return CAT.list;
+      });
+  }
+  return CAT.loading;
+}
+
+async function catalogGame(appid) {
+  const shard = (appid % CAT.shards).toString(16).padStart(2, "0");
+  if (!CAT.cache.has(shard)) {
+    CAT.cache.set(shard, fetch(`data/catalog/s${shard}.json` + DV).then((r) => (r.ok ? r.json() : { games: [] })).catch(() => ({ games: [] })));
+  }
+  const g = (await CAT.cache.get(shard)).games.find((x) => x.appid === appid);
+  if (!g) return null;
+  return { ...g, id: "steam:" + appid, source: "Steam", sourceUrl: "https://store.steampowered.com/app/" + appid };
+}
+
+// Game người dùng tự dán yêu cầu cấu hình: toàn bộ nằm trong địa chỉ (#/game/u:…) nên gửi link cho bạn bè được
+const b64e = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const b64d = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0)));
+const customId = (name, min, rec) => "u:" + b64e(JSON.stringify({ n: name, a: min, b: rec }));
+
+function customGame(id) {
+  let d;
+  try { d = JSON.parse(b64d(id.slice(2))); } catch (e) { return null; }
+  const min = parsePasted(d.a), rec = parsePasted(d.b);
+  return { id, name: d.n || "Game của bạn", custom: true, raw: d, genres: [], source: "Bạn tự nhập",
+    min: min.empty ? null : min, rec: rec.empty ? null : rec };
+}
 
 // ---------------------------------------------------------------------------
 // Hồ sơ máy
@@ -136,11 +180,23 @@ const cover = (g, cls = "cover") => g.image ? `<img class="${cls}" src="${esc(g.
 const pill = (v) => `<span class="pill ${VERDICT[v].cls}">${VERDICT[v].label}</span>`;
 const shopUrl = (q) => CONFIG.SHOP_SEARCH.replace("{q}", encodeURIComponent(q));
 
+// Thư viện có sẵn trước, rồi kho lớn. Trong kho: khớp đầu tên > khớp đầu một chữ > chứa chuỗi,
+// cùng mức thì game phổ biến hơn (đứng trước trong mục lục) lên trước.
 function searchLocal(q) {
   const nq = norm(q);
   if (nq.length < 2) return [];
-  return S.library.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq)))
+  const lib = S.library.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq)))
     .slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
+  if (!CAT.list || lib.length >= 8) return lib;
+  const hits = [];
+  for (const x of CAT.list) {
+    const at = x.n.indexOf(nq);
+    if (at < 0) continue;
+    hits.push({ x, s: at === 0 ? 0 : x.n[at - 1] === " " ? 1 : 2 });
+    if (hits.length > 400) break;
+  }
+  hits.sort((a, b) => a.s - b.s);
+  return [...lib, ...hits.slice(0, 8 - lib.length).map(({ x }) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: "Steam" }))];
 }
 
 // ---------------------------------------------------------------------------
@@ -159,7 +215,7 @@ function renderHome() {
     <section class="sec" aria-labelledby="h-check">
       <p class="eyebrow">Kiểm tra ngay</p>
       <h2 class="sec-h" id="h-check">Nhập tên game để check cấu hình</h2>
-      <p class="sec-sub">${hasBackend() ? "Gõ tên bất kỳ game nào trên Steam, hoặc game ngoài Steam như LMHT, Valorant, Genshin." : `Đang có sẵn ${S.library.length} game. Khi bật máy chủ, tra được mọi game trên Steam.`}</p>
+      <p class="sec-sub">Hàng nghìn game Steam cùng game ngoài Steam như LMHT, Valorant, Genshin. Game nào chưa có thì <a href="#/custom">dán yêu cầu cấu hình</a> là check được.</p>
       <form class="search" id="searchform" role="search" autocomplete="off">
         <div class="search-box">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -384,15 +440,20 @@ function wireSearch() {
   if (!q) return;
   let items = [], on = -1, timer = null, seq = 0;
   const draw = () => {
-    if (!items.length) { box.hidden = true; return; }
+    const v = q.value.trim();
+    if (norm(v).length < 2) { box.hidden = true; return; }
     box.hidden = false;
     box.innerHTML = items.map((g, i) => `<a class="sg ${i === on ? "on" : ""}" role="option" href="#/game/${esc(g.id)}">
-      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}">` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.source || "")}</small></a>`).join("");
+      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}">` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.source || "")}</small></a>`).join("")
+      + `<a class="sg sg-custom" href="#/custom?n=${encodeURIComponent(v)}"><span class="ini" aria-hidden="true">+</span><span>${items.length ? "Không phải game này?" : "Chưa có game này trong kho."} <b>Dán yêu cầu cấu hình</b> để check “${esc(v)}”</span></a>`;
   };
+  const refresh = () => { items = searchLocal(q.value.trim()); on = -1; draw(); };
+  q.addEventListener("focus", () => { if (!CAT.list) loadCatalog().then(() => { if (q.value.trim()) refresh(); }); });
   q.addEventListener("input", () => {
     clearTimeout(timer);
     const v = q.value.trim();
-    items = searchLocal(v); on = -1; draw();
+    if (!CAT.list) loadCatalog().then(() => { if (q.value.trim() === v) refresh(); });
+    refresh();
     if (!hasBackend() || v.length < 2) return;
     const my = ++seq;
     timer = setTimeout(async () => {
@@ -410,10 +471,13 @@ function wireSearch() {
     if (e.key === "ArrowUp") { on = Math.max(0, on - 1); draw(); e.preventDefault(); }
     if (e.key === "Escape") { box.hidden = true; }
   });
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const pick = items[on >= 0 ? on : 0];
-    if (pick) location.hash = "#/game/" + pick.id;
+    const v = q.value.trim();
+    if (!v) return;
+    if (!items.length) { await loadCatalog(); items = searchLocal(v); on = -1; }   // bấm Enter trước khi kho kịp tải
+    const pick = items[on >= 0 && on < items.length ? on : 0];
+    location.hash = pick ? "#/game/" + pick.id : "#/custom?n=" + encodeURIComponent(v);
   });
 }
 
@@ -421,13 +485,17 @@ function wireSearch() {
 // TRANG CHI TIẾT GAME
 // ---------------------------------------------------------------------------
 async function renderGame(id) {
-  let g = findLocal(id);
+  let g = id.startsWith("u:") ? customGame(id) : findLocal(id);
   view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><p class="muted" style="margin-top:24px">Đang tải yêu cầu cấu hình…</p>`;
-  if (hasBackend()) {
+  const appid = (/^steam:(\d+)$/.exec(id) || [])[1];
+  if (!g && appid) { await loadCatalog(); g = await catalogGame(Number(appid)); }
+  if (hasBackend() && !id.startsWith("u:")) {
     try { const remote = await api("/api/game?id=" + encodeURIComponent(id)); if (remote && !remote.error) g = remote; } catch (e) {}
   }
+  if (decodeURIComponent(location.hash.slice(7)) !== id) return;   // người dùng đã sang trang khác trong lúc tải
   if (!g) {
-    view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><div class="note" style="margin-top:18px">Không tìm thấy game này${hasBackend() ? "" : " trong thư viện có sẵn — cần bật máy chủ để tra mọi game trên Steam"}.</div>`;
+    view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><div class="note" style="margin-top:18px">Không tìm thấy game này trong kho.
+      <a href="#/custom">Dán yêu cầu cấu hình của game</a> để check ngay.</div>`;
     return;
   }
   for (const k of ["min", "rec", "high"]) if (g[k] && !g[k].gpuAlts) { g[k].cpuAlts = splitAlts(g[k].cpu); g[k].gpuAlts = splitAlts(g[k].gpu); }
@@ -467,7 +535,9 @@ async function renderGame(id) {
   const ups = r.verdict === "great" ? [] : upgradesFor(p, r, target, CONFIG.PRICES);
   const fps = r.fps;
   const weakButOk720 = r.verdict === "bad" && fps && fps.low720 >= 28;
-  const srcNote = g.source === "Steam"
+  const srcNote = g.custom
+    ? `Yêu cầu cấu hình do bạn dán vào — <a href="#/custom?e=${esc(id.slice(2))}">sửa lại</a>. Link trang này chứa luôn yêu cầu đó, gửi cho bạn bè là họ check được ngay.`
+    : g.source === "Steam"
     ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang Steam của game</a>.`
     : `Yêu cầu cấu hình từ ${esc(g.source)} — <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang chính thức</a>${g.verified ? " (đã đối chiếu)" : " (trang gốc chặn đọc tự động, hãy tự kiểm tra lại)"}.`;
 
@@ -532,6 +602,62 @@ function upCard(u) {
         <span>${o.type === "ram" ? "" : (o.type === "cpu" ? kd(o.idx, PTS.cpu) : kd(o.idx) + (o.vram ? " · " + o.vram + " GB" : ""))}</span>
         <em>${price ? price.toLocaleString("vi-VN") + " đ →" : "Xem giá →"}</em></a>`;
     }).join("")}</div>` : ""}</div>`;
+}
+
+// ---------------------------------------------------------------------------
+// GAME CHƯA CÓ TRONG KHO: người dùng dán yêu cầu cấu hình từ bất kỳ đâu
+// ---------------------------------------------------------------------------
+function renderCustom() {
+  const qs = new URLSearchParams(location.hash.split("?")[1] || "");
+  let name = qs.get("n") || "", text = "";
+  if (qs.get("e")) {   // bấm "sửa lại" từ trang kết quả
+    try { const d = JSON.parse(b64d(qs.get("e"))); name = d.n || ""; text = d.a + (d.b ? "\n\nRecommended:\n" + d.b : ""); } catch (e) {}
+  }
+  const google = (n) => "https://www.google.com/search?q=" + encodeURIComponent((n || "tên game") + " system requirements");
+  view().innerHTML = `
+    <a class="back" href="#/">← Trang chủ</a>
+    <section class="sec" style="margin-top:18px">
+      <p class="eyebrow">Mọi game</p>
+      <h1 class="sec-h">Check game chưa có trong kho</h1>
+      <p class="sec-sub">Game trên Epic, Battle.net, Riot, game Việt, game mới ra… đều check được: mở trang của game, tìm mục
+        <b>System Requirements / Cấu hình</b>, bôi đen rồi dán vào đây. Dán cả phần Tối thiểu lẫn Đề xuất cũng được — trang tự tách.</p>
+      <form class="card custom" id="cform" autocomplete="off">
+        <label for="cname">Tên game</label>
+        <input id="cname" type="text" value="${esc(name)}" placeholder="Ví dụ: Võ Lâm Truyền Kỳ" required>
+        <label for="ctext">Yêu cầu cấu hình <a class="muted" id="cgoogle" href="${esc(google(name))}" target="_blank" rel="noopener" style="font-weight:400">— tìm trên Google ↗</a></label>
+        <textarea id="ctext" rows="9" placeholder="Minimum:
+OS: Windows 10 64-bit
+Processor: Intel Core i5-8400 / AMD Ryzen 5 2600
+Memory: 8 GB RAM
+Graphics: GTX 1060 6 GB / RX 580
+
+Recommended:
+…">${esc(text)}</textarea>
+        <div id="cprev"></div>
+        <div><button class="btn primary" type="submit">Kiểm tra</button></div>
+      </form>
+    </section>`;
+  const nameEl = $("#cname"), textEl = $("#ctext"), prev = $("#cprev");
+  const parts = () => splitMinRec(textEl.value).map((x) => x.trim());
+  const show = () => {
+    $("#cgoogle").href = google(nameEl.value.trim());
+    const [a, b] = parts();
+    if (!a && !b) { prev.innerHTML = ""; return; }
+    const row = (label, r) => r.empty ? `<p class="muted">${label}: chưa đọc được CPU, card hay RAM nào.</p>`
+      : `<p><b>${label}:</b> CPU <span class="mono">${esc(r.cpu || "?")}</span> · Card <span class="mono">${esc(r.gpu || "?")}</span> · RAM <span class="mono">${r.ram ? r.ram + " GB" : "?"}</span>${r.vram ? " · VRAM " + r.vram + " GB" : ""}</p>`;
+    prev.innerHTML = `<div class="note good">${row("Tối thiểu", parsePasted(a))}${b ? row("Đề xuất", parsePasted(b)) : ""}
+      <p class="muted" style="font-size:12.5px">Mỗi thông số nên nằm sau nhãn của nó (CPU:, Graphics:, RAM:…). Thiếu ô nào thì trang bỏ qua ô đó khi so.</p></div>`;
+  };
+  textEl.addEventListener("input", show);
+  nameEl.addEventListener("input", () => { $("#cgoogle").href = google(nameEl.value.trim()); });
+  show();
+  $("#cform").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const [a, b] = parts();
+    if (parsePasted(a).empty && parsePasted(b).empty) { textEl.focus(); prev.innerHTML = `<div class="note">Chưa đọc được CPU, card đồ họa hay RAM nào — kiểm tra lại phần đã dán.</div>`; return; }
+    location.hash = "#/game/" + customId(nameEl.value.trim() || "Game của bạn", a, b);
+  });
+  (name ? textEl : nameEl).focus();
 }
 
 // ---------------------------------------------------------------------------
@@ -649,6 +775,7 @@ function renderRoute() {
   if (h !== "#/detect") showArrow(false);
   if (h.startsWith("#/game/")) return renderGame(decodeURIComponent(h.slice(7)));
   if (h === "#/detect") return renderDetect();
+  if (h.startsWith("#/custom")) return renderCustom();
   return renderHome();
 }
 

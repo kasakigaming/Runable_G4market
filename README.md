@@ -13,7 +13,7 @@ Máy của bạn có chạy nổi game này không? Quét cấu hình, so với 
 | 1 | Quét bằng trình duyệt — GPU (cả 2 card trên laptop), số nhân thật, cache, pin, màn hình; CPU và RAM người dùng xác nhận nhanh | `assets/scan.js` | ~80% |
 | 2 | Quét bằng `runable_g4market.exe` — tên CPU/GPU, RAM gắn thật và RAM Windows thấy, VRAM từ registry, số thanh RAM, bus, ổ trống | `app/` | ~100% |
 | 3 | Chỉ số sức mạnh + cảnh giới (Luyện Khí → Đại La Kim Tiên) + "mạnh hơn X% người chơi" | `assets/engine.js` + backend | xếp hạng từ lượt kiểm tra thật |
-| 4 | Tra **mọi game trên Steam** + game ngoài Steam (LMHT, Valorant, Genshin…) → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | backend + `shared/` | yêu cầu cấu hình chính thức |
+| 4 | Tra **~5.000 game Steam phổ biến** (có sẵn, không cần backend) + game ngoài Steam (LMHT, Valorant, Genshin, FC Online, Đột Kích…) + **mọi game khác bằng cách dán yêu cầu cấu hình** → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | `data/catalog` + `shared/` | yêu cầu cấu hình chính thức |
 | 5 | Gợi ý nâng cấp — linh kiện yếu nhất vẫn đủ đạt mức, kèm link mua (gắn affiliate được) | `assets/engine.js` | cần bạn điền giá để ra "rẻ nhất" |
 
 ## Cấu trúc
@@ -21,8 +21,9 @@ Máy của bạn có chạy nổi game này không? Quét cấu hình, so với 
 ```
 index.html, assets/        trang web (một trang, đổi trang bằng dấu #)
 shared/hwscore.js          bảng ~300 GPU + ~150 CPU và bộ chấm điểm chuỗi phần cứng
-shared/reqparse.js         đọc khối yêu cầu cấu hình của Steam
-data/steam-popular.json    yêu cầu chính thức của 65 game Steam phổ biến (có sẵn, không cần backend)
+shared/reqparse.js         đọc khối yêu cầu cấu hình của Steam, và chữ người dùng tự dán (cả nhãn tiếng Việt)
+data/steam-popular.json    65 game Steam phổ biến nhất — dùng cho mục "Máy tôi chạy được game gì"
+data/catalog/              kho ~5.000 game Steam: index.json (để tìm) + 64 mảnh sXX.json (yêu cầu từng game)
 data/games-offsteam.json   game ngoài Steam — thêm game mới vào đây
 backend/main.ts            backend Deno Deploy
 app/RunableG4Market.cs     mã nguồn ứng dụng nhận diện
@@ -35,7 +36,7 @@ tools/                     script lấy dữ liệu Steam và kiểm tra bộ ch
 ### 1. Trang web — GitHub Pages (đã tự động)
 Settings → Pages → Source: **GitHub Actions**. Workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) chạy mỗi lần đẩy lên `main` hoặc phát hành Release mới: gom file của trang, **lấy `runable_g4market.exe` từ Release mới nhất đặt cạnh `index.html`**, rồi deploy.
 Exe phải cùng tên miền với trang thì trình duyệt mới cho đổi tên lúc tải — đó là cách mã phiên đi vào tên file. Vì vậy phát hành exe mới là trang tự cập nhật theo, không phải chép tay.
-Không bật được backend thì trang vẫn chạy: quét máy, 72 game có sẵn, chấm điểm, gợi ý nâng cấp. Chỉ thiếu tra game ngoài danh sách và xếp hạng.
+Không bật được backend thì trang vẫn chạy đủ: quét máy, tra ~5.000 game có sẵn, dán yêu cầu cho game khác, chấm điểm, gợi ý nâng cấp. Chỉ thiếu xếp hạng so với người khác và tra game Steam ít người chơi nằm ngoài kho.
 
 ### 2. Backend — Deno Deploy
 1. dash.deno.com → **New Project** → link repo này → **Entry point: `backend/main.ts`**.
@@ -51,11 +52,15 @@ Backend **không cần secret nào**.
 
 ## Cập nhật dữ liệu game
 ```
-node tools/fetch-steam.mjs                      # lấy lại toàn bộ 65 game (~3 phút)
+node tools/build-catalog.mjs                    # kho ~5.000 game (lần đầu ~2,5 giờ; chạy lại chỉ tra game mới/cũ quá 90 ngày)
+node tools/build-catalog.mjs --pages 10         # mở rộng lên ~10.000 game
+node tools/fetch-steam.mjs                      # lấy lại 65 game của mục "Máy tôi chạy được game gì" (~3 phút)
 node tools/fetch-steam.mjs --add 2357570 "Hades II"   # thêm game theo appid hoặc tên
 node tools/test-scoring.mjs                     # xem bộ chấm điểm hiểu được bao nhiêu % chuỗi phần cứng
 ```
-Game có trên Steam thì **không cần thêm** — backend tự tra khi người dùng tìm. Chỉ cần thêm để có sẵn khi không có backend, hoặc để xuất hiện trong mục "Máy tôi chạy được game gì".
+Kho game tự cập nhật mỗi tuần qua workflow **Cập nhật kho game** (`.github/workflows/catalog.yml`): tra game mới nổi trên Steam, commit `data/catalog` rồi deploy lại trang. Muốn chạy ngay: tab Actions → Cập nhật kho game → Run workflow.
+
+Game ngoài Steam: thêm vào `data/games-offsteam.json`. Game không có ở đâu cả: người dùng bấm **"Dán yêu cầu cấu hình"** ngay trong ô tìm kiếm — yêu cầu nằm luôn trong link kết quả nên gửi cho người khác được.
 
 ## Chạy thử trên máy
 ```

@@ -1,0 +1,49 @@
+# Mỗi tuần tự cập nhật kho game (data/catalog): thêm game mới nổi trên Steam, tra lại game có dữ liệu quá 90 ngày.
+# Có thay đổi thì commit vào main rồi gọi workflow deploy trang.
+name: Cập nhật kho game
+
+on:
+  schedule:
+    - cron: "0 19 * * 0"     # 02:00 sáng thứ Hai giờ Việt Nam
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: "Số trang SteamSpy (1000 game mỗi trang)"
+        default: "5"
+      max:
+        description: "Tra tối đa bao nhiêu game trong lượt này"
+        default: "2500"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: catalog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Tra yêu cầu cấu hình từ Steam
+        run: node tools/build-catalog.mjs --pages "${{ inputs.pages || 5 }}" --max "${{ inputs.max || 2500 }}"
+
+      - name: Commit nếu có thay đổi rồi deploy lại trang
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add data/catalog
+          if git diff --cached --quiet; then echo "Kho game không đổi."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Cập nhật kho game $(date -u +%Y-%m-%d)"
+          git push
+          # Commit bằng token của workflow không tự kích hoạt workflow khác → gọi deploy trực tiếp
+          gh workflow run pages.yml --ref main

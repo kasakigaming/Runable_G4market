@@ -257,3 +257,13 @@ table.req .sc{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);disp
   .count .n{font-size:22px}
   .hist{gap:3px;height:120px}
 }
+
+/* Gợi ý "dán yêu cầu cấu hình" cuối danh sách tìm kiếm + trang check game chưa có trong kho */
+.sg-custom{border-top:1px solid var(--line);margin-top:4px;padding-top:10px;font-size:13.5px}
+.sg-custom .ini{background:var(--surface-3);color:var(--green);font-size:18px}
+.custom{display:grid;gap:10px;margin-top:18px;padding:20px}
+.custom label{font-weight:600;font-size:14px}
+.custom input,.custom textarea{width:100%;font:inherit;font-size:14px;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.custom textarea{font-family:var(--f-mono);font-size:13px;resize:vertical;min-height:180px}
+.custom input:focus,.custom textarea:focus{outline:2px solid var(--green);outline-offset:1px}
+.custom .note p+p{margin-top:4px}

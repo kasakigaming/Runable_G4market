@@ -87,6 +87,35 @@ export function parseReq(html) {
   return out;
 }
 
+// Chữ người dùng tự dán (từ Epic, trang nhà phát hành, diễn đàn…): nhãn có thể là tiếng Việt,
+// cả khối có thể dính liền một dòng "OS: Win 10 Processor: i5 Memory: 8 GB".
+const VI_LABELS = [   // thứ tự quan trọng: "bộ nhớ đồ họa" phải thay trước "đồ họa" và "bộ nhớ"
+  [/(bộ nhớ đồ họa|bộ nhớ đồ hoạ|bộ nhớ card)\s*[:：]/gi, "VRAM:"],
+  [/(hệ điều hành|he dieu hanh|hđh)\s*[:：]/gi, "OS:"],
+  [/(bộ vi xử lý|bộ xử lý|vi xử lý|bo xu ly|vi xu ly|chip xử lý)\s*[:：]/gi, "Processor:"],
+  [/(card đồ họa|card đồ hoạ|card màn hình|đồ họa|đồ hoạ|card do hoa|vga)\s*[:：]/gi, "Graphics:"],
+  [/(bộ nhớ|bo nho)\s*[:：]/gi, "Memory:"],
+  [/(lưu trữ|ổ cứng|ổ đĩa|dung lượng|dung luong|o cung)\s*[:：]/gi, "Storage:"],
+  [/(ghi chú|ghi chu|lưu ý)\s*[:：]/gi, "Notes:"],
+];
+const INLINE_LABEL = /\s*\b(Operating System|OS|Processor|CPU|Video RAM|Video Memory|VRAM|System Memory|Memory|RAM|Graphics Card|Video Card|Graphics|GPU|DirectX|Storage|Hard Drive|Disk Space|Additional Notes|Notes|Network|Sound Card)\s*[:：]/gi;
+
+export function parsePasted(text) {
+  let t = String(text || "").normalize("NFC");
+  for (const [re, to] of VI_LABELS) t = t.replace(re, to);
+  t = t.replace(INLINE_LABEL, "\n$1:");
+  return parseReq(t.replace(/</g, " "));
+}
+
+// Tách khối dán có cả "Minimum" lẫn "Recommended" thành 2 phần
+export function splitMinRec(text) {
+  const t = String(text || "").normalize("NFC");
+  // Tiêu đề phải đứng đầu dòng hoặc có dấu ":" — tránh cắt nhầm câu kiểu "(đề xuất dùng SSD)"
+  const H = "(recommended(?: requirements| specs| system requirements)?|cấu hình đề (?:xuất|nghị)|cấu hình khuyến nghị|đề xuất|đề nghị|khuyến nghị|khuyên dùng)";
+  const m = new RegExp(`(?:^|\\n)[ \\t]*${H}[ \\t]*[:：]?|\\s${H}[ \\t]*[:：]`, "i").exec(t);
+  return m ? [t.slice(0, m.index), t.slice(m.index + m[0].length)] : [t, ""];
+}
+
 // Gói gọn cho một game Steam (appdetails.data)
 export function steamToGame(d) {
   const pc = d.pc_requirements && !Array.isArray(d.pc_requirements) ? d.pc_requirements : {};

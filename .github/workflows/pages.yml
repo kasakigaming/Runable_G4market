@@ -45,6 +45,9 @@ jobs:
           grep -o 'assets/[a-z]*\.[a-z]*?v=[0-9a-f]*' _site/index.html
           grep -ho 'from "[^"]*?v=[0-9a-f]*"' _site/assets/*.js _site/shared/*.js | sort -u
           grep -o 'data/[a-z-]*\.json?v=[0-9a-f]*' _site/assets/app.js
+          # Kho game (data/catalog) tải bằng đường dẫn ghép chuỗi → gắn mã qua hằng DV
+          sed -i -E "s#^const DV = \"\";#const DV = \"?v=$V\";#" _site/assets/app.js
+          grep "^const DV = \"?v=$V\";" _site/assets/app.js
 
       - name: Lấy runable_g4market.exe từ bản Release mới nhất
         env:
