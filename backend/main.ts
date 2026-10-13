@@ -116,17 +116,59 @@ async function searchGames(q: string) {
   const nq = norm(q);
   const off = OFF.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
     .map((g) => ({ id: g.id, name: g.name, image: null, source: g.source }));
-  const ck = ["search", nq];
+  const ck = ["search2", nq];
   let steam = await kget<unknown[]>(ck);
   if (!steam) {
     const j = await steamJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=english&cc=us`) as { items?: Array<Record<string, unknown>> };
-    // Kết quả tìm của Steam lẫn soundtrack, DLC, gói nâng cấp, demo — không phải game để check cấu hình
-    steam = (j.items || []).filter((i) => i.type === "app" && !SEARCH_JUNK.test(String(i.name))).slice(0, 12).map((i) => ({
+    const items = (j.items || []).filter((i) => i.type === "app");
+    const kinds = await steamKinds(items.map((i) => Number(i.id)));
+    steam = items.filter((i) => {
+      const k = kinds?.get(Number(i.id));
+      // Không hỏi được loại → đoán theo tên như cũ
+      if (!k) return !SEARCH_JUNK.test(String(i.name));
+      if (k.type === 0) return true;
+      // DLC chỉ hiện khi người dùng gõ đủ phần tên riêng của nó ("iceborne", "shadow of the erdtree")
+      if (k.type === 4) return dlcWanted(nq, String(i.name), k.parentName);
+      return false;   // nhạc nền, demo, video, phần mềm…
+    }).slice(0, 12).map((i) => ({
       id: "steam:" + i.id, appid: i.id, name: i.name, image: i.tiny_image || null, source: "Steam",
+      ...(kinds?.get(Number(i.id))?.type === 4 ? { dlc: true } : {}),
     }));
     await kset(ck, steam, 24 * 3600e3);
   }
   return [...off, ...steam].slice(0, 15);
+}
+
+// Loại của từng appid trên Steam (0 game, 4 DLC, 11 nhạc nền…) + tên game gốc của DLC — 1–2 lượt gọi cho cả trang kết quả
+async function steamKinds(ids: number[]): Promise<Map<number, { type: number; parentName?: string }> | null> {
+  const get = async (list: number[]) => {
+    const input = { ids: list.map((appid) => ({ appid })), context: { language: "english", country_code: "US" },
+      data_request: { include_basic_info: true, include_related_items: true } };
+    const j = await steamJson("https://api.steampowered.com/IStoreBrowseService/GetItems/v1/?input_json=" + encodeURIComponent(JSON.stringify(input))) as
+      { response?: { store_items?: Array<{ appid: number; type?: number; name?: string; related_items?: { parent_appid?: number } }> } };
+    return j.response?.store_items || [];
+  };
+  try {
+    if (!ids.length) return new Map();
+    const got = await get(ids);
+    const out = new Map(got.map((x) => [x.appid, { type: x.type ?? 0, parent: x.related_items?.parent_appid, name: x.name }]));
+    const missing = [...new Set(got.map((x) => x.related_items?.parent_appid).filter((p): p is number => !!p && !out.has(p)))];
+    const parents = new Map((missing.length ? await get(missing) : []).map((x) => [x.appid, x.name]));
+    return new Map([...out].map(([id, x]) => [id, { type: x.type, parentName: x.parent ? (out.get(x.parent)?.name || parents.get(x.parent)) : undefined }]));
+  } catch {
+    return null;
+  }
+}
+
+const STOP = new Set(["the", "of", "a", "an", "and", "edition", "dlc", "pack", "expansion"]);
+function dlcWanted(nq: string, dlcName: string, parentName?: string): boolean {
+  const base = new Set(norm(parentName || "").split(" "));
+  const own = norm(dlcName).split(" ").filter((w) => w && !base.has(w) && !STOP.has(w));
+  if (!own.length) return false;
+  const typed = nq.split(" ");
+  const last = typed[typed.length - 1];
+  // Mọi chữ riêng của DLC đều phải có trong ô tìm; chữ cuối đang gõ dở thì khớp đầu chữ là đủ
+  return own.every((w) => typed.includes(w) || (last.length >= 3 && w.startsWith(last)));
 }
 
 async function getGame(id: string) {

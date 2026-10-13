@@ -444,7 +444,7 @@ function wireSearch() {
     if (norm(v).length < 2) { box.hidden = true; return; }
     box.hidden = false;
     box.innerHTML = items.map((g, i) => `<a class="sg ${i === on ? "on" : ""}" role="option" href="#/game/${esc(g.id)}">
-      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}">` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.source || "")}</small></a>`).join("")
+      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}">` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.dlc ? "DLC" : g.source || "")}</small></a>`).join("")
       + `<a class="sg sg-custom" href="#/custom?n=${encodeURIComponent(v)}"><span class="ini" aria-hidden="true">+</span><span>${items.length ? "Không phải game này?" : "Chưa có game này trong kho."} <b>Dán yêu cầu cấu hình</b> để check “${esc(v)}”</span></a>`;
   };
   const refresh = () => { items = searchLocal(q.value.trim()); on = -1; draw(); };
