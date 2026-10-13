@@ -20,7 +20,7 @@ import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
 // Ô tìm kiếm của Steam không trả game đã gỡ khỏi cửa hàng và không hiểu gõ tắt ("rdr2", "gta 5" → cả bản
 // Legacy) — danh sách này đổi tên gõ → appid. Chỉ có tên; yêu cầu cấu hình tra khi mở đúng 1 game.
 // Workflow hằng tuần làm mới file trên GitHub → backend tự tải lại mỗi ngày, không cần deploy lại.
-const INDEX_URL = "https://raw.githubusercontent.com/kasakigaming/Runable_G4market/main/data/steam-index.json";
+const INDEX_URL = "https://raw.githubusercontent.com/kasakigaming/Runable_G4market/refs/heads/main/data/steam-index.json";
 let CATALOG: Array<{ appid: number; name: string }> = [];
 const useIndex = (j: { games?: Array<[number, string]> }) => {
   if (Array.isArray(j.games) && j.games.length > 1000) CATALOG = j.games.map(([appid, name]) => ({ appid, name }));
