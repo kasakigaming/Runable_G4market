@@ -267,3 +267,9 @@ table.req .sc{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);disp
 .custom textarea{font-family:var(--f-mono);font-size:13px;resize:vertical;min-height:180px}
 .custom input:focus,.custom textarea:focus{outline:2px solid var(--green);outline-offset:1px}
 .custom .note p+p{margin-top:4px}
+
+/* Chữ đoán hiện mờ sau chữ đang gõ (Tab / → để nhận). Lớp này nằm đè lên ô nhập, cùng cỡ chữ và lề;
+   phần đã gõ trong suốt nên chỉ thấy phần đoán. Lề trái = 1px viền + 52px chỗ của icon kính lúp. */
+.ghost{position:absolute;inset:0;display:flex;align-items:center;padding:0 19px 0 53px;font-size:16px;line-height:normal;
+  white-space:pre;overflow:hidden;pointer-events:none;color:transparent;z-index:1}
+.ghost span:last-child{color:var(--muted)}

@@ -150,10 +150,39 @@ const cover = (g, cls = "cover") => g.image ? `<img class="${cls}" src="${esc(g.
 const pill = (v) => `<span class="pill ${VERDICT[v].cls}">${VERDICT[v].label}</span>`;
 const shopUrl = (q) => CONFIG.SHOP_SEARCH.replace("{q}", encodeURIComponent(q));
 
-// Gợi ý tức thì từ thư viện có sẵn (so tên hiểu viết tắt, số La Mã — shared/fuzzy.js);
-// mọi game khác do backend tra ngay sau đó.
+// ---------------------------------------------------------------------------
+// Gợi ý tức thì: danh sách TÊN ~10.000 game Steam (data/steam-index.json, ~100 KB nén, tải 1 lần lúc trang rảnh)
+// so ngay trong trình duyệt — mỗi phím gõ vài mili-giây. Máy chủ ở Mỹ, riêng đi-về đã ~0,2 giây nên không
+// thể gợi ý kịp nếu phải hỏi máy chủ. Chỉ có tên; yêu cầu cấu hình vẫn tra khi mở đúng 1 game.
+// ---------------------------------------------------------------------------
+const SUG = { list: null, loading: null };
+const steamIcon = (appid) => `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/capsule_sm_120.jpg`;
+const steamHeader = (appid) => `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`;
+
+function loadSuggest() {
+  if (!SUG.loading) {
+    SUG.loading = fetch("data/steam-index.json").then((r) => (r.ok ? r.json() : { games: [] })).catch(() => ({ games: [] }))
+      .then((j) => {
+        const have = new Set(S.library.map((g) => g.id));
+        SUG.list = [...S.library, ...j.games.filter(([appid]) => !have.has("steam:" + appid))
+          .map(([appid, name]) => ({ id: "steam:" + appid, appid, name, source: "Steam" }))];
+        return SUG.list;
+      });
+  }
+  return SUG.loading;
+}
+const whenIdle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 1200));
+
 function searchLocal(q) {
   const nq = norm(q);
+  if (!nq.length) return [];
+  if (SUG.list) {
+    // Tên gọi tắt quen thuộc của game ngoài Steam ("lmht", "valo", "dtcl") đứng trước
+    // (gõ đúng tên gọi, hoặc ≥ 3 chữ cái đầu của nó — "da" không kéo ra "đấu trường chân lý")
+    const alias = S.library.filter((g) => (g.alias || []).some((a) => norm(a) === nq || (nq.length >= 3 && norm(a).startsWith(nq))));
+    return [...alias, ...fuzzyFind(q, SUG.list, 10)].filter((g, i, a) => a.indexOf(g) === i).slice(0, 8)
+      .map((g) => ({ id: g.id, name: g.name, image: g.image || (g.appid ? steamIcon(g.appid) : null), alt: g.appid ? steamHeader(g.appid) : null, source: g.source }));
+  }
   if (nq.length < 2) return [];
   const lib = fuzzyFind(q, S.library, 8).concat(S.library.filter((g) => (g.alias || []).some((a) => norm(a).includes(nq))))
     .filter((g, i, a) => a.indexOf(g) === i).slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
@@ -180,7 +209,8 @@ function renderHome() {
       <form class="search" id="searchform" role="search" autocomplete="off">
         <div class="search-box">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input id="q" type="search" placeholder="Ví dụ: Cyberpunk 2077, Elden Ring, Valorant…" aria-label="Tên game" aria-autocomplete="list" aria-controls="suggest">
+          <div class="ghost" id="ghost" aria-hidden="true"><span></span><span></span></div>
+          <input id="q" type="search" placeholder="Ví dụ: Cyberpunk 2077, Elden Ring, Valorant…" aria-label="Tên game" aria-autocomplete="both" aria-controls="suggest" spellcheck="false">
           <div class="card suggest" id="suggest" role="listbox" hidden></div>
         </div>
         <button class="btn primary" type="submit">Kiểm tra</button>
@@ -400,33 +430,60 @@ function wireSearch() {
   const q = $("#q"), box = $("#suggest"), form = $("#searchform");
   if (!q) return;
   let items = [], on = -1, timer = null, seq = 0;
+  const ghost = $("#ghost");
+  // Đoán game, hiện mờ ngay sau chữ đang gõ. Tab (hoặc → ở cuối ô) để nhận.
+  //   gõ đúng đầu tên:  "dar"  + "K SOULS III"
+  //   gõ tắt / giữa tên: "gta" + "  →  Grand Theft Auto V Enhanced"
+  const completion = () => {
+    const v = q.value, top = items[0];
+    if (!v.trim() || !top || q.selectionStart !== v.length || norm(v) === norm(top.name)) return null;
+    if (top.name.toLowerCase().startsWith(v.toLowerCase())) return { show: top.name.slice(v.length), full: top.name };
+    return { show: "  →  " + top.name, full: top.name };
+  };
+  const drawGhost = () => {
+    const c = completion();
+    ghost.firstChild.textContent = c ? q.value : "";
+    ghost.lastChild.textContent = c ? c.show : "";
+  };
   const draw = () => {
+    drawGhost();
     const v = q.value.trim();
-    if (norm(v).length < 2) { box.hidden = true; return; }
+    if (!norm(v).length) { box.hidden = true; return; }
     box.hidden = false;
     box.innerHTML = items.map((g, i) => `<a class="sg ${i === on ? "on" : ""}" role="option" href="#/game/${esc(g.id)}">
-      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}">` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.dlc ? "DLC" : g.source || "")}</small></a>`).join("")
+      ${g.image ? `<img src="${esc(g.image)}" alt="" data-name="${esc(g.name)}"${g.alt ? ` data-alt="${esc(g.alt)}"` : ""}>` : initials(g.name, "ini")}<span>${esc(g.name)}</span><small>${esc(g.dlc ? "DLC" : g.source || "")}</small></a>`).join("")
       + `<a class="sg sg-custom" href="#/custom?n=${encodeURIComponent(v)}"><span class="ini" aria-hidden="true">+</span><span>${items.length ? "Không phải game này?" : "Chưa có game này trong kho."} <b>Dán yêu cầu cấu hình</b> để check “${esc(v)}”</span></a>`;
   };
   const refresh = () => { items = searchLocal(q.value.trim()); on = -1; draw(); };
+  const warm = () => { if (!SUG.list) loadSuggest().then(() => { if (q.value.trim()) refresh(); }); };
+  q.addEventListener("focus", warm);
   q.addEventListener("input", () => {
     clearTimeout(timer);
+    warm();
     const v = q.value.trim();
-    refresh();
-    if (!hasBackend() || v.length < 2) return;
+    refresh();   // gợi ý tức thì từ danh sách trong trình duyệt
+    if (!hasBackend() || norm(v).length < 2) return;
     const my = ++seq;
+    // Backend bù sau (Epic, Microsoft Store, GOG, game Steam mới ra chưa có trong danh sách) — thêm xuống cuối,
+    // không đảo thứ tự gợi ý đang hiện để danh sách không nhảy dưới tay người dùng
     timer = setTimeout(async () => {
       try {
         const r = await api("/api/search?q=" + encodeURIComponent(v));
         if (my !== seq) return;
-        // Kết quả API (tra thẳng Steam) đứng trước; kho có sẵn chỉ bù thêm cho đủ
-        const seen = new Set(r.map((x) => x.id));
-        items = [...r, ...items.filter((x) => !seen.has(x.id))].slice(0, 12);
+        const key = (x) => norm(x.name).replace(/ /g, "");
+        const seen = new Set(items.flatMap((x) => [x.id, key(x)]));
+        items = [...items, ...r.filter((x) => !seen.has(x.id) && !seen.has(key(x)))].slice(0, 10);
         draw();
       } catch (e) {}
-    }, 250);
+    }, 350);
   });
+  q.addEventListener("keyup", (e) => { if (e.key === "ArrowLeft" || e.key === "Home" || e.key === "End") drawGhost(); });
+  q.addEventListener("blur", () => { ghost.firstChild.textContent = ghost.lastChild.textContent = ""; });
   q.addEventListener("keydown", (e) => {
+    const c = completion();
+    if (c && (e.key === "Tab" || (e.key === "ArrowRight" && q.selectionStart === q.value.length))) {
+      q.value = c.full; e.preventDefault(); refresh(); return;
+    }
     if (e.key === "ArrowDown") { on = Math.min(items.length - 1, on + 1); draw(); e.preventDefault(); }
     if (e.key === "ArrowUp") { on = Math.max(0, on - 1); draw(); e.preventDefault(); }
     if (e.key === "Escape") { box.hidden = true; }
@@ -780,6 +837,7 @@ async function boot() {
   document.addEventListener("error", (e) => {
     const img = e.target;
     if (!img || img.tagName !== "IMG" || img.dataset.fb) return;
+    if (img.dataset.alt) { const alt = img.dataset.alt; delete img.dataset.alt; img.src = alt; return; }
     img.dataset.fb = "1";
     const t = document.createElement("template");
     t.innerHTML = initials(img.dataset.name || "?", img.dataset.big ? "ini big" : "ini");
@@ -792,5 +850,6 @@ async function boot() {
   });
   renderRoute();
   if (!S.profile) runScan(); else loadStats();
+  whenIdle(() => loadSuggest());
 }
 boot();

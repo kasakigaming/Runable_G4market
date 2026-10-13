@@ -32,7 +32,6 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html cau-hinh.html .nojekyll assets shared data _site/
-          rm -f _site/data/steam-index.json   # chỉ backend dùng
 
       # GitHub Pages bắt trình duyệt giữ file 10 phút, mà module JS gọi nhau ngầm nên F5 thường
       # vẫn lấy bản cũ. Gắn mã phiên bản vào mọi đường dẫn → mỗi lần deploy là địa chỉ mới.
