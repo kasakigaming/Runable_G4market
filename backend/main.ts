@@ -14,6 +14,15 @@
 import { steamToGame, splitAlts } from "../shared/reqparse.js";
 import offsteam from "../data/games-offsteam.json" with { type: "json" };
 import { searchEpic, searchMs, searchGog, getEpic, getMs, getGog, type Hit } from "./stores.ts";
+import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
+
+// Kho game phổ biến (data/catalog, xếp theo độ phổ biến) — để hiểu cách gõ tắt mà API Steam không hiểu
+// ("rdr2", "cod bo3", "gta 5" → cả bản Legacy lẫn Enhanced)
+let CATALOG: Array<{ appid: number; name: string }> = [];
+try {
+  const j = JSON.parse(await Deno.readTextFile(new URL("../data/catalog/index.json", import.meta.url)));
+  CATALOG = j.games.map(([appid, name]: [number, string]) => ({ appid, name }));
+} catch { CATALOG = []; }
 
 const ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "*").split(",").map((s) => s.trim()).filter(Boolean);
 const STEAM_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36";
@@ -117,25 +126,28 @@ const SEARCH_JUNK = /soundtrack|\bost\b|\bdlc\b|season pass|upgrade|\bdemo\b|art
 // (ưu tiên Steam → Epic → Microsoft → GOG); tên khớp đầu chuỗi gõ được xếp lên trước.
 async function searchGames(q: string) {
   const nq = norm(q);
-  const off = OFF.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
+  const off = OFF.filter((g) => nameScore(q, g.name) < Infinity || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
     .map((g) => ({ id: g.id, name: g.name, image: null, source: g.source }));
   const [steam, others] = await Promise.all([searchSteam(q, nq).catch(() => [] as Hit[]), searchOtherStores(q, nq)]);
+  const popular: Hit[] = fuzzyFind(q, CATALOG, 6).map((g) => ({ id: "steam:" + g.appid, name: g.name, source: "Steam",
+    image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.appid}/capsule_231x87.jpg` }));
   const key = (n: string) => norm(n).replace(EDITION_WORDS, "").replace(/ /g, "");
   const seen = new Set(off.map((g) => key(g.name)));
   const all: Array<Hit & { dlc?: boolean }> = [];
-  for (const h of [...steam, ...others] as Array<Hit & { dlc?: boolean }>) {
+  for (const h of [...popular, ...steam, ...others] as Array<Hit & { dlc?: boolean }>) {
     const k = key(h.name);
     if (!k || seen.has(k)) continue;
     seen.add(k); all.push(h);
   }
-  const score = (n: string) => { const x = norm(n); return x === nq ? 0 : x.startsWith(nq) ? 1 : x.includes(nq) ? 2 : 3; };
-  all.sort((a, b) => score(a.name) - score(b.name));   // sort ổn định: cùng điểm thì giữ thứ tự kho
+  // Xếp theo độ khớp tên (hiểu viết tắt, số La Mã); cùng mức thì giữ thứ tự: kho phổ biến → Steam → kho khác
+  const score = (n: string) => Math.min(9, Math.floor(nameScore(q, n)));
+  all.sort((a, b) => score(a.name) - score(b.name));
   return [...off, ...all].slice(0, 15);
 }
 const EDITION_WORDS = /\b(standard|deluxe|premium|ultimate|gold|complete|definitive|edition|for pc|pc|windows)\b/g;
 
 async function searchOtherStores(q: string, nq: string): Promise<Hit[]> {
-  const ck = ["search-stores2", nq];
+  const ck = ["search-stores3", nq];
   const cached = await kget<Hit[]>(ck);
   if (cached) return cached;
   const lists = await Promise.allSettled([searchEpic(q), searchMs(q), searchGog(q)]);
@@ -144,6 +156,7 @@ async function searchOtherStores(q: string, nq: string): Promise<Hit[]> {
     // Tên phải khớp phần lớn các chữ đã gõ ("forza horizon 5" không kéo theo "Gears 5")
     .filter((h) => {
       if (SEARCH_JUNK.test(h.name)) return false;
+      if (nameScore(q, h.name) < Infinity) return true;
       const name = norm(h.name).split(" ");
       return words.filter((t) => name.some((w) => w.startsWith(t))).length >= Math.ceil(words.length * 0.6);
     });

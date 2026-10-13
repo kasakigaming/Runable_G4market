@@ -10,6 +10,7 @@ import { scanBrowser, profileFromApp } from "./scan.js";
 import { checkGame, power, TIERS, VERDICT, kd, PTS, upgradesFor, bestLibraryUpgrade, ramGb, prettyGpu, setMeasurements } from "./engine.js";
 import { CPUS, cpuScore } from "../shared/hwscore.js";
 import { splitAlts, parsePasted, splitMinRec } from "../shared/reqparse.js";
+import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[c]);
@@ -71,7 +72,7 @@ function loadCatalog() {
       .then((j) => {
         CAT.shards = j.shards || 64;
         const have = new Set(S.library.map((g) => g.id));
-        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name]) => ({ appid, name, n: norm(name) }));
+        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name]) => ({ appid, name }));
         return CAT.list;
       });
   }
@@ -180,23 +181,16 @@ const cover = (g, cls = "cover") => g.image ? `<img class="${cls}" src="${esc(g.
 const pill = (v) => `<span class="pill ${VERDICT[v].cls}">${VERDICT[v].label}</span>`;
 const shopUrl = (q) => CONFIG.SHOP_SEARCH.replace("{q}", encodeURIComponent(q));
 
-// Thư viện có sẵn trước, rồi kho lớn. Trong kho: khớp đầu tên > khớp đầu một chữ > chứa chuỗi,
-// cùng mức thì game phổ biến hơn (đứng trước trong mục lục) lên trước.
+// Thư viện có sẵn trước, rồi kho lớn. So tên hiểu viết tắt và số La Mã ("gta 5", "rdr2", "cod bo3" — shared/fuzzy.js);
+// cùng mức khớp thì game phổ biến hơn (đứng trước trong mục lục) lên trước.
 function searchLocal(q) {
   const nq = norm(q);
   if (nq.length < 2) return [];
-  const lib = S.library.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq)))
+  const lib = S.library.filter((g) => nameScore(q, g.name) < Infinity || (g.alias || []).some((a) => norm(a).includes(nq)))
     .slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
   if (!CAT.list || lib.length >= 8) return lib;
-  const hits = [];
-  for (const x of CAT.list) {
-    const at = x.n.indexOf(nq);
-    if (at < 0) continue;
-    hits.push({ x, s: at === 0 ? 0 : x.n[at - 1] === " " ? 1 : 2 });
-    if (hits.length > 400) break;
-  }
-  hits.sort((a, b) => a.s - b.s);
-  return [...lib, ...hits.slice(0, 8 - lib.length).map(({ x }) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: "Steam" }))];
+  return [...lib, ...fuzzyFind(q, CAT.list, 8 - lib.length)
+    .map((x) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: "Steam" }))];
 }
 
 // ---------------------------------------------------------------------------
