@@ -10,7 +10,7 @@ import { scanBrowser, profileFromApp } from "./scan.js";
 import { checkGame, power, TIERS, VERDICT, kd, PTS, upgradesFor, bestLibraryUpgrade, ramGb, prettyGpu, setMeasurements } from "./engine.js";
 import { CPUS, cpuScore } from "../shared/hwscore.js";
 import { splitAlts, parsePasted, splitMinRec } from "../shared/reqparse.js";
-import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
+import { fuzzyFind } from "../shared/fuzzy.js";
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[c]);
@@ -57,37 +57,6 @@ async function loadLibrary() {
   S.library = [...off.games, ...steam.games];
 }
 const findLocal = (id) => S.library.find((g) => g.id === id) || null;
-
-// ---------------------------------------------------------------------------
-// Kho game lớn (data/catalog, tạo bởi tools/build-catalog.mjs): vài nghìn game Steam.
-// Mục lục chỉ tải khi người dùng bắt đầu tìm; chi tiết từng game nằm trong 1 trong 64 mảnh.
-// ---------------------------------------------------------------------------
-const DV = "";   // workflow deploy gắn "?v=<mã commit>" để trình duyệt không dùng file cũ
-const CAT = { list: null, loading: null, shards: 64, cache: new Map() };
-const steamImg = (appid) => `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`;
-
-function loadCatalog() {
-  if (!CAT.loading) {
-    CAT.loading = fetch("data/catalog/index.json" + DV).then((r) => (r.ok ? r.json() : { games: [] })).catch(() => ({ games: [] }))
-      .then((j) => {
-        CAT.shards = j.shards || 64;
-        const have = new Set(S.library.map((g) => g.id));
-        CAT.list = j.games.filter(([appid]) => !have.has("steam:" + appid)).map(([appid, name, dl]) => ({ appid, name, delisted: dl === 1 }));
-        return CAT.list;
-      });
-  }
-  return CAT.loading;
-}
-
-async function catalogGame(appid) {
-  const shard = (appid % CAT.shards).toString(16).padStart(2, "0");
-  if (!CAT.cache.has(shard)) {
-    CAT.cache.set(shard, fetch(`data/catalog/s${shard}.json` + DV).then((r) => (r.ok ? r.json() : { games: [] })).catch(() => ({ games: [] })));
-  }
-  const g = (await CAT.cache.get(shard)).games.find((x) => x.appid === appid);
-  if (!g) return null;
-  return { ...g, id: "steam:" + appid, source: "Steam", delisted: g.dl === 1, sourceUrl: "https://store.steampowered.com/app/" + appid };
-}
 
 // Game người dùng tự dán yêu cầu cấu hình: toàn bộ nằm trong địa chỉ (#/game/u:…) nên gửi link cho bạn bè được
 const b64e = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -181,16 +150,14 @@ const cover = (g, cls = "cover") => g.image ? `<img class="${cls}" src="${esc(g.
 const pill = (v) => `<span class="pill ${VERDICT[v].cls}">${VERDICT[v].label}</span>`;
 const shopUrl = (q) => CONFIG.SHOP_SEARCH.replace("{q}", encodeURIComponent(q));
 
-// Thư viện có sẵn trước, rồi kho lớn. So tên hiểu viết tắt và số La Mã ("gta 5", "rdr2", "cod bo3" — shared/fuzzy.js);
-// cùng mức khớp thì game phổ biến hơn (đứng trước trong mục lục) lên trước.
+// Gợi ý tức thì từ thư viện có sẵn (so tên hiểu viết tắt, số La Mã — shared/fuzzy.js);
+// mọi game khác do backend tra ngay sau đó.
 function searchLocal(q) {
   const nq = norm(q);
   if (nq.length < 2) return [];
-  const lib = S.library.filter((g) => nameScore(q, g.name) < Infinity || (g.alias || []).some((a) => norm(a).includes(nq)))
-    .slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
-  if (!CAT.list || lib.length >= 8) return lib;
-  return [...lib, ...fuzzyFind(q, CAT.list, 8 - lib.length)
-    .map((x) => ({ id: "steam:" + x.appid, name: x.name, image: steamImg(x.appid), source: x.delisted ? "Steam · ngừng bán" : "Steam" }))];
+  const lib = fuzzyFind(q, S.library, 8).concat(S.library.filter((g) => (g.alias || []).some((a) => norm(a).includes(nq))))
+    .filter((g, i, a) => a.indexOf(g) === i).slice(0, 8).map((g) => ({ id: g.id, name: g.name, image: g.image, source: g.source }));
+  return lib;
 }
 
 // ---------------------------------------------------------------------------
@@ -442,11 +409,9 @@ function wireSearch() {
       + `<a class="sg sg-custom" href="#/custom?n=${encodeURIComponent(v)}"><span class="ini" aria-hidden="true">+</span><span>${items.length ? "Không phải game này?" : "Chưa có game này trong kho."} <b>Dán yêu cầu cấu hình</b> để check “${esc(v)}”</span></a>`;
   };
   const refresh = () => { items = searchLocal(q.value.trim()); on = -1; draw(); };
-  q.addEventListener("focus", () => { if (!CAT.list) loadCatalog().then(() => { if (q.value.trim()) refresh(); }); });
   q.addEventListener("input", () => {
     clearTimeout(timer);
     const v = q.value.trim();
-    if (!CAT.list) loadCatalog().then(() => { if (q.value.trim() === v) refresh(); });
     refresh();
     if (!hasBackend() || v.length < 2) return;
     const my = ++seq;
@@ -470,7 +435,7 @@ function wireSearch() {
     e.preventDefault();
     const v = q.value.trim();
     if (!v) return;
-    if (!items.length) { await loadCatalog(); items = searchLocal(v); on = -1; }   // bấm Enter trước khi kho kịp tải
+    if (!items.length) { items = searchLocal(v); on = -1; }
     const pick = items[on >= 0 && on < items.length ? on : 0];
     location.hash = pick ? "#/game/" + pick.id : "#/custom?n=" + encodeURIComponent(v);
   });
@@ -482,12 +447,10 @@ function wireSearch() {
 async function renderGame(id) {
   let g = id.startsWith("u:") ? customGame(id) : findLocal(id);
   view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><p class="muted" style="margin-top:24px">Đang tải yêu cầu cấu hình…</p>`;
-  const appid = (/^steam:(\d+)$/.exec(id) || [])[1];
-  // Có backend: lấy yêu cầu mới nhất từ Steam qua API. API lỗi thì dùng kho có sẵn.
+  // Yêu cầu cấu hình tra qua backend ngay lúc mở game (Steam, Epic, Microsoft Store, GOG)
   if (hasBackend() && !id.startsWith("u:")) {
     try { const remote = await api("/api/game?id=" + encodeURIComponent(id)); if (remote && !remote.error) g = remote; } catch (e) {}
   }
-  if (!g && appid) { await loadCatalog(); g = await catalogGame(Number(appid)); }
   if (decodeURIComponent(location.hash.slice(7)) !== id) return;   // người dùng đã sang trang khác trong lúc tải
   if (!g) {
     view().innerHTML = `<a class="back" href="#/">← Trang chủ</a><div class="note" style="margin-top:18px">Không tìm thấy game này trong kho.

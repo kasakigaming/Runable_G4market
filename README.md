@@ -13,7 +13,7 @@ Máy của bạn có chạy nổi game này không? Quét cấu hình, so với 
 | 1 | Quét bằng trình duyệt — GPU (cả 2 card trên laptop), số nhân thật, cache, pin, màn hình; CPU và RAM người dùng xác nhận nhanh | `assets/scan.js` | ~80% |
 | 2 | Quét bằng `runable_g4market.exe` — tên CPU/GPU, RAM gắn thật và RAM Windows thấy, VRAM từ registry, số thanh RAM, bus, ổ trống | `app/` | ~100% |
 | 3 | Chỉ số sức mạnh + cảnh giới (Luyện Khí → Đại La Kim Tiên) + "mạnh hơn X% người chơi" | `assets/engine.js` + backend | xếp hạng từ lượt kiểm tra thật |
-| 4 | Tra **mọi game trên Steam, Epic Games Store, Microsoft Store (Xbox PC) và GOG** qua backend — không cần key nào; khi backend lỗi vẫn còn kho **~5.000 game Steam** có sẵn + game ngoài Steam (LMHT, Valorant, Genshin, FC Online, Đột Kích…) + **mọi game khác bằng cách dán yêu cầu cấu hình** → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | `data/catalog` + `shared/` | yêu cầu cấu hình chính thức |
+| 4 | Tra **mọi game trên Steam, Epic Games Store, Microsoft Store (Xbox PC) và GOG** qua backend — không cần key nào, hiểu gõ tắt ("gta 5", "rdr2") và tìm được cả game đã ngừng bán trên Steam + game ngoài Steam (LMHT, Valorant, Genshin, FC Online, Đột Kích…) + **mọi game khác bằng cách dán yêu cầu cấu hình** → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | backend + `shared/` | yêu cầu cấu hình chính thức |
 | 5 | Gợi ý nâng cấp — linh kiện yếu nhất vẫn đủ đạt mức, kèm link mua (gắn affiliate được) | `assets/engine.js` | cần bạn điền giá để ra "rẻ nhất" |
 
 ## Cấu trúc
@@ -23,7 +23,8 @@ index.html, assets/        trang web (một trang, đổi trang bằng dấu #)
 shared/hwscore.js          bảng ~300 GPU + ~150 CPU và bộ chấm điểm chuỗi phần cứng
 shared/reqparse.js         đọc khối yêu cầu cấu hình của Steam, và chữ người dùng tự dán (cả nhãn tiếng Việt)
 data/steam-popular.json    65 game Steam phổ biến nhất — dùng cho mục "Máy tôi chạy được game gì"
-data/catalog/              kho ~5.000 game Steam: index.json (để tìm) + 64 mảnh sXX.json (yêu cầu từng game)
+data/steam-index.json      danh sách [appid, tên] ~10.000 game Steam cho backend (đổi tên gõ → appid; chỉ có tên)
+shared/fuzzy.js            so tên hiểu gõ tắt và số La Mã (gta 5, rdr2, cod bo3)
 data/games-offsteam.json   game ngoài Steam — thêm game mới vào đây
 backend/main.ts            backend Deno Deploy
 backend/stores.ts          tìm game + đọc yêu cầu cấu hình trên Epic, Microsoft Store, GOG
@@ -53,13 +54,12 @@ Backend **không cần secret nào**.
 
 ## Cập nhật dữ liệu game
 ```
-node tools/build-catalog.mjs                    # kho ~5.000 game (lần đầu ~2,5 giờ; chạy lại chỉ tra game mới/cũ quá 90 ngày)
-node tools/build-catalog.mjs --pages 10         # mở rộng lên ~10.000 game
+node tools/build-index.mjs                      # danh sách tên ~10.000 game từ SteamSpy (~10 phút, không tra từng game)
 node tools/fetch-steam.mjs                      # lấy lại 65 game của mục "Máy tôi chạy được game gì" (~3 phút)
 node tools/fetch-steam.mjs --add 2357570 "Hades II"   # thêm game theo appid hoặc tên
 node tools/test-scoring.mjs                     # xem bộ chấm điểm hiểu được bao nhiêu % chuỗi phần cứng
 ```
-Kho game tự cập nhật mỗi tuần qua workflow **Cập nhật kho game** (`.github/workflows/catalog.yml`): tra game mới nổi trên Steam, commit `data/catalog` rồi deploy lại trang. Muốn chạy ngay: tab Actions → Cập nhật kho game → Run workflow.
+Danh sách tên tự làm mới mỗi tuần qua workflow **Cập nhật danh sách tên game** (`.github/workflows/index.yml`); backend tự tải lại bản mới trên GitHub mỗi ngày. Yêu cầu cấu hình không lưu sẵn — backend tra ngay khi người dùng mở game (Steam, Epic, Microsoft Store, GOG) và nhớ 7 ngày. Game đã ngừng bán trên Steam vẫn tra được nhờ danh sách tên + đánh dấu qua api.steamcmd.net.
 
 Game ngoài Steam: thêm vào `data/games-offsteam.json`. Game không có ở đâu cả: người dùng bấm **"Dán yêu cầu cấu hình"** ngay trong ô tìm kiếm — yêu cầu nằm luôn trong link kết quả nên gửi cho người khác được.
 

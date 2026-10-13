@@ -16,13 +16,24 @@ import offsteam from "../data/games-offsteam.json" with { type: "json" };
 import { searchEpic, searchMs, searchGog, getEpic, getMs, getGog, type Hit } from "./stores.ts";
 import { nameScore, fuzzyFind } from "../shared/fuzzy.js";
 
-// Kho game phổ biến (data/catalog, xếp theo độ phổ biến) — để hiểu cách gõ tắt mà API Steam không hiểu
-// ("rdr2", "cod bo3", "gta 5" → cả bản Legacy lẫn Enhanced)
-let CATALOG: Array<{ appid: number; name: string; delisted?: boolean }> = [];
-try {
-  const j = JSON.parse(await Deno.readTextFile(new URL("../data/catalog/index.json", import.meta.url)));
-  CATALOG = j.games.map(([appid, name, dl]: [number, string, number?]) => ({ appid, name, delisted: dl === 1 }));
-} catch { CATALOG = []; }
+// Danh sách tên game Steam (data/steam-index.json, tools/build-index.mjs): [appid, tên] xếp theo độ phổ biến.
+// Ô tìm kiếm của Steam không trả game đã gỡ khỏi cửa hàng và không hiểu gõ tắt ("rdr2", "gta 5" → cả bản
+// Legacy) — danh sách này đổi tên gõ → appid. Chỉ có tên; yêu cầu cấu hình tra khi mở đúng 1 game.
+// Workflow hằng tuần làm mới file trên GitHub → backend tự tải lại mỗi ngày, không cần deploy lại.
+const INDEX_URL = "https://raw.githubusercontent.com/kasakigaming/Runable_G4market/main/data/steam-index.json";
+let CATALOG: Array<{ appid: number; name: string }> = [];
+const useIndex = (j: { games?: Array<[number, string]> }) => {
+  if (Array.isArray(j.games) && j.games.length > 1000) CATALOG = j.games.map(([appid, name]) => ({ appid, name }));
+};
+try { useIndex(JSON.parse(await Deno.readTextFile(new URL("../data/steam-index.json", import.meta.url)))); } catch { /* chưa có file */ }
+async function refreshIndex() {
+  try {
+    const r = await fetch(INDEX_URL, { signal: AbortSignal.timeout(20000) });
+    if (r.ok) useIndex(await r.json());
+  } catch { /* giữ danh sách đang có */ }
+}
+refreshIndex();
+setInterval(refreshIndex, 24 * 3600e3);
 
 const ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "*").split(",").map((s) => s.trim()).filter(Boolean);
 const STEAM_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36";
@@ -134,8 +145,8 @@ async function searchGames(q: string) {
     if (g) return [{ id: g.id, name: g.name, image: g.image, source: g.delisted ? "Steam · ngừng bán" : "Steam" }];
   }
   const [steam, others] = await Promise.all([searchSteam(q, nq).catch(() => [] as Hit[]), searchOtherStores(q, nq)]);
-  // Kho phổ biến có cả game đã gỡ khỏi Steam — ô tìm kiếm của Steam không bao giờ trả những game này
-  const popular: Hit[] = fuzzyFind(q, CATALOG, 6).map((g) => ({ id: "steam:" + g.appid, name: g.name, source: g.delisted ? "Steam · ngừng bán" : "Steam",
+  // Danh sách tên có cả game đã gỡ khỏi Steam — ô tìm kiếm của Steam không bao giờ trả những game này
+  const popular: Hit[] = fuzzyFind(q, CATALOG, 6).map((g) => ({ id: "steam:" + g.appid, name: g.name, source: "Steam",
     image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.appid}/capsule_231x87.jpg` }));
   const key = (n: string) => norm(n).replace(EDITION_WORDS, "").replace(/ /g, "");
   const seen = new Set(off.map((g) => key(g.name)));

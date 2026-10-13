@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html cau-hinh.html .nojekyll assets shared data _site/
+          rm -f _site/data/steam-index.json   # chỉ backend dùng
 
       # GitHub Pages bắt trình duyệt giữ file 10 phút, mà module JS gọi nhau ngầm nên F5 thường
       # vẫn lấy bản cũ. Gắn mã phiên bản vào mọi đường dẫn → mỗi lần deploy là địa chỉ mới.
@@ -45,9 +46,6 @@ jobs:
           grep -o 'assets/[a-z]*\.[a-z]*?v=[0-9a-f]*' _site/index.html
           grep -ho 'from "[^"]*?v=[0-9a-f]*"' _site/assets/*.js _site/shared/*.js | sort -u
           grep -o 'data/[a-z-]*\.json?v=[0-9a-f]*' _site/assets/app.js
-          # Kho game (data/catalog) tải bằng đường dẫn ghép chuỗi → gắn mã qua hằng DV
-          sed -i -E "s#^const DV = \"\";#const DV = \"?v=$V\";#" _site/assets/app.js
-          grep "^const DV = \"?v=$V\";" _site/assets/app.js
 
       - name: Lấy runable_g4market.exe từ bản Release mới nhất
         env:
