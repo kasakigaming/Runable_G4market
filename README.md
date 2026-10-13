@@ -13,7 +13,7 @@ Máy của bạn có chạy nổi game này không? Quét cấu hình, so với 
 | 1 | Quét bằng trình duyệt — GPU (cả 2 card trên laptop), số nhân thật, cache, pin, màn hình; CPU và RAM người dùng xác nhận nhanh | `assets/scan.js` | ~80% |
 | 2 | Quét bằng `runable_g4market.exe` — tên CPU/GPU, RAM gắn thật và RAM Windows thấy, VRAM từ registry, số thanh RAM, bus, ổ trống | `app/` | ~100% |
 | 3 | Chỉ số sức mạnh + cảnh giới (Luyện Khí → Đại La Kim Tiên) + "mạnh hơn X% người chơi" | `assets/engine.js` + backend | xếp hạng từ lượt kiểm tra thật |
-| 4 | Tra **~5.000 game Steam phổ biến** (có sẵn, không cần backend) + game ngoài Steam (LMHT, Valorant, Genshin, FC Online, Đột Kích…) + **mọi game khác bằng cách dán yêu cầu cấu hình** → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | `data/catalog` + `shared/` | yêu cầu cấu hình chính thức |
+| 4 | Tra **mọi game trên Steam, Epic Games Store, Microsoft Store (Xbox PC) và GOG** qua backend — không cần key nào; khi backend lỗi vẫn còn kho **~5.000 game Steam** có sẵn + game ngoài Steam (LMHT, Valorant, Genshin, FC Online, Đột Kích…) + **mọi game khác bằng cách dán yêu cầu cấu hình** → Chạy mượt / Chạy được / Chưa đủ, FPS ước lượng, linh kiện nghẽn | `data/catalog` + `shared/` | yêu cầu cấu hình chính thức |
 | 5 | Gợi ý nâng cấp — linh kiện yếu nhất vẫn đủ đạt mức, kèm link mua (gắn affiliate được) | `assets/engine.js` | cần bạn điền giá để ra "rẻ nhất" |
 
 ## Cấu trúc
@@ -26,6 +26,7 @@ data/steam-popular.json    65 game Steam phổ biến nhất — dùng cho mục
 data/catalog/              kho ~5.000 game Steam: index.json (để tìm) + 64 mảnh sXX.json (yêu cầu từng game)
 data/games-offsteam.json   game ngoài Steam — thêm game mới vào đây
 backend/main.ts            backend Deno Deploy
+backend/stores.ts          tìm game + đọc yêu cầu cấu hình trên Epic, Microsoft Store, GOG
 app/RunableG4Market.cs     mã nguồn ứng dụng nhận diện
 runable_g4market.exe       ứng dụng đã biên dịch (để cạnh trang cho người dùng tải)
 tools/                     script lấy dữ liệu Steam và kiểm tra bộ chấm điểm

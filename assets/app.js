@@ -539,8 +539,8 @@ async function renderGame(id) {
   const weakButOk720 = r.verdict === "bad" && fps && fps.low720 >= 28;
   const srcNote = g.custom
     ? `Yêu cầu cấu hình do bạn dán vào — <a href="#/custom?e=${esc(id.slice(2))}">sửa lại</a>. Link trang này chứa luôn yêu cầu đó, gửi cho bạn bè là họ check được ngay.`
-    : g.source === "Steam"
-    ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang Steam của game</a>.`
+    : g.source === "Steam" || g.store
+    ? `Yêu cầu cấu hình chính thức trên <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang ${esc(g.source)} của game</a>.`
     : `Yêu cầu cấu hình từ ${esc(g.source)} — <a href="${esc(g.sourceUrl)}" target="_blank" rel="noopener">trang chính thức</a>${g.verified ? " (đã đối chiếu)" : " (trang gốc chặn đọc tự động, hãy tự kiểm tra lại)"}.`;
 
   view().innerHTML = `

@@ -13,6 +13,7 @@
 
 import { steamToGame, splitAlts } from "../shared/reqparse.js";
 import offsteam from "../data/games-offsteam.json" with { type: "json" };
+import { searchEpic, searchMs, searchGog, getEpic, getMs, getGog, type Hit } from "./stores.ts";
 
 const ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "*").split(",").map((s) => s.trim()).filter(Boolean);
 const STEAM_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36";
@@ -112,10 +113,46 @@ const OFF: OffGame[] = (offsteam as { games: OffGame[] }).games.map((g) => {
 
 const SEARCH_JUNK = /soundtrack|\bost\b|\bdlc\b|season pass|upgrade|\bdemo\b|artbook|benchmark tool|wallpaper|\bskin\b|costume|\bbundle\b/i;
 
+// Tìm cùng lúc trên Steam, Epic, Microsoft Store, GOG. Game có ở nhiều kho chỉ giữ 1 dòng
+// (ưu tiên Steam → Epic → Microsoft → GOG); tên khớp đầu chuỗi gõ được xếp lên trước.
 async function searchGames(q: string) {
   const nq = norm(q);
   const off = OFF.filter((g) => norm(g.name).includes(nq) || (g.alias || []).some((a) => norm(a).includes(nq) || nq.includes(norm(a))))
     .map((g) => ({ id: g.id, name: g.name, image: null, source: g.source }));
+  const [steam, others] = await Promise.all([searchSteam(q, nq).catch(() => [] as Hit[]), searchOtherStores(q, nq)]);
+  const key = (n: string) => norm(n).replace(EDITION_WORDS, "").replace(/ /g, "");
+  const seen = new Set(off.map((g) => key(g.name)));
+  const all: Array<Hit & { dlc?: boolean }> = [];
+  for (const h of [...steam, ...others] as Array<Hit & { dlc?: boolean }>) {
+    const k = key(h.name);
+    if (!k || seen.has(k)) continue;
+    seen.add(k); all.push(h);
+  }
+  const score = (n: string) => { const x = norm(n); return x === nq ? 0 : x.startsWith(nq) ? 1 : x.includes(nq) ? 2 : 3; };
+  all.sort((a, b) => score(a.name) - score(b.name));   // sort ổn định: cùng điểm thì giữ thứ tự kho
+  return [...off, ...all].slice(0, 15);
+}
+const EDITION_WORDS = /\b(standard|deluxe|premium|ultimate|gold|complete|definitive|edition|for pc|pc|windows)\b/g;
+
+async function searchOtherStores(q: string, nq: string): Promise<Hit[]> {
+  const ck = ["search-stores2", nq];
+  const cached = await kget<Hit[]>(ck);
+  if (cached) return cached;
+  const lists = await Promise.allSettled([searchEpic(q), searchMs(q), searchGog(q)]);
+  const words = nq.split(" ").filter((w) => !STOP.has(w));
+  const out = lists.flatMap((r) => (r.status === "fulfilled" ? r.value : []))
+    // Tên phải khớp phần lớn các chữ đã gõ ("forza horizon 5" không kéo theo "Gears 5")
+    .filter((h) => {
+      if (SEARCH_JUNK.test(h.name)) return false;
+      const name = norm(h.name).split(" ");
+      return words.filter((t) => name.some((w) => w.startsWith(t))).length >= Math.ceil(words.length * 0.6);
+    });
+  // Chỉ lưu khi cả 3 kho đều trả lời — kho nào lỗi tạm thời thì lần sau tra lại
+  if (lists.every((r) => r.status === "fulfilled")) await kset(ck, out, 24 * 3600e3);
+  return out;
+}
+
+async function searchSteam(q: string, nq: string): Promise<Hit[]> {
   const ck = ["search2", nq];
   let steam = await kget<unknown[]>(ck);
   if (!steam) {
@@ -136,7 +173,7 @@ async function searchGames(q: string) {
     }));
     await kset(ck, steam, 24 * 3600e3);
   }
-  return [...off, ...steam].slice(0, 15);
+  return steam as Hit[];
 }
 
 // Loại của từng appid trên Steam (0 game, 4 DLC, 11 nhạc nền…) + tên game gốc của DLC — 1–2 lượt gọi cho cả trang kết quả
@@ -173,7 +210,16 @@ function dlcWanted(nq: string, dlcName: string, parentName?: string): boolean {
 
 async function getGame(id: string) {
   if (id.startsWith("x:")) return OFF.find((g) => g.id === id) || null;
-  const m = /^steam:(\d{1,9})$/.exec(id);
+  const store = /^(epic|ms|gog):([0-9A-Za-z]{5,40})$/.exec(id);
+  if (store) {
+    const ck = ["game", id];
+    const cached = await kget<unknown>(ck);
+    if (cached) return cached;
+    const g = store[1] === "epic" ? await getEpic(store[2]) : store[1] === "ms" ? await getMs(store[2]) : await getGog(store[2]);
+    if (g) await kset(ck, g, 7 * 24 * 3600e3);
+    return g;
+  }
+  const m =/^steam:(\d{1,9})$/.exec(id);
   if (!m) return null;
   const appid = Number(m[1]);
   const ck = ["game", appid];
